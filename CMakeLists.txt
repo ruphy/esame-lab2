@@ -1,4 +1,8 @@
 project(esame-lab2)
 
-add_executable(esame-lab2 main.cpp)
+set(esame_src
+    main.cpp
+    vector.cpp)
+
+add_executable(esame-lab2 ${esame_src})
 

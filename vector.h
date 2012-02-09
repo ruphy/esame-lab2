@@ -19,15 +19,43 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+// #include <boost/rational.hpp>
+
+typedef long long int integer;
+typedef long double real;
+
 class Vector
 {
 
 public:
     Vector();
+    Vector(real x, real y, real z);
+
     Vector(const Vector& other);
+    
     virtual ~Vector();
     virtual Vector& operator=(const Vector& other);
     virtual bool operator==(const Vector& other) const;
+    
+    // Standard operations
+    virtual Vector operator+(const Vector& other) const;
+    virtual Vector operator-(const Vector& other) const;
+    virtual Vector operator*(real scalar) const;
+    virtual Vector vec(const Vector& other) const;
+    real scal(const Vector& other) const;
+    
+    real x() const {return m_x;};
+    real y() const {return m_x;};
+    real z() const {return m_x;};
+    
+    void setX(real x) {m_x = x;};
+    void setY(real y) {m_y = y;};
+    void setZ(real z) {m_z = z;};
+    
+private:
+    real m_x, m_y, m_z;
+
 };
 
 #endif // VECTOR_H
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

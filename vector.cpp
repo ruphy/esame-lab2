@@ -20,12 +20,21 @@
 
 Vector::Vector()
 {
+    m_x = m_y = m_z = 0;
+}
 
+Vector::Vector(real x, real y, real z)
+{
+    m_x = x;
+    m_y = y;
+    m_z = z;
 }
 
 Vector::Vector(const Vector& other)
 {
-
+    m_x = other.m_x;
+    m_y = other.m_y;
+    m_z = other.m_z;
 }
 
 Vector::~Vector()
@@ -33,13 +42,45 @@ Vector::~Vector()
 
 }
 
-Vector& Vector::operator=(const Vector& other)
+Vector& Vector::operator=(const Vector & other)
 {
+    m_x = other.m_x;
+    m_y = other.m_y;
+    m_z = other.m_z;
     return *this;
 }
 
 bool Vector::operator==(const Vector& other) const
 {
-///TODO: return ...;
+    return ( (m_x == other.m_x)
+            and (m_y == other.m_y)
+            and (m_z == other.m_z));
 }
 
+Vector Vector::operator*(real scalar) const
+{
+    return Vector(m_x*scalar, m_y*scalar, m_z*scalar);
+}
+
+Vector Vector::operator+(const Vector& other) const
+{
+    return Vector(m_x+other.m_x, m_y+other.m_y, m_z+other.m_z);
+}
+
+Vector Vector::operator-(const Vector& other) const
+{
+    return Vector(m_x-other.m_x, m_y-other.m_y, m_z-other.m_z);
+}
+
+Vector Vector::vec(const Vector& other) const
+{
+
+}
+
+real Vector::scal(const Vector& other) const
+{
+    return m_x*other.m_x + m_y*other.m_y + m_z*other.m_z;
+}
+
+
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 
