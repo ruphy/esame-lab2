@@ -22,6 +22,8 @@
 #include "vector.h"
 #include <boost/shared_ptr.hpp>
 
+class Particle;
+
 /**
  * This class implements an abstract obstacle, which can absorb a given particle
  * with a reverse exponential probability: exp(-ml), where m is the absorbing coefficient,
@@ -39,11 +41,14 @@ public:
      */
     virtual real minimumSize() const = 0;
 
-protected:
     /**
      * Returns true if the given point is inside this obstacle
      */
-    virtual bool isInside(const Vector& point) const = 0;
+    virtual bool contains(const Vector& point) const = 0;
+
+    virtual void tryAbsorb(Particle &particle, real lenght);
+    
+protected:
 };
 
 

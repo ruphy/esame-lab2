@@ -15,10 +15,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "particle.h"
 
 #include "obstacle.h"
 
 Obstacle::Obstacle()
+{
+
+}
+
+void Obstacle::tryAbsorb(Particle& particle, real lenght)
 {
 
 }
