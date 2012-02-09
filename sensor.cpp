@@ -29,17 +29,43 @@ Sensor::~Sensor()
 
 }
 
-void Sensor::setNormal(const Vector& normal)
+void Sensor::setTopLeft(const Vector& topLeft)
 {
-    m_normal = normal;
-    m_normal.normalize();
-    m_p = -1*Vector::dot(m_normal, m_center);
+    m_topLeft = topLeft;
 }
 
-void Sensor::setCenter(const Vector& center)
+void Sensor::setBottomLeft(const Vector& bottomLeft)
 {
-    m_center = center;
-    m_p = -1*Vector::dot(m_normal, m_center);
+
+}
+
+void Sensor::setTopRight(const Vector& topRight)
+{
+
+}
+
+Vector Sensor::topLeft() const
+{
+    return m_topLeft;
+}
+
+Vector Sensor::bottomLeft() const
+{
+    return m_bottomLeft;
+}
+
+Vector Sensor::topRight() const
+{
+    return m_topRight;
+}
+
+void Sensor::updateCoordinateSystem()
+{
+    m_e1 = m_topLeft-m_bottomLeft;
+    m_e2 = m_topLeft-m_topRight;
+    m_en = Vector::cross(m_e1, m_e2);
+    
+    m_p = -1*Vector::dot(m_en, m_topLeft);
 }
 
 void Sensor::setPixelSize(real size)
@@ -47,20 +73,12 @@ void Sensor::setPixelSize(real size)
     m_pixelSize = size;
 }
 
-Vector Sensor::center() const
-{
-    return m_center;
-}
-
-Vector Sensor::normal() const
-{
-    return m_normal;
-}
-
 
 void Sensor::tryAbsorb(Particle& particle, real lenght)
 {
     particle.absorb();
+    Vector pos = particle.position();
+    real distance = Vector::dot(m_en, pos) + m_p;
 }
 
 
@@ -73,7 +91,7 @@ real Sensor::minimumSize() const
 
 bool Sensor::contains(const Vector& point) const
 {
-    if (abs(Vector::dot(m_normal, point) + m_p) > minimumSize()) {
+    if (abs(Vector::dot(m_en, point) + m_p) > minimumSize()) {
         return false;
     } else {
         return true;

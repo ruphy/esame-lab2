@@ -35,12 +35,14 @@ public:
     Sensor();
     virtual ~Sensor();
 
-    Vector normal() const;
-    Vector center() const;
-    real size() const;
-
-    void setNormal(const Vector &normal);
-    void setCenter(const Vector &center);
+    Vector topLeft() const;
+    Vector topRight() const;
+    Vector bottomLeft() const;
+    
+    void setTopLeft(const Vector &topLeft);
+    void setBottomLeft(const Vector &bottomLeft);
+    void setTopRight(const Vector &topRight);
+    
     void setPixelSize(real size);
 
     virtual bool contains(const Vector& point) const;
@@ -49,9 +51,23 @@ public:
     virtual void tryAbsorb(Particle& particle, real lenght);
 
 private:
+    void updateCoordinateSystem();
+
     real m_pixelSize;
-    Vector m_normal;
-    Vector m_center;
+
+    // Orthonormal destrorse coordinate system:
+    // m_e1 x m_e2 = m_en
+    // m_e2 x m_en = m_e1
+    //
+    // m_e1 and m_e2 are on the plane
+    // m_en is normal to the plane
+    Vector m_e1;
+    Vector m_e2;
+    Vector m_en;
+
+    Vector m_topLeft;
+    Vector m_topRight;
+    Vector m_bottomLeft;
 
     // Plane specification: p = normal dot center
     real m_p;
