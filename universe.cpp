@@ -114,8 +114,18 @@ void Universe::moveParticle(Particle& particle)
 
 void Universe::addGenerator(Generator::Ptr generator)
 {
-
+    m_generators.push_back(generator);
 }
 
+void Universe::addObstacle(Obstacle::Ptr obstacle)
+{
+    m_obstacles.push_back(obstacle);
+}
+
+void Universe::addSensor(Sensor::Ptr sensor)
+{
+    m_obstacles.push_back(sensor);
+    // TODO also keep in mind that this is a sensor, for killing particles purposes
+}
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;
