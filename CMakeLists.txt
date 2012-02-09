@@ -4,7 +4,10 @@ set(esame_src
     main.cpp
     obstacle.cpp
     particle.cpp
-    vector.cpp)
+    universe.cpp
+    vector.cpp
+    sensor.cpp
+    )
 
 add_executable(esame-lab2 ${esame_src})
 
