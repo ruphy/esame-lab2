@@ -28,6 +28,12 @@ Generator::~Generator()
 
 }
 
+Particle::List Generator::generateNewBatch() const
+{
+//     return Particle::List;
+}
+
+
 real Generator::particlesSpeed()
 {
     return m_particlesSpeed;

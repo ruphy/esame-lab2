@@ -20,6 +20,7 @@
 #define PARTICLE_H
 
 #include "vector.h"
+#include <list>
 
 class Generator;
 
@@ -27,6 +28,8 @@ class Particle
 {
 
 public:
+    typedef std::list<Particle> List;
+    
     Particle();
     virtual ~Particle();
     

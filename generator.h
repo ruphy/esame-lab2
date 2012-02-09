@@ -21,6 +21,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include "vector.h"
+#include "particle.h"
 
 class Generator
 {
@@ -36,6 +37,8 @@ public:
      */
     real particlesSpeed();
 
+    Particle::List generateNewBatch() const;
+    
 private:
     real m_particlesSpeed;
 

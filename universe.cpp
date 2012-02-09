@@ -67,10 +67,16 @@ void Universe::nextBatch()
         return;
     }
     
-    if (m_stepCount == 0) {
+    if (m_stepCount == 0 or m_deltat == 0) {
         init();
     }
     
+    // TODO Try to use pointers here and see if it performs better.
+    BOOST_FOREACH(const Generator::Ptr generator, m_generators) {
+        // Add newly generated particles to our list
+        Particle::List newList = generator->generateNewBatch();
+        m_particles.splice(m_particles.end(), newList);
+    }
 }
 
 
