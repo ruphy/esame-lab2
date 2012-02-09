@@ -24,7 +24,7 @@
 
 Universe::Universe()
 {
-
+    reset();
 }
 
 Universe::~Universe()
@@ -83,7 +83,10 @@ void Universe::nextBatch()
     foreach(const Generator::Ptr generator, m_generators) {
         // Add newly generated particles to our list
         Particle::List newList = generator->generateNewBatch();
-        m_particles.splice(m_particles.end(), newList);
+
+        if(!newList.empty()) {
+            m_particles.splice(m_particles.end(), newList);
+        }
     }
 
     while (!m_particles.empty()) {

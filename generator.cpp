@@ -30,7 +30,7 @@ Generator::~Generator()
 
 Particle::List Generator::generateNewBatch() const
 {
-//     return Particle::List;
+    return Particle::List();
 }
 
 
