@@ -58,6 +58,10 @@ void Universe::init()
 
 void Universe::reset()
 {
+    m_obstacles.clear();
+    m_particles.clear();
+    m_generators.clear();
+    
     m_stepCount = 0;
     m_deltat = 0;
 }
