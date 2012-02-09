@@ -19,15 +19,14 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#include <boost/shared_ptr.hpp>
-#include "vector.h"
+#include "obstacle.h"
 
 /**
  * A sensor is a square 2d surface, with a given size,
  * normal (for orientation) and center.
  */
 
-class Sensor
+class Sensor : public Obstacle
 {
 public:
     typedef boost::shared_ptr<Sensor> Ptr;

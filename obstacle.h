@@ -34,11 +34,16 @@ public:
     typedef boost::shared_ptr<Obstacle> Ptr;
     Obstacle();
 
+    /**
+     * Returns the lenght of the minimum segment intersecting this object
+     */
+    virtual real minimumSize() const = 0;
+
 protected:
     /**
      * Returns true if the given point is inside this obstacle
      */
-    virtual bool is_inside(const Vector& point) const = 0;
+    virtual bool isInside(const Vector& point) const = 0;
 };
 
 
