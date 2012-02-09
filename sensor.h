@@ -18,7 +18,14 @@
 
 #ifndef SENSOR_H
 #define SENSOR_H
+
 #include <boost/shared_ptr.hpp>
+#include "vector.h"
+
+/**
+ * A sensor is a square 2d surface, with a given size,
+ * normal (for orientation) and center.
+ */
 
 class Sensor
 {
@@ -27,6 +34,10 @@ public:
     
     Sensor();
     virtual ~Sensor();
+    
+    Vector normal();
+    Vector center();
+    real size();
 };
 
 #endif // SENSOR_H

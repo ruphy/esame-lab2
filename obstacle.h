@@ -28,7 +28,6 @@
  * and l is the lenght of the path inside the object.
  */
 
-
 class Obstacle
 {
 public:
