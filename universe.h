@@ -19,6 +19,7 @@
 #ifndef UNIVERSE_H
 #define UNIVERSE_H
 
+#include <list>
 #include "generator.h"
 #include "obstacle.h"
 #include "sensor.h"
@@ -39,10 +40,17 @@ public:
     void addObstacle(Obstacle::Ptr obstacle);
     void addSensor(Sensor::Ptr sensor);
     
-    void nextStep();
+    void nextBatch();
+    void reset();
     
 private:
+    void init();
     
+    int m_stepCount;
+    int deltat;
+    
+    std::list<Generator::Ptr> m_generators;
+    std::list<Obstacle::Ptr> m_obstacles;
 };
 
 #endif // UNIVERSE_H

@@ -20,14 +20,26 @@
 #define GENERATOR_H
 
 #include <boost/shared_ptr.hpp>
+#include "vector.h"
 
 class Generator
 {
+
 public:
     typedef boost::shared_ptr<Generator> Ptr;
-    
+
     Generator();
     virtual ~Generator();
+
+    /**
+     * Scalar speed of the generated particles
+     */
+    real particlesSpeed();
+
+private:
+    real m_particlesSpeed;
+
 };
 
 #endif // GENERATOR_H
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

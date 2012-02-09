@@ -41,6 +41,11 @@ public:
     Vector speed() const;
     
     /**
+     * @return the current position of the particle
+     */
+    Vector position() const;
+    
+    /**
      * @return the position of the source where the particle was generated
      */
     Vector source() const;
@@ -56,9 +61,11 @@ private:
     
     bool m_alive;
     Vector m_speed;
+    Vector m_position;
     Vector m_source;
     
     friend class Generator;
+    friend class Universe;
 };
 
 #endif // PARTICLE_H

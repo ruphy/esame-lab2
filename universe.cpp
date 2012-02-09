@@ -18,6 +18,9 @@
 
 #include "universe.h"
 
+#include <iostream>
+#include <boost/foreach.hpp>
+
 Universe::Universe()
 {
 
@@ -28,8 +31,46 @@ Universe::~Universe()
 
 }
 
-void Universe::nextStep()
+void Universe::init()
 {
-
+    // Determine the smallest deltat
+    
+    real smallestWidth = m_obstacles.front()->minimumSize();
+    real fastestParticles = 0;
+    
+    BOOST_FOREACH(const Generator::Ptr generator, m_generators) {
+        if (generator->particlesSpeed() > fastestParticles) {
+            fastestParticles = generator->particlesSpeed();
+        }
+    }
+    
+    BOOST_FOREACH(const Obstacle::Ptr obstacle, m_obstacles) {
+        if (obstacle->minimumSize() < smallestWidth) {
+            smallestWidth = obstacle->minimumSize();
+        }
+    }
 }
+
+void Universe::reset()
+{
+    m_stepCount = 0;
+    deltat = 0;
+}
+
+
+void Universe::nextBatch()
+{
+    if (m_generators.empty()) {
+        std::cout << "No generators found. Ending simulation" << std::endl;
+        return;
+    }
+    
+    if (m_stepCount == 0) {
+        init();
+    }
+    
+}
+
+
+
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 
