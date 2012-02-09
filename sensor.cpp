@@ -32,16 +32,19 @@ Sensor::~Sensor()
 void Sensor::setTopLeft(const Vector& topLeft)
 {
     m_topLeft = topLeft;
+    updateCoordinateSystem();
 }
 
 void Sensor::setBottomLeft(const Vector& bottomLeft)
 {
-
+    m_bottomLeft = bottomLeft;
+    updateCoordinateSystem();
 }
 
 void Sensor::setTopRight(const Vector& topRight)
 {
-
+    m_topRight = topRight;
+    updateCoordinateSystem();
 }
 
 Vector Sensor::topLeft() const
@@ -63,8 +66,11 @@ void Sensor::updateCoordinateSystem()
 {
     m_e1 = m_topLeft-m_bottomLeft;
     m_e2 = m_topLeft-m_topRight;
+
+    m_e1.normalize();
+    m_e2.normalize();
     m_en = Vector::cross(m_e1, m_e2);
-    
+
     m_p = -1*Vector::dot(m_en, m_topLeft);
 }
 
@@ -73,24 +79,30 @@ void Sensor::setPixelSize(real size)
     m_pixelSize = size;
 }
 
-
 void Sensor::tryAbsorb(Particle& particle, real lenght)
 {
     particle.absorb();
     Vector pos = particle.position();
-    real distance = Vector::dot(m_en, pos) + m_p;
+    real dist = Vector::dot(m_en, pos) + m_p;
+    // Ajust the position so that it's exactly on the plane
+    Vector newPos = pos - m_en*dist;
+    // Calculate the vector from the "origin" of the plane
+    Vector proj = m_topLeft - newPos;
+    
+    
 }
-
 
 real Sensor::minimumSize() const
 {
-    // Fake a width of pixelSize: assume that all pixels are cubical
-    // and the particle is revealed when it ends up there
+    // Fake a thickness of pixelSize: assume that all pixels are actually
+    // cubical and the particle is revealed when it ends up in there.
     return m_pixelSize;
 }
 
 bool Sensor::contains(const Vector& point) const
 {
+    // The point is contained if the distance between the plane that
+    // contains the sensor and the point is less than the thik
     if (abs(Vector::dot(m_en, point) + m_p) > minimumSize()) {
         return false;
     } else {
