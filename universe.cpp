@@ -52,7 +52,7 @@ void Universe::init()
     }
 
     m_deltat = smallestWidth / fastestSpeed;
-    m_deltat *= 0.9;
+    m_deltat *= 0.9; // make it a wee little bit smaller
     
     // TODO: kill all particles that travel past the last sensor.
 }
