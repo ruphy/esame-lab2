@@ -15,6 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define foreach BOOST_FOREACH
 
 #include "universe.h"
 
@@ -34,23 +35,23 @@ Universe::~Universe()
 void Universe::init()
 {
     // Determine the smallest deltat
-    
+
     real smallestWidth = m_obstacles.front()->minimumSize();
     real fastestSpeed = 0;
-    
-    BOOST_FOREACH(const Generator::Ptr generator, m_generators) {
+
+    foreach(const Generator::Ptr generator, m_generators) {
         if (generator->particlesSpeed() > fastestSpeed) {
             fastestSpeed = generator->particlesSpeed();
         }
     }
-    
-    BOOST_FOREACH(const Obstacle::Ptr obstacle, m_obstacles) {
+
+    foreach(const Obstacle::Ptr obstacle, m_obstacles) {
         if (obstacle->minimumSize() < smallestWidth) {
             smallestWidth = obstacle->minimumSize();
         }
     }
-    
-    m_deltat = smallestWidth/fastestSpeed;
+
+    m_deltat = smallestWidth / fastestSpeed;
 }
 
 void Universe::reset()
@@ -66,19 +67,26 @@ void Universe::nextBatch()
         std::cout << "No generators found. Ending simulation" << std::endl;
         return;
     }
-    
+
     if (m_stepCount == 0 or m_deltat == 0) {
         init();
     }
-    
+
     // TODO Try to use pointers here and see if it performs better.
-    BOOST_FOREACH(const Generator::Ptr generator, m_generators) {
+    foreach(const Generator::Ptr generator, m_generators) {
         // Add newly generated particles to our list
         Particle::List newList = generator->generateNewBatch();
         m_particles.splice(m_particles.end(), newList);
+    }
+
+    while (!m_particles.empty()) {
+        m_stepCount++;
+        foreach(Particle p, m_particles) {
+
+        }
     }
 }
 
 
 
-// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;
