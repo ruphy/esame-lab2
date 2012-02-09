@@ -43,7 +43,7 @@ public:
     virtual Vector operator*(real scalar) const;
     
     inline real abs();
-    inline real normalize() {return (*this)*abs();};
+    Vector normalize();
     
     real x() const {return m_x;};
     real y() const {return m_x;};

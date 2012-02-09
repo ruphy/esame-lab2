@@ -18,7 +18,7 @@ int main(int argc, char **argv)
     v2.dump();
     
 //     if (v2 == (v1*3)) {
-   Vector::cross(v2,v1).dump();
+   Vector::cross(v2,v1).normalize().dump();
 //     }
     
     std::cout << "Hello, world!" << std::endl;

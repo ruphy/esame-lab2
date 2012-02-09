@@ -16,7 +16,6 @@
 */
 
 #include <iostream>
-
 #include <math.h>
 
 #include "vector.h"
@@ -42,7 +41,6 @@ Vector::Vector(const Vector& other)
 
 Vector::~Vector()
 {
-
 }
 
 Vector& Vector::operator=(const Vector & other)
@@ -94,10 +92,18 @@ real Vector::abs()
     return sqrt(m_x*m_x + m_y*m_y + m_z*m_z);
 }
 
+Vector Vector::normalize()
+{
+    real ab = abs();
+    m_x *= 1/ab;
+    m_y *= 1/ab;
+    m_z *= 1/ab;
+    return *this;
+}
+
 void Vector::dump()
 {
     std::cout << m_x << " " << m_y << " " << m_z << std::endl;
 }
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 
