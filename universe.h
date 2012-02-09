@@ -19,14 +19,14 @@
 #ifndef UNIVERSE_H
 #define UNIVERSE_H
 
-#include <boost/ptr_container/ptr_list.hpp>
-
 #include "generator.h"
 #include "obstacle.h"
 #include "sensor.h"
 
 /**
- * This class will take care of automatically deleting any objects that you add to it.
+ * This class will take care of automatically deleting any objects that you add to it,
+ * thus you do not need to clean up the memory if you don't want to.
+ * To do a simulation, just add generators, obstacles and sensors, and you're done.
  */
 
 class Universe
@@ -35,9 +35,9 @@ public:
     Universe();
     virtual ~Universe();
 
-    void addGenerator(Generator *generator);
-    void addObstacle(Obstacle *obstacle);
-    void addSensor(Sensor *sensor);
+    void addGenerator(Generator::Ptr generator);
+    void addObstacle(Obstacle::Ptr obstacle);
+    void addSensor(Sensor::Ptr sensor);
     
     void nextStep();
     
