@@ -17,6 +17,8 @@
 
 #include <iostream>
 
+#include <math.h>
+
 #include "vector.h"
 
 Vector::Vector()
@@ -85,6 +87,11 @@ Vector Vector::cross(const Vector& a, const Vector& b)
 real Vector::dot(const Vector& a, const Vector& b)
 {
     return a.m_x*b.m_x + a.m_x*b.m_y + a.m_z*b.m_z;
+}
+
+real Vector::abs()
+{
+    return sqrt(m_x*m_x + m_y*m_y + m_z*m_z);
 }
 
 void Vector::dump()
