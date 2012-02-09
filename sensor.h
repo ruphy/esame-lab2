@@ -28,15 +28,24 @@
 
 class Sensor : public Obstacle
 {
+
 public:
     typedef boost::shared_ptr<Sensor> Ptr;
-    
+
     Sensor();
     virtual ~Sensor();
-    
+
     Vector normal();
     Vector center();
     real size();
+
+    virtual bool contains(const Vector& point) const;
+    virtual real minimumSize() const;
+
+private:
+    real m_pixelSize;
+
 };
 
 #endif // SENSOR_H
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

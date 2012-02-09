@@ -1,20 +1,18 @@
 
 #include <iostream>
 
-#include "vector.h"
+#include "universe.h"
 
 int main(int argc, char **argv)
 {
-    Vector v1, v2;
-    v1.setX(3);
-    v1.setY(2);
-    v1.setZ(1);
-    v2.setX(1);
-    v2.setY(2);
-    v2.setZ(3);
-    
-   Vector::cross(v1,v2).dump();
-    
+    Universe u;
+    Sensor s;
+
+    // run 100 batches
+    for (int i = 0; i < 100; i++) {
+        u.nextBatch();
+    }
+        
     std::cout << "Hello, world!" << std::endl;
     return 0;
 }

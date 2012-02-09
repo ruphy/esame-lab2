@@ -28,3 +28,15 @@ Sensor::~Sensor()
 
 }
 
+real Sensor::minimumSize() const
+{
+    // Fake a width of pixelSize
+    return m_pixelSize;
+}
+
+bool Sensor::contains(const Vector& point) const
+{
+
+}
+
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 
