@@ -22,9 +22,9 @@
 
 class Sensor
 {
-    typedef boost::shared_ptr<Sensor> Ptr;
-
 public:
+    typedef boost::shared_ptr<Sensor> Ptr;
+    
     Sensor();
     virtual ~Sensor();
 };

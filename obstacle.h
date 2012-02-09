@@ -31,8 +31,8 @@
 
 class Obstacle
 {
-    typedef boost::shared_ptr<Obstacle> Ptr;
 public:
+    typedef boost::shared_ptr<Obstacle> Ptr;
     Obstacle();
 
 protected:

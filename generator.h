@@ -23,9 +23,9 @@
 
 class Generator
 {
-    typedef boost::shared_ptr<Generator> Ptr;
-
 public:
+    typedef boost::shared_ptr<Generator> Ptr;
+    
     Generator();
     virtual ~Generator();
 };
