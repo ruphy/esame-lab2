@@ -19,12 +19,34 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
+#include "vector.h"
+
 class Particle
 {
 
 public:
     Particle();
     virtual ~Particle();
+    
+    /**
+     * @return true if the particle has not been absorbed yet.
+     */
+    bool alive();
+    
+    /**
+     * @return the current speed of the particle
+     */
+    Vector speed() const;
+    
+    /**
+     * @return the position of the source where the particle was generated
+     */
+    Vector source() const;
+    
+private:
+    bool alive;
+    Vector speed;
 };
 
 #endif // PARTICLE_H
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 
