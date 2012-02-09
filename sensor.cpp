@@ -15,9 +15,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define foreach BOOST_FOREACH
+
+#include "particle.h"
+
+#include <math.h>
+#include <stdexcept>
+
+#include <boost/foreach.hpp>
 
 #include "sensor.h"
-#include "particle.h"
 
 Sensor::Sensor()
 {
@@ -62,6 +69,12 @@ Vector Sensor::topRight() const
     return m_topRight;
 }
 
+void Sensor::setPixelSize(real size)
+{
+    m_pixelSize = size;
+    updateCoordinateSystem();
+}
+
 void Sensor::updateCoordinateSystem()
 {
     m_e1 = m_topLeft-m_bottomLeft;
@@ -72,24 +85,51 @@ void Sensor::updateCoordinateSystem()
     m_en = Vector::cross(m_e1, m_e2);
 
     m_p = -1*Vector::dot(m_en, m_topLeft);
+
+    // Ensure we always have enough pixels
+    int rows = floor((m_topLeft-m_bottomLeft).abs()) + 1;
+    int columns = floor((m_topLeft-m_topRight).abs()) + 1;
+    std::vector<integer> tempVector;
+    tempVector.resize(columns, 0);
+    m_pixelGrid.resize(rows, tempVector);
 }
 
-void Sensor::setPixelSize(real size)
+void Sensor::particleDetected(int row, int column)
 {
-    m_pixelSize = size;
+    m_pixelGrid[row][column]++;
+}
+
+void Sensor::dump() const
+{
+    foreach(std::vector<integer> v, m_pixelGrid) {
+        
+        foreach(integer i, v) {
+            std::cout << i << "";
+        }
+        std::cout << std::endl;
+    }
 }
 
 void Sensor::tryAbsorb(Particle& particle, real lenght)
 {
+    // This particle will stop here.
     particle.absorb();
+
     Vector pos = particle.position();
     real dist = Vector::dot(m_en, pos) + m_p;
+
     // Ajust the position so that it's exactly on the plane
     Vector newPos = pos - m_en*dist;
     // Calculate the vector from the "origin" of the plane
     Vector proj = m_topLeft - newPos;
-    
-    
+
+    // Project the lenght of this last vector on the two plane axes
+    real e1_len = abs(Vector::dot(proj, m_e1))/proj.abs();
+    real e2_len = abs(Vector::dot(proj, m_e2))/proj.abs();
+
+    int row = floor(e1_len/m_pixelSize);
+    int column = floor(e2_len/m_pixelSize);
+    particleDetected(row, column);
 }
 
 real Sensor::minimumSize() const

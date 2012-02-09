@@ -21,6 +21,8 @@
 
 #include "obstacle.h"
 
+#include <vector>
+
 /**
  * A sensor is a square 2d surface, with a given size,
  * normal (for orientation) and center.
@@ -50,11 +52,14 @@ public:
 
     virtual void tryAbsorb(Particle& particle, real lenght);
 
+    void dump() const; // just a debug function
 private:
     void updateCoordinateSystem();
+    void particleDetected(int row, int column);
 
     real m_pixelSize;
-
+    std::vector< std::vector<integer> > m_pixelGrid;
+    
     // Orthonormal destrorse coordinate system:
     // m_e1 x m_e2 = m_en
     // m_e2 x m_en = m_e1
