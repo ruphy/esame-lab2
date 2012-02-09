@@ -1,0 +1,4 @@
+[Project]
+Name=esame-lab2
+Manager=KDevCMakeManager
+VersionControl=kdevgit
