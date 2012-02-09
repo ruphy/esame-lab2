@@ -36,11 +36,11 @@ void Universe::init()
     // Determine the smallest deltat
     
     real smallestWidth = m_obstacles.front()->minimumSize();
-    real fastestParticles = 0;
+    real fastestSpeed = 0;
     
     BOOST_FOREACH(const Generator::Ptr generator, m_generators) {
-        if (generator->particlesSpeed() > fastestParticles) {
-            fastestParticles = generator->particlesSpeed();
+        if (generator->particlesSpeed() > fastestSpeed) {
+            fastestSpeed = generator->particlesSpeed();
         }
     }
     
@@ -49,12 +49,14 @@ void Universe::init()
             smallestWidth = obstacle->minimumSize();
         }
     }
+    
+    m_deltat = smallestWidth/fastestSpeed;
 }
 
 void Universe::reset()
 {
     m_stepCount = 0;
-    deltat = 0;
+    m_deltat = 0;
 }
 
 

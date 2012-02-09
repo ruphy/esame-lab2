@@ -47,7 +47,7 @@ private:
     void init();
     
     int m_stepCount;
-    int deltat;
+    int m_deltat;
     
     std::list<Generator::Ptr> m_generators;
     std::list<Obstacle::Ptr> m_obstacles;
