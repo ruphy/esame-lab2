@@ -46,7 +46,7 @@ public:
     
 private:
     void init();
-    void moveForward(const Particle& particle);
+    void moveParticle(Particle& particle);
     
     int m_stepCount;
     int m_deltat;

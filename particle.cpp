@@ -58,5 +58,14 @@ void Particle::setSpeed(const Vector& speed)
     m_speed = speed;
 }
 
+void Particle::move(const Vector& deltax)
+{
+    m_position = m_position + deltax;
+}
+
+Vector Particle::position() const
+{
+    return m_position;
+}
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

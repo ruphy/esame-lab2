@@ -57,6 +57,11 @@ public:
      * Kill (absorb) the particle
      */
     virtual void absorb();
+
+    /**
+     * Move the particle
+     */
+    void move(const Vector &deltax);
     
 private:
     void setSource(const Vector& source);
@@ -68,7 +73,6 @@ private:
     Vector m_source;
     
     friend class Generator;
-    friend class Universe;
 };
 
 #endif // PARTICLE_H

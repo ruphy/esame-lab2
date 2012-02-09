@@ -85,7 +85,8 @@ void Universe::nextBatch()
         m_stepCount++;
         for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); it++) {
 
-            moveForward(*it);
+            // (*it) is the current particle
+            moveParticle(*it);
 
             if(!(*it).alive()) {
                 m_particles.erase(it);
@@ -94,8 +95,16 @@ void Universe::nextBatch()
     }
 }
 
-void Universe::moveForward(const Particle& particle)
+void Universe::moveParticle(Particle& particle)
 {
+    Vector deltax = particle.speed()*m_deltat;
+    particle.move(deltax);
+    Vector newPos = particle.position();
+    
+    foreach(const Obstacle::Ptr obstacle, m_obstacles) {
+//         if (
+        
+    }
 }
 
 void Universe::addGenerator(Generator::Ptr generator)
