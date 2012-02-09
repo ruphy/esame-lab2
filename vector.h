@@ -41,8 +41,7 @@ public:
     virtual Vector operator+(const Vector& other) const;
     virtual Vector operator-(const Vector& other) const;
     virtual Vector operator*(real scalar) const;
-    virtual Vector vec(const Vector& other) const;
-    real scal(const Vector& other) const;
+    
     
     real x() const {return m_x;};
     real y() const {return m_x;};
@@ -51,6 +50,13 @@ public:
     void setX(real x) {m_x = x;};
     void setY(real y) {m_y = y;};
     void setZ(real z) {m_z = z;};
+    
+    static Vector cross(const Vector &a, const Vector& b);
+    static real dot(const Vector &a, const Vector& b);
+    
+    
+    // debug feature
+    void dump();
     
 private:
     real m_x, m_y, m_z;

@@ -15,6 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <iostream>
 
 #include "vector.h"
 
@@ -72,14 +73,23 @@ Vector Vector::operator-(const Vector& other) const
     return Vector(m_x-other.m_x, m_y-other.m_y, m_z-other.m_z);
 }
 
-Vector Vector::vec(const Vector& other) const
+Vector Vector::cross(const Vector& a, const Vector& b)
 {
+    real newx = a.m_y*b.m_z - a.m_z*b.m_y;
+    real newy = a.m_z*b.m_x - a.m_x*b.m_z;
+    real newz = a.m_x*b.m_y - a.m_y*b.m_x;
 
+    return Vector(newx, newy, newz);
 }
 
-real Vector::scal(const Vector& other) const
+real Vector::dot(const Vector& a, const Vector& b)
 {
-    return m_x*other.m_x + m_y*other.m_y + m_z*other.m_z;
+    return a.m_x*b.m_x + a.m_x*b.m_y + a.m_z*b.m_z;
+}
+
+void Vector::dump()
+{
+    std::cout << m_x << " " << m_y << " " << m_z << std::endl;
 }
 
 
