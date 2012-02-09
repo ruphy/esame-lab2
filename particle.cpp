@@ -16,29 +16,15 @@
 */
 
 
-#ifndef OBSTACLE_H
-#define OBSTACLE_H
+#include "particle.h"
 
-#include "vector.h"
-
-/**
- * This class implements an abstract obstacle, which can absorb a given particle
- * with a reverse exponential probability: exp(-ml), where m is the absorbing coefficient,
- * and l is the lenght of the path inside the object.
- */
-
-class Obstacle
+Particle::Particle()
 {
 
-public:
-    Obstacle();
+}
 
-protected:
-    /**
-     * Returns true if the given point is inside this obstacle
-     */
-    virtual bool is_inside(const Vector& point) const = 0;
-};
+Particle::~Particle()
+{
 
-#endif // OBSTACLE_H
-// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 
+}
+
