@@ -52,6 +52,8 @@ void Universe::init()
     }
 
     m_deltat = smallestWidth / fastestSpeed;
+    
+    // TODO: kill all particles that travel past the last sensor.
 }
 
 void Universe::reset()
@@ -81,12 +83,25 @@ void Universe::nextBatch()
 
     while (!m_particles.empty()) {
         m_stepCount++;
-        foreach(Particle p, m_particles) {
+        for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); it++) {
 
+            moveForward(*it);
+
+            if(!(*it).alive()) {
+                m_particles.erase(it);
+            }
         }
     }
 }
 
+void Universe::moveForward(const Particle& particle)
+{
+}
+
+void Universe::addGenerator(Generator::Ptr generator)
+{
+
+}
 
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;
