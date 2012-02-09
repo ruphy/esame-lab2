@@ -20,7 +20,7 @@
 
 Particle::Particle()
 {
-
+    
 }
 
 Particle::~Particle()
@@ -28,3 +28,35 @@ Particle::~Particle()
 
 }
 
+bool Particle::alive()
+{
+    return m_alive;
+}
+
+Vector Particle::source() const
+{
+    return m_source;
+}
+
+Vector Particle::speed() const
+{
+    return m_speed;
+}
+
+void Particle::absorb()
+{
+    m_alive = false;
+}
+
+void Particle::setSource(const Vector& source)
+{
+    m_source = source;
+}
+
+void Particle::setSpeed(const Vector& speed)
+{
+    m_speed = speed;
+}
+
+
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

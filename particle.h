@@ -21,6 +21,8 @@
 
 #include "vector.h"
 
+class Generator;
+
 class Particle
 {
 
@@ -43,9 +45,20 @@ public:
      */
     Vector source() const;
     
+    /**
+     * Kill (absorb) the particle
+     */
+    virtual void absorb();
+    
 private:
-    bool alive;
-    Vector speed;
+    void setSource(const Vector& source);
+    void setSpeed(const Vector& speed);
+    
+    bool m_alive;
+    Vector m_speed;
+    Vector m_source;
+    
+    friend class Generator;
 };
 
 #endif // PARTICLE_H
