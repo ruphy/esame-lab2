@@ -19,12 +19,31 @@
 #ifndef UNIVERSE_H
 #define UNIVERSE_H
 
+#include <boost/ptr_container/ptr_list.hpp>
+
+#include "generator.h"
+#include "obstacle.h"
+#include "sensor.h"
+
+/**
+ * This class will take care of automatically deleting any objects that you add to it.
+ */
+
 class Universe
 {
-
 public:
     Universe();
     virtual ~Universe();
+
+    void addGenerator(Generator *generator);
+    void addObstacle(Obstacle *obstacle);
+    void addSensor(Sensor *sensor);
+    
+    void nextStep();
+    
+private:
+    
 };
 
 #endif // UNIVERSE_H
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

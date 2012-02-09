@@ -20,6 +20,7 @@
 #define OBSTACLE_H
 
 #include "vector.h"
+#include <boost/shared_ptr.hpp>
 
 /**
  * This class implements an abstract obstacle, which can absorb a given particle
@@ -27,9 +28,10 @@
  * and l is the lenght of the path inside the object.
  */
 
+
 class Obstacle
 {
-
+    typedef boost::shared_ptr<Obstacle> Ptr;
 public:
     Obstacle();
 
@@ -39,6 +41,7 @@ protected:
      */
     virtual bool is_inside(const Vector& point) const = 0;
 };
+
 
 #endif // OBSTACLE_H
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

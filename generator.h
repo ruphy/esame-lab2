@@ -16,17 +16,18 @@
 */
 
 
-#ifndef SENSOR_H
-#define SENSOR_H
+#ifndef GENERATOR_H
+#define GENERATOR_H
+
 #include <boost/shared_ptr.hpp>
 
-class Sensor
+class Generator
 {
-    typedef boost::shared_ptr<Sensor> Ptr;
+    typedef boost::shared_ptr<Generator> Ptr;
 
 public:
-    Sensor();
-    virtual ~Sensor();
+    Generator();
+    virtual ~Generator();
 };
 
-#endif // SENSOR_H
+#endif // GENERATOR_H

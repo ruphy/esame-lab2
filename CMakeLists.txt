@@ -2,6 +2,8 @@ project(esame-lab2)
 
 set(esame_src
     main.cpp
+    
+    generator.cpp
     obstacle.cpp
     particle.cpp
     universe.cpp
