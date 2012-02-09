@@ -17,6 +17,7 @@
 
 
 #include "sensor.h"
+#include "particle.h"
 
 Sensor::Sensor()
 {
@@ -28,15 +29,57 @@ Sensor::~Sensor()
 
 }
 
+void Sensor::setNormal(const Vector& normal)
+{
+    m_normal = normal;
+    m_normal.normalize();
+    m_p = -1*Vector::dot(m_normal, m_center);
+}
+
+void Sensor::setCenter(const Vector& center)
+{
+    m_center = center;
+    m_p = -1*Vector::dot(m_normal, m_center);
+}
+
+void Sensor::setPixelSize(real size)
+{
+    m_pixelSize = size;
+}
+
+Vector Sensor::center() const
+{
+    return m_center;
+}
+
+Vector Sensor::normal() const
+{
+    return m_normal;
+}
+
+
+void Sensor::tryAbsorb(Particle& particle, real lenght)
+{
+    particle.absorb();
+}
+
+
 real Sensor::minimumSize() const
 {
-    // Fake a width of pixelSize
+    // Fake a width of pixelSize: assume that all pixels are cubical
+    // and the particle is revealed when it ends up there
     return m_pixelSize;
 }
 
 bool Sensor::contains(const Vector& point) const
 {
-
+    if (abs(Vector::dot(m_normal, point) + m_p) > minimumSize()) {
+        return false;
+    } else {
+        return true;
+    }
 }
+
+
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

@@ -35,16 +35,26 @@ public:
     Sensor();
     virtual ~Sensor();
 
-    Vector normal();
-    Vector center();
-    real size();
+    Vector normal() const;
+    Vector center() const;
+    real size() const;
+
+    void setNormal(const Vector &normal);
+    void setCenter(const Vector &center);
+    void setPixelSize(real size);
 
     virtual bool contains(const Vector& point) const;
     virtual real minimumSize() const;
 
+    virtual void tryAbsorb(Particle& particle, real lenght);
+
 private:
     real m_pixelSize;
+    Vector m_normal;
+    Vector m_center;
 
+    // Plane specification: p = normal dot center
+    real m_p;
 };
 
 #endif // SENSOR_H
