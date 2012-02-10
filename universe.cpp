@@ -96,7 +96,7 @@ void Universe::nextBatch()
     while (!m_particles.empty()) {
 
         // HACK TERMINATE FOR NOW
-        if (m_stepCount > 5) {
+        if (m_stepCount > 25) {
 //             reset();
             return;
         }

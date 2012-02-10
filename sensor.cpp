@@ -104,6 +104,15 @@ void Sensor::updateCoordinateSystem()
     m_en = Vector::cross(m_e1, m_e2);
 
     m_p = -1*Vector::dot(m_en, m_topLeft);
+//     m_p = 0; //HACK
+
+    std::cout << "Coordinate system" << std::endl;
+    std::cout << "Normal"; m_en.dump();
+    std::cout << "e1 "; m_e1.dump();
+    std::cout << "e2 "; m_e2.dump();
+    std::cout << "p " << m_p << std::endl;
+    
+    
 }
 
 void Sensor::particleDetected(int row, int column)
@@ -176,6 +185,7 @@ bool Sensor::contains(const Vector& point) const
     // The point is contained if the distance between the plane that
     // contains the sensor and the point is less than the thickness of the sensor.
     real dist = fabs(Vector::dot(m_en, point) + m_p);
+    
     if (dist > minimumSize()) {
         std::cout << "Too far away from this sensor: " << dist << std::endl;
         return false;
