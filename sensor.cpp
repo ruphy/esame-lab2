@@ -106,15 +106,14 @@ void Sensor::updateCoordinateSystem()
     m_e2.normalize();
     m_en = Vector::cross(m_e1, m_e2);
 
-//     m_p = 0; //HACK
 
-    std::cout << "-- Coordinate system --" << std::endl;
-    std::cout << "Normal = "; m_en.dump();
-    std::cout << "e1 = "; m_e1.dump();
-    std::cout << "e2 = "; m_e2.dump();
-    std::cout << "p = " << m_p << std::endl;
-    std::cout << "e1 x e2 = "; Vector::cross(m_e1, m_e2).dump();
-    std::cout << "m_topLeft = "; m_topLeft.dump();
+//     std::cout << "-- Coordinate system --" << std::endl;
+//     std::cout << "Normal = "; m_en.dump();
+//     std::cout << "e1 = "; m_e1.dump();
+//     std::cout << "e2 = "; m_e2.dump();
+//     std::cout << "p = " << m_p << std::endl;
+//     std::cout << "e1 x e2 = "; Vector::cross(m_e1, m_e2).dump();
+//     std::cout << "m_topLeft = "; m_topLeft.dump();
     
 }
 
@@ -179,7 +178,7 @@ real Sensor::minimumSize() const
 {
     // Fake a thickness of pixelSize: assume that all pixels are actually
     // cubical and the particle is revealed when it ends up in there.
-    std::cout << "Minimum size is " << m_pixelSize << std::endl;
+    std::cout << "Sensor thickness is " << m_pixelSize << std::endl;
     return m_pixelSize;
 }
 
@@ -189,10 +188,11 @@ bool Sensor::contains(const Vector& point) const
     // contains the sensor and the point is less than the thickness of the sensor.
     real dist = fabs(Vector::dot(m_en, point) + m_p);
     
-    if (dist > minimumSize()) {
+    if (dist > m_pixelSize) {
         std::cout << "Too far away from this sensor: " << dist << std::endl;
         return false;
     } else {
+        std::cout << "Point is inside. Distance: " << dist << std::endl;
         return true;
     }
 }

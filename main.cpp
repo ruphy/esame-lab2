@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     s->setTopRight(Vector(0.0, 10.0, 10.0));
     s->setBottomLeft(Vector(0.0, -10.0, -10.0));
 
-    g->setGenerationRate(3);
+    g->setGenerationRate(5);
     g->setParticlesSpeed(0.5);
     g->setPosition(Vector(0.0, 0.0, 0));
     
