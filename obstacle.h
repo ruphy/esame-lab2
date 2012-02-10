@@ -52,6 +52,8 @@ public:
     virtual void setAbsorbingCoefficient(real mu);
     
 protected:
+    void absorb(Particle &p);
+    
     real m_mu;
     boost::random::mt19937 *m_gen;
     

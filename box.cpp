@@ -25,17 +25,24 @@ Box::Box()
 
 bool Box::contains(const Vector& point) const
 {
-    // The point is contained if the distance between the plane that
-    // contains the sensor and the point is less than the thickness of the sensor.
-    real dist = Vector::dot(m_en, point) + m_p;
+    real dist = getPointDistance(point);
 
-    if (dist > minimumSize()) {
-        std::cerr << "Too far away from this box: " << dist << std::endl;
+    if (dist > 0) {
+        return false;
+    }
+
+    if (dist < -minimumSize()) {
+//         std::cout << "Too far away from this box: " << dist << std::endl;
         return false;
     } else {
-        std::cerr << "Point is inside the box. Distance: " << dist << std::endl;
+        std::cout << "Point is inside the box. Distance: " << dist << std::endl;
         return true;
     }
+}
+
+real Box::getPointDistance(const Vector& point) const
+{
+    return Vector::dot(m_en, point) + m_p; // TODO update coordinate system if needed.
 }
 
 real Box::minimumSize() const
@@ -93,8 +100,8 @@ Vector Box::topRight() const
 
 void Box::updateCoordinateSystem()
 {
-    m_e1 = m_topLeft-m_bottomLeft;
-    m_e2 = m_topLeft-m_topRight;
+    m_e1 = m_bottomLeft-m_topLeft;
+    m_e2 = m_topRight-m_topLeft;
 
     m_en = Vector::cross(m_e1, m_e2);
     m_en.normalize();

@@ -31,6 +31,11 @@ void Obstacle::setAbsorbingCoefficient(real mu)
     m_mu = mu;
 }
 
+void Obstacle::absorb(Particle& p)
+{
+    p.absorb();
+}
+
 void Obstacle::tryAbsorb(Particle& particle, real lenght)
 {
     boost::random::uniform_real_distribution<real> dist(0.0, 1.0);

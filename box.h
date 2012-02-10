@@ -28,8 +28,8 @@
  *
  * The thickness will all go "behind" the plane where the three points are.
  * Mathematically:
- *  e1 = topLeft-bottomLeft;
- *  e2 = topLeft-topRight;
+ *  e1 = bottomLeft - topLeft;
+ *  e2 = topRight - topLeft;
  * The thickness will be in the direction of e2 x e1.
  */
 
@@ -62,7 +62,9 @@ public:
     void setThickness(real thickness);
 
 protected:
-    void updateCoordinateSystem();
+    virtual void updateCoordinateSystem();
+
+    real getPointDistance(const Vector &point) const;
 
     real m_thickness;
     real m_minimumSize;

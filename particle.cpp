@@ -81,15 +81,15 @@ void Particle::setSpeed(const Vector& speed)
 
 void Particle::move(real deltat)
 {
-    std::cout << "-- Moving --" << std::endl;
-    std::cout << "My speed is: ";
-    m_speed.dump();
-    std::cout << "My old position: ";
-    m_position.dump();
+//     std::cout << "-- Moving --" << std::endl;
+//     std::cout << "My speed is: ";
+//     m_speed.dump();
+//     std::cout << "My old position: ";
+//     m_position.dump();
     m_position = m_position + m_speed*deltat;
 //     m_position->setX(m_position->x()+newx);
-    std::cout << "My new position: ";
-    m_position.dump();
+//     std::cout << "My new position: ";
+//     m_position.dump();
 }
 
 Vector Particle::position() const

@@ -37,19 +37,26 @@ public:
     Sensor();
     virtual ~Sensor();
 
-    void setPixelSize(real size);
+    void setPixelRows(int rows);
+    void setPixelColumns(int columns);
 
     virtual bool contains(const Vector& point) const;
 
     virtual void tryAbsorb(Particle& particle, real lenght);
 
     void dump() const; // just a debug function
+    
+protected:
+    virtual void updateCoordinateSystem();
+
 private:
     void init();
     void particleDetected(int row, int column);
 
     bool m_alreadyInitd;
-    real m_pixelSize;
+    int m_pixelRows;
+    int m_pixelColumns;
+    
     std::vector< std::vector<integer> > m_pixelGrid;
     
 };
