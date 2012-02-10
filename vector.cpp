@@ -22,7 +22,7 @@
 
 Vector::Vector()
 {
-    m_x = m_y = m_z = 0;
+    m_x = m_y = m_z = 0.0;
 }
 
 Vector::Vector(real x, real y, real z)
@@ -101,7 +101,7 @@ Vector Vector::normalize()
     return *this;
 }
 
-void Vector::dump()
+void Vector::dump() const
 {
     std::cout << m_x << " " << m_y << " " << m_z << std::endl;
 }

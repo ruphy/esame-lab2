@@ -96,7 +96,7 @@ void Universe::nextBatch()
     while (!m_particles.empty()) {
 
         // HACK TERMINATE FOR NOW
-        if (m_stepCount > 200) {
+        if (m_stepCount > 3) {
 //             reset();
             return;
         }
@@ -107,7 +107,8 @@ void Universe::nextBatch()
             // (*it) is the current particle
             moveParticle(p);
 
-            if(!((*it).alive())) {
+            if(!p.alive()) {
+                std::cout << "Deleting a particle" << std::endl;
                 m_particles.erase(it);
             }
         }
@@ -116,12 +117,12 @@ void Universe::nextBatch()
 
 void Universe::moveParticle(Particle& particle)
 {
-    particle.speed().dump();
-    std::cout << "move particle with above speed of this deltax" << std::endl;
+//     particle.speed().dump();
+//     std::cout << "move particle with above speed of this deltax" << std::endl;
     Vector deltax = particle.speed()*m_deltat;
-    deltax.dump();
+//     deltax.dump();
     
-    particle.move(deltax);
+    particle.move(m_deltat);
     Vector newPos = particle.position();
     
     foreach(const Obstacle::Ptr obstacle, m_obstacles) {

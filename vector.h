@@ -58,7 +58,7 @@ public:
     
     
     // debug feature
-    void dump();
+    void dump() const;
     
 private:
     real m_x, m_y, m_z;

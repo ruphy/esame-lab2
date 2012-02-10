@@ -11,18 +11,18 @@ int main(int argc, char **argv)
     Generator::Ptr g(new Generator);
 
     s->setPixelSize(0.20);
-    s->setBottomLeft(Vector(1.0, -1.0, -1.0));
-    s->setTopLeft(Vector(0.0, 1.0, -1.0));
+    s->setTopLeft(Vector(0.0, -1.0, 1.0));
+    s->setBottomLeft(Vector(0.0, -1.0, -1.0));
     s->setTopRight(Vector(0.0, 1.0, 1.0));
 
-    g->setGenerationRate(10);
+    g->setGenerationRate(1);
     g->setParticlesSpeed(0.5);
-    g->setPosition(Vector(3, 3, 3));
+    g->setPosition(Vector(1.0, 0.0, 0.0));
     
     u.addGenerator(g);
     u.addSensor(s);
     // run 100 batches
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 1; i++) {
         u.nextBatch();
     }
     s->dump();
