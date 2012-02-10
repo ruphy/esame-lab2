@@ -61,7 +61,8 @@ Particle::List Generator::generateNewBatch()
         std::cerr << "I don't have an entropy generator set! This will crash." << std::endl;
     }
 
-    m_list.clear();
+    Particle::List list;
+    
     boost::random::uniform_real_distribution<real> dist(-1.0, 1.0);
     
     for (int i = 0; i <= m_genRate; i++) {
@@ -73,10 +74,10 @@ Particle::List Generator::generateNewBatch()
         p.setSource(m_position);
         p.setSpeed(speed);
         
-        m_list.push_back(p);
+        list.push_back(p);
     }
     
-    return m_list;
+    return list;
 }
 
 

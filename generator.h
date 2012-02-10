@@ -54,7 +54,6 @@ private:
     Vector m_position;
 
     boost::random::mt19937 *m_gen;
-    Particle::List m_list;
     
     friend class Universe;
 };
