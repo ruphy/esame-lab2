@@ -49,7 +49,7 @@ private:
     void moveParticle(Particle& particle);
     
     int m_stepCount;
-    int m_deltat;
+    real m_deltat;
     
     std::list<Generator::Ptr> m_generators;
     std::list<Obstacle::Ptr> m_obstacles;

@@ -28,6 +28,14 @@ Particle::~Particle()
 
 }
 
+Particle::Particle(const Particle& other)
+{
+    m_speed = other.m_speed;
+    m_alive = other.m_alive;
+    m_position = other.m_position;
+    m_source = other.m_source;
+}
+
 bool Particle::alive()
 {
     return m_alive;

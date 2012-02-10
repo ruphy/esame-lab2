@@ -9,13 +9,16 @@ int main(int argc, char **argv)
 
     Sensor::Ptr s(new Sensor);
     Generator::Ptr g(new Generator);
-    
-    s->setBottomLeft(Vector(0, -1, -1));
-    s->setTopLeft(Vector(0, 1, -1));
-    s->setTopRight(Vector(0, 1, 1));
-    s->setPixelSize(0.25);
+
+    s->setPixelSize(0.20);
+    s->setBottomLeft(Vector(1.0, -1.0, -1.0));
+    s->setTopLeft(Vector(0.0, 1.0, -1.0));
+    s->setTopRight(Vector(0.0, 1.0, 1.0));
 
     g->setGenerationRate(10);
+    g->setParticlesSpeed(0.5);
+    g->setPosition(Vector(3, 3, 3));
+    
     u.addGenerator(g);
     u.addSensor(s);
     // run 100 batches

@@ -32,6 +32,8 @@ public:
     
     Particle();
     virtual ~Particle();
+
+    Particle(const Particle& other);
     
     /**
      * @return true if the particle has not been absorbed yet.

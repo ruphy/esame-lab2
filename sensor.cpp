@@ -28,7 +28,7 @@
 
 Sensor::Sensor()
 {
-
+    m_alreadyInitd = false;
 }
 
 Sensor::~Sensor()
@@ -75,6 +75,25 @@ void Sensor::setPixelSize(real size)
     updateCoordinateSystem();
 }
 
+void Sensor::init()
+{
+    if (m_alreadyInitd) {
+        return;
+    }
+    m_alreadyInitd = true;
+    
+    // Ensure we always have enough pixels
+    int rows = floor((m_topLeft-m_bottomLeft).abs()) + 2;
+    int columns = floor((m_topLeft-m_topRight).abs()) + 2;
+
+    std::cout << "Total computed rows: " << rows << std::endl;
+    std::cout << "Total computed cols: " << columns << std::endl;
+
+    std::vector<integer> tempVector;
+    tempVector.resize(columns, 0);
+    m_pixelGrid.resize(rows, tempVector);
+}
+
 void Sensor::updateCoordinateSystem()
 {
     m_e1 = m_topLeft-m_bottomLeft;
@@ -85,26 +104,20 @@ void Sensor::updateCoordinateSystem()
     m_en = Vector::cross(m_e1, m_e2);
 
     m_p = -1*Vector::dot(m_en, m_topLeft);
-
-    // Ensure we always have enough pixels
-    int rows = floor((m_topLeft-m_bottomLeft).abs()) + 1;
-    int columns = floor((m_topLeft-m_topRight).abs()) + 1;
-    std::vector<integer> tempVector;
-    tempVector.resize(columns, 0);
-    m_pixelGrid.resize(rows, tempVector);
 }
 
 void Sensor::particleDetected(int row, int column)
 {
-    m_pixelGrid[row][column]++;
+    std::cout << "Particle detected at " << row << " x " << column << std::endl;
+    m_pixelGrid.at(row).at(column) += 1;
 }
 
 void Sensor::dump() const
 {
     foreach(std::vector<integer> v, m_pixelGrid) {
-        
+        std::cout << "Row: ";
         foreach(integer i, v) {
-            std::cout << i << "";
+            std::cout << i << " ";
         }
         std::cout << std::endl;
     }
@@ -112,11 +125,22 @@ void Sensor::dump() const
 
 void Sensor::tryAbsorb(Particle& particle, real lenght)
 {
+    if(!m_alreadyInitd) {
+        init();
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << "Sensor HIT!" << std::endl;
+    
+    std::cout << "Got a particle with posistion: ";
+
+    particle.position().dump();
     // This particle will stop here.
     particle.absorb();
 
     Vector pos = particle.position();
     real dist = Vector::dot(m_en, pos) + m_p;
+    
 
     // Ajust the position so that it's exactly on the plane
     Vector newPos = pos - m_en*dist;
@@ -127,9 +151,16 @@ void Sensor::tryAbsorb(Particle& particle, real lenght)
     real e1_len = abs(Vector::dot(proj, m_e1))/proj.abs();
     real e2_len = abs(Vector::dot(proj, m_e2))/proj.abs();
 
+
+    std::cout << "Trying to assign a particle to a pixel:" << std::endl;
+    std::cout << "e1_len" << e1_len << std::endl;
+    std::cout << "e2_len" << e2_len << std::endl;
     int row = floor(e1_len/m_pixelSize);
     int column = floor(e2_len/m_pixelSize);
     particleDetected(row, column);
+
+    std::cout << std::endl;
+    std::cout << std::endl;
 }
 
 real Sensor::minimumSize() const

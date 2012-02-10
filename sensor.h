@@ -54,9 +54,11 @@ public:
 
     void dump() const; // just a debug function
 private:
+    void init();
     void updateCoordinateSystem();
     void particleDetected(int row, int column);
 
+    bool m_alreadyInitd;
     real m_pixelSize;
     std::vector< std::vector<integer> > m_pixelGrid;
     

@@ -25,11 +25,12 @@
 Universe::Universe()
 {
     reset();
+    m_deltat = 0;
 }
 
 Universe::~Universe()
 {
-
+    reset();
 }
 
 void Universe::init()
@@ -37,7 +38,7 @@ void Universe::init()
     // Determine the smallest deltat
 
     real smallestWidth = m_obstacles.front()->minimumSize();
-    real fastestSpeed = 0;
+    real fastestSpeed = 0.0;
 
     foreach(const Generator::Ptr generator, m_generators) {
         if (generator->particlesSpeed() > fastestSpeed) {
@@ -59,9 +60,9 @@ void Universe::init()
 
 void Universe::reset()
 {
-    m_obstacles.clear();
-    m_particles.clear();
-    m_generators.clear();
+//     m_obstacles.clear();
+//     m_particles.clear();
+//     m_generators.clear();
     
     m_stepCount = 0;
     m_deltat = 0;
@@ -84,17 +85,27 @@ void Universe::nextBatch()
         // Add newly generated particles to our list
         Particle::List newList = generator->generateNewBatch();
 
+//         std::cout << "ROW  " << std::endl;
+//         newList.front().speed().dump();
+        
         if(!newList.empty()) {
             m_particles.splice(m_particles.end(), newList);
         }
     }
 
     while (!m_particles.empty()) {
+
+        // HACK TERMINATE FOR NOW
+        if (m_stepCount > 200) {
+//             reset();
+            return;
+        }
         m_stepCount++;
         for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); it++) {
 
+            Particle p = *it;
             // (*it) is the current particle
-            moveParticle(*it);
+            moveParticle(p);
 
             if(!((*it).alive())) {
                 m_particles.erase(it);
@@ -105,7 +116,11 @@ void Universe::nextBatch()
 
 void Universe::moveParticle(Particle& particle)
 {
+    particle.speed().dump();
+    std::cout << "move particle with above speed of this deltax" << std::endl;
     Vector deltax = particle.speed()*m_deltat;
+    deltax.dump();
+    
     particle.move(deltax);
     Vector newPos = particle.position();
     

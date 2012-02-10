@@ -44,7 +44,7 @@ public:
     void setParticlesSpeed(real speed);
     void setGenerationRate(real genRate);
 
-    Particle::List generateNewBatch() const;
+    Particle::List generateNewBatch();
     
 private:
     real m_particlesSpeed;
@@ -52,6 +52,7 @@ private:
     Vector m_position;
 
     boost::random::mt19937 *m_gen;
+    Particle::List m_list;
 };
 
 #endif // GENERATOR_H

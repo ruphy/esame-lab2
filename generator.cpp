@@ -47,25 +47,24 @@ void Generator::setGenerationRate(real genRate)
     m_genRate = genRate;
 }
 
-Particle::List Generator::generateNewBatch() const
+Particle::List Generator::generateNewBatch()
 {
-    Particle::List list;
-
+    m_list.clear();
     boost::random::uniform_real_distribution<real> dist(0.0, 1.0);
     
     for (int i = 0; i <= m_genRate; i++) {
         Vector speed(dist(*m_gen), dist(*m_gen), dist(*m_gen));
         
-        speed = speed*(m_particlesSpeed/speed.abs());
-
+        speed = speed.normalize()*m_particlesSpeed;
+//         speed.dump();
         Particle p;
         p.setSource(m_position);
         p.setSpeed(speed);
         
-        list.push_back(p);
+        m_list.push_back(p);
     }
     
-    return list;
+    return m_list;
 }
 
 
