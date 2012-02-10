@@ -20,7 +20,6 @@
 
 Box::Box()
 {
-    Obstacle();
     m_minimumSize = 0;
 }
 
