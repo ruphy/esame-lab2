@@ -20,7 +20,17 @@
 
 bool Box::contains(const Vector& point) const
 {
+   // The point is contained if the distance between the plane that
+    // contains the sensor and the point is less than the thickness of the sensor.
+    real dist = Vector::dot(m_en, point) + m_p;
 
+    if (dist > minimumSize()) {
+        std::cout << "Too far away from this box: " << dist << std::endl;
+        return false;
+    } else {
+        std::cout << "Point is inside. Distance: " << dist << std::endl;
+        return true;
+    }
 }
 
 real Box::minimumSize() const

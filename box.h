@@ -21,6 +21,17 @@
 
 #include "obstacle.h"
 
+/**
+ * A thick box.
+ * To use it you have to specify three points (top and bottom left, top right),
+ * and set the desired thickness.
+ *
+ * The thickness will all go "behind" the plane where the three points are.
+ * Mathematically:
+ *  e1 = topLeft-bottomLeft;
+ *  e2 = topLeft-topRight;
+ * The thickness will be in the direction of e2 x e1.
+ */
 
 class Box : public Obstacle
 {
