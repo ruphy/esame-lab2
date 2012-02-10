@@ -22,15 +22,8 @@
 #include "generator.h"
 
 Generator::Generator()
-{
-
-//     m_gen = new boost::random::mt19937(time(0));
-//     m_gen.seed(time(0)); //make me a global object?
-    m_gen = 0;
-    m_genRate = 0;
-}
-
-Generator::~Generator()
+ : m_gen(0),
+   m_genRate(0)
 {
 }
 
@@ -41,7 +34,6 @@ void Generator::setParticlesSpeed(real speed)
 
 void Generator::setPosition(const Vector& position)
 {
-//     position.dump();
     m_position = position;
 }
 

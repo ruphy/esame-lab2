@@ -24,6 +24,11 @@
 #include "vector.h"
 #include "particle.h"
 
+/**
+ * A generator is a source of particles. It is a point
+ * and generates a number of particles controlled by
+ * setGenerationRate at every batch.
+ */
 
 class Generator
 {
@@ -32,7 +37,7 @@ public:
     typedef boost::shared_ptr<Generator> Ptr;
 
     Generator();
-    virtual ~Generator();
+    virtual ~Generator() {};
 
     /**
      * Scalar speed of the generated particles
