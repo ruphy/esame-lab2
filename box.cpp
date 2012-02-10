@@ -58,7 +58,6 @@ void Box::tryAbsorb(Particle& particle, real lenght)
     Obstacle::tryAbsorb(particle, lenght);
 }
 
-
 void Box::setTopLeft(const Vector& topLeft)
 {
     m_topLeft = topLeft;

@@ -21,6 +21,7 @@
 
 #include "vector.h"
 #include <boost/shared_ptr.hpp>
+#include <boost/random/mersenne_twister.hpp>
 
 class Particle;
 
@@ -47,8 +48,13 @@ public:
     virtual bool contains(const Vector& point) const = 0;
 
     virtual void tryAbsorb(Particle &particle, real lenght);
+
+    virtual void setAbsorbingCoefficient(real mu);
     
 protected:
+    real m_mu;
+    boost::random::mt19937 *m_gen;
+    
 };
 
 

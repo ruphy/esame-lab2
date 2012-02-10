@@ -18,14 +18,27 @@
 #include "particle.h"
 
 #include "obstacle.h"
+#include <math.h>
+#include <boost/random/uniform_real_distribution.hpp>
 
 Obstacle::Obstacle()
 {
+    m_gen = 0;
+}
 
+void Obstacle::setAbsorbingCoefficient(real mu)
+{
+    m_mu = mu;
 }
 
 void Obstacle::tryAbsorb(Particle& particle, real lenght)
 {
-
+    boost::random::uniform_real_distribution<real> dist(0.0, 1.0);
+    real n1 = dist(*m_gen);
+    if (n1 > exp(-m_mu*lenght) ) {
+        particle.absorb();
+    }
 }
 
+
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

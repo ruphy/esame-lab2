@@ -88,16 +88,15 @@ void Sensor::tryAbsorb(Particle& particle, real lenght)
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << "Sensor HIT!" << std::endl;
-    
-    std::cout << "Got a particle with posistion: ";
 
-    particle.position().dump();
+//     std::cout << "Got a particle with posistion: ";
+//     particle.position().dump();
+
     // This particle will stop here.
     particle.absorb();
 
     Vector pos = particle.position();
     real dist = Vector::dot(m_en, pos) + m_p;
-    
 
     // Ajust the position so that it's exactly on the plane
     Vector newPos = pos - m_en*dist;
