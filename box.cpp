@@ -20,7 +20,7 @@
 
 bool Box::contains(const Vector& point) const
 {
-   // The point is contained if the distance between the plane that
+    // The point is contained if the distance between the plane that
     // contains the sensor and the point is less than the thickness of the sensor.
     real dist = Vector::dot(m_en, point) + m_p;
 
@@ -34,6 +34,16 @@ bool Box::contains(const Vector& point) const
 }
 
 real Box::minimumSize() const
+{
+
+}
+
+void Box::setThickness(real thickness)
+{
+
+}
+
+real Box::thickness() const
 {
 
 }
@@ -82,13 +92,10 @@ void Box::updateCoordinateSystem()
     m_e1 = m_topLeft-m_bottomLeft;
     m_e2 = m_topLeft-m_topRight;
 
-    // I need to calculate m_p before the vectors are normalized.
-    m_p = -1*Vector::dot(Vector::cross(m_e1, m_e2), m_topLeft);
-
-//     m_e1.normalize();
-//     m_e2.normalize();
     m_en = Vector::cross(m_e1, m_e2);
     m_en.normalize();
+
+    m_p = -1*Vector::dot(Vector::cross(m_e1, m_e2), m_topLeft);
 
 //     std::cout << "-- Coordinate system --" << std::endl;
 //     std::cout << "Normal = "; m_en.dump();

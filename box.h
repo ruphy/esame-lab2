@@ -46,14 +46,18 @@ public:
     Vector topRight() const;
     Vector bottomLeft() const;
 
+    real thickness() const;
+
     void setTopLeft(const Vector &topLeft);
     void setBottomLeft(const Vector &bottomLeft);
     void setTopRight(const Vector &topRight);
 
+    void setThickness(real thickness);
+
 protected:
     void updateCoordinateSystem();
 
-
+    real m_thickness;
     Vector m_topLeft;
     Vector m_topRight;
     Vector m_bottomLeft;
