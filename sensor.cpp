@@ -147,14 +147,18 @@ void Sensor::tryAbsorb(Particle& particle, real lenght)
     // Calculate the vector from the "origin" of the plane
     Vector proj = m_topLeft - newPos;
 
+    std::cout << "Projected vector:" << std::endl;
+    proj.dump();
+    std::cout << Vector::dot(proj, m_e1) << std::endl;
+    
     // Project the lenght of this last vector on the two plane axes
-    real e1_len = abs(Vector::dot(proj, m_e1))/proj.abs();
-    real e2_len = abs(Vector::dot(proj, m_e2))/proj.abs();
-
+    real e1_len = fabs(Vector::dot(proj, m_e1))/proj.abs();
+    real e2_len = fabs(Vector::dot(proj, m_e2))/proj.abs();
 
     std::cout << "Trying to assign a particle to a pixel:" << std::endl;
     std::cout << "e1_len" << e1_len << std::endl;
     std::cout << "e2_len" << e2_len << std::endl;
+
     int row = floor(e1_len/m_pixelSize);
     int column = floor(e2_len/m_pixelSize);
     particleDetected(row, column);
