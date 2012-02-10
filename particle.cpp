@@ -20,7 +20,7 @@
 
 Particle::Particle()
 {
-    
+    m_alive = true;
 }
 
 Particle::~Particle()

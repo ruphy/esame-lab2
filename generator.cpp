@@ -15,22 +15,57 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+#include <boost/random/uniform_real_distribution.hpp>
+#include <time.h>
 #include "generator.h"
 
 Generator::Generator()
 {
 
+    m_gen = new boost::random::mt19937(time(0));
+//     m_gen.seed(time(0)); //make me a global object?
+    m_genRate = 0;
 }
 
 Generator::~Generator()
 {
+    delete m_gen;
+}
 
+void Generator::setParticlesSpeed(real speed)
+{
+    m_particlesSpeed = speed;
+}
+
+void Generator::setPosition(const Vector& position)
+{
+    m_position = position;
+}
+
+void Generator::setGenerationRate(real genRate)
+{
+    m_genRate = genRate;
 }
 
 Particle::List Generator::generateNewBatch() const
 {
-    return Particle::List();
+    Particle::List list;
+
+    boost::random::uniform_real_distribution<real> dist(0.0, 1.0);
+    
+    for (int i = 0; i <= m_genRate; i++) {
+        Vector speed(dist(*m_gen), dist(*m_gen), dist(*m_gen));
+        
+        speed = speed*(m_particlesSpeed/speed.abs());
+
+        Particle p;
+        p.setSource(m_position);
+        p.setSpeed(speed);
+        
+        list.push_back(p);
+    }
+    
+    return list;
 }
 
 

@@ -96,7 +96,7 @@ void Universe::nextBatch()
             // (*it) is the current particle
             moveParticle(*it);
 
-            if(!(*it).alive()) {
+            if(!((*it).alive())) {
                 m_particles.erase(it);
             }
         }

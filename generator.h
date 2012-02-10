@@ -20,6 +20,8 @@
 #define GENERATOR_H
 
 #include <boost/shared_ptr.hpp>
+#include <boost/random/mersenne_twister.hpp>
+
 #include "vector.h"
 #include "particle.h"
 
@@ -37,11 +39,19 @@ public:
      */
     real particlesSpeed();
 
+    void setPosition(const Vector &position);
+
+    void setParticlesSpeed(real speed);
+    void setGenerationRate(real genRate);
+
     Particle::List generateNewBatch() const;
     
 private:
     real m_particlesSpeed;
+    real m_genRate;
+    Vector m_position;
 
+    boost::random::mt19937 *m_gen;
 };
 
 #endif // GENERATOR_H
