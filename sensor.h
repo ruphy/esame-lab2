@@ -40,7 +40,6 @@ public:
     void setPixelSize(real size);
 
     virtual bool contains(const Vector& point) const;
-    virtual real minimumSize() const;
 
     virtual void tryAbsorb(Particle& particle, real lenght);
 

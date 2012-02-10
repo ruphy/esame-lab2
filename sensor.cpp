@@ -120,14 +120,6 @@ void Sensor::tryAbsorb(Particle& particle, real lenght)
     std::cout << std::endl;
 }
 
-real Sensor::minimumSize() const
-{
-    // Fake a thickness of pixelSize: assume that all pixels are actually
-    // cubical and the particle is revealed when it ends up in there.
-    std::cout << "Sensor thickness is " << m_pixelSize << std::endl;
-    return m_pixelSize;
-}
-
 bool Sensor::contains(const Vector& point) const
 {
     return Box::contains(point);
