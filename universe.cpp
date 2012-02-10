@@ -19,7 +19,14 @@
 
 #include "universe.h"
 
+#include "generator.h"
+#include "obstacle.h"
+#include "sensor.h"
+#include "particle.h"
+
 #include <iostream>
+#include <time.h>
+
 #include <boost/foreach.hpp>
 
 Universe::Universe()
@@ -30,7 +37,7 @@ Universe::Universe()
 
 Universe::~Universe()
 {
-    reset();
+    delete m_entropyGenerator;
 }
 
 void Universe::init()
@@ -63,7 +70,7 @@ void Universe::reset()
 //     m_obstacles.clear();
 //     m_particles.clear();
 //     m_generators.clear();
-    
+    m_entropyGenerator = new boost::random::mt19937(time(0));
     m_stepCount = 0;
     m_deltat = 0;
 }
@@ -138,6 +145,7 @@ void Universe::moveParticle(Particle& particle)
 
 void Universe::addGenerator(Generator::Ptr generator)
 {
+    generator->setEntropyGenerator(m_entropyGenerator);
     m_generators.push_back(generator);
 }
 

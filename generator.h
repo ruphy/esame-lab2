@@ -20,10 +20,10 @@
 #define GENERATOR_H
 
 #include <boost/shared_ptr.hpp>
-#include <boost/random/mersenne_twister.hpp>
 
 #include "vector.h"
 #include "particle.h"
+
 
 class Generator
 {
@@ -47,12 +47,16 @@ public:
     Particle::List generateNewBatch();
     
 private:
+    void setEntropyGenerator(boost::random::mt19937 *gen);
+    
     real m_particlesSpeed;
     real m_genRate;
     Vector m_position;
 
     boost::random::mt19937 *m_gen;
     Particle::List m_list;
+    
+    friend class Universe;
 };
 
 #endif // GENERATOR_H

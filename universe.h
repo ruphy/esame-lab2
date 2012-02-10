@@ -20,10 +20,14 @@
 #define UNIVERSE_H
 
 #include <list>
+
+#include <boost/random/mersenne_twister.hpp>
+
 #include "generator.h"
 #include "obstacle.h"
 #include "sensor.h"
 #include "particle.h"
+
 
 /**
  * This class will take care of automatically deleting any objects that you add to it,
@@ -53,6 +57,9 @@ private:
     
     std::list<Generator::Ptr> m_generators;
     std::list<Obstacle::Ptr> m_obstacles;
+
+
+    boost::random::mt19937 *m_entropyGenerator;
     
     Particle::List m_particles;
 };

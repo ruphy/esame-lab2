@@ -16,20 +16,22 @@
 */
 
 #include <boost/random/uniform_real_distribution.hpp>
+#include <boost/random/mersenne_twister.hpp>
 #include <time.h>
+
 #include "generator.h"
 
 Generator::Generator()
 {
 
-    m_gen = new boost::random::mt19937(time(0));
+//     m_gen = new boost::random::mt19937(time(0));
 //     m_gen.seed(time(0)); //make me a global object?
+    m_gen = 0;
     m_genRate = 0;
 }
 
 Generator::~Generator()
 {
-    delete m_gen;
 }
 
 void Generator::setParticlesSpeed(real speed)
@@ -48,8 +50,17 @@ void Generator::setGenerationRate(real genRate)
     m_genRate = genRate;
 }
 
+void Generator::setEntropyGenerator(boost::random::mt19937* gen)
+{
+    m_gen = gen;
+}
+
 Particle::List Generator::generateNewBatch()
 {
+    if (!m_gen) {
+        std::cerr << "I don't have an entropy generator set! This will crash." << std::endl;
+    }
+
     m_list.clear();
     boost::random::uniform_real_distribution<real> dist(-1.0, 1.0);
     
