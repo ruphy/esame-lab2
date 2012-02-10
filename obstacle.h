@@ -52,11 +52,13 @@ public:
     virtual void setAbsorbingCoefficient(real mu);
     
 protected:
-    void absorb(Particle &p);
+    virtual void absorb(Particle &p);
+    virtual void init() {};
     
     real m_mu;
     boost::random::mt19937 *m_gen;
-    
+
+    friend class Universe;
 };
 
 

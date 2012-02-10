@@ -47,10 +47,9 @@ public:
     void dump() const; // just a debug function
     
 protected:
-    virtual void updateCoordinateSystem();
-
+    virtual void init();
+    
 private:
-    void init();
     void particleDetected(int row, int column);
 
     bool m_alreadyInitd;
@@ -58,7 +57,9 @@ private:
     int m_pixelColumns;
     
     std::vector< std::vector<integer> > m_pixelGrid;
-    
+    real m_pixelWidth;
+    real m_pixelHeight;
+    int counter;
 };
 
 #endif // SENSOR_H

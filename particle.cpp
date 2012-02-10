@@ -21,7 +21,7 @@
 
 Particle::Particle()
 {
-    std::cout << "Creating particle!" << std::endl;
+//     std::cout << "Creating particle!" << std::endl;
     m_alive = true;
     m_position = Vector(0.0, 0.0, 0.0);
     m_source = Vector(0.0, 0.0, 0.0);
@@ -64,9 +64,9 @@ void Particle::absorb()
 
 void Particle::setSource(const Vector& source)
 {
-    std::cout << "Setting the source to" << std::endl;
-    source.dump();
-    std::cout << std::endl;
+//     std::cout << "Setting the source to" << std::endl;
+//     source.dump();
+//     std::cout << std::endl;
     m_source = source;
 //     if (m_position) {
 //         delete m_position;

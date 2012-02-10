@@ -23,6 +23,12 @@ Box::Box()
     m_minimumSize = 0;
 }
 
+void Box::init()
+{
+    Obstacle::init();
+    updateCoordinateSystem();
+}
+
 bool Box::contains(const Vector& point) const
 {
     real dist = getPointDistance(point);
@@ -35,11 +41,10 @@ bool Box::contains(const Vector& point) const
 //         std::cout << "Too far away from this box: " << dist << std::endl;
         return false;
     } else {
-        std::cout << "Point is inside the box. Distance: " << dist << std::endl;
+//         std::cout << "Point is inside the box. Distance: " << dist << std::endl;
         return true;
     }
 }
-
 real Box::getPointDistance(const Vector& point) const
 {
     return Vector::dot(m_en, point) + m_p; // TODO update coordinate system if needed.
@@ -53,6 +58,7 @@ real Box::minimumSize() const
 void Box::setThickness(real thickness)
 {
     m_thickness = thickness;
+//     updateCoordinateSystem();
 }
 
 real Box::thickness() const
@@ -68,19 +74,19 @@ void Box::tryAbsorb(Particle& particle, real lenght)
 void Box::setTopLeft(const Vector& topLeft)
 {
     m_topLeft = topLeft;
-    updateCoordinateSystem();
+//     updateCoordinateSystem();
 }
 
 void Box::setBottomLeft(const Vector& bottomLeft)
 {
     m_bottomLeft = bottomLeft;
-    updateCoordinateSystem();
+//     updateCoordinateSystem();
 }
 
 void Box::setTopRight(const Vector& topRight)
 {
     m_topRight = topRight;
-    updateCoordinateSystem();
+//     updateCoordinateSystem();
 }
 
 Vector Box::topLeft() const
@@ -108,14 +114,17 @@ void Box::updateCoordinateSystem()
 
     m_p = -1*Vector::dot(Vector::cross(m_e1, m_e2), m_topLeft);
 
-//     std::cout << "-- Coordinate system --" << std::endl;
-//     std::cout << "Normal = "; m_en.dump();
-//     std::cout << "e1 = "; m_e1.dump();
-//     std::cout << "e2 = "; m_e2.dump();
-//     std::cout << "p = " << m_p << std::endl;
-//     std::cout << "e1 x e2 = "; Vector::cross(m_e1, m_e2).dump();
-//     std::cout << "m_topLeft = "; m_topLeft.dump();
-
+    std::cout << std::endl;
+    std::cout << "-- Coordinate system --" << std::endl;
+    std::cout << "m_topLeft = "; m_topLeft.dump();
+    std::cout << "e1 = "; m_e1.dump();
+    std::cout << "e2 = "; m_e2.dump();
+    std::cout << "e1 x e2 = "; Vector::cross(m_e1, m_e2).dump();
+    std::cout << "Normal (normalized) = "; m_en.dump();
+    std::cout << "p = " << m_p << std::endl;
+    std::cout << "-- --" << std::endl;
+    std::cout << std::endl;
+    
     if(m_e1.abs() > m_e2.abs()) {
         if (m_e2.abs() > m_thickness) {
             m_minimumSize = m_thickness;

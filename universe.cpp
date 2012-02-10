@@ -42,6 +42,12 @@ Universe::~Universe()
 
 void Universe::init()
 {
+    // Init all the obstacles
+    foreach(const Obstacle::Ptr obstacle, m_obstacles) {
+        obstacle->init();
+        std::cout << "Min size: "<< obstacle->minimumSize() << std::endl;
+    }
+    
     // Determine the smallest deltat
 
     real smallestWidth = m_obstacles.front()->minimumSize();
@@ -63,6 +69,7 @@ void Universe::init()
     m_deltat *= 0.9; // make it a wee little bit smaller
     
     // TODO: kill all particles that travel past the last sensor.
+
 }
 
 void Universe::reset()
@@ -135,7 +142,7 @@ void Universe::moveParticle(Particle& particle)
     
     particle.move(m_deltat);
     Vector newPos = particle.position();
-    
+//     newPos.dump();
     foreach(const Obstacle::Ptr obstacle, m_obstacles) {
         if (obstacle->contains(newPos)) {
             obstacle->tryAbsorb(particle, deltax.abs());

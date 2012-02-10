@@ -31,6 +31,7 @@ Sensor::Sensor()
     m_pixelRows = 1;
     m_pixelColumns = 1;
     m_alreadyInitd = false;
+    counter = 0;
 }
 
 Sensor::~Sensor()
@@ -40,15 +41,7 @@ void Sensor::setPixelColumns(int columns)
 {
     m_pixelColumns = columns;
     updateCoordinateSystem();
-}
 
-void Sensor::updateCoordinateSystem()
-{
-    Box::updateCoordinateSystem();
-    real size1 = m_e1.abs()/m_pixelRows;
-    real size2 = m_e2.abs()/m_pixelColumns;
-//     std::cout << "UPDATE" << size2 << "   ";
-    (size1 < size2) ? setThickness(size1) : setThickness(size2);
 }
 
 void Sensor::setPixelRows(int rows)
@@ -62,18 +55,23 @@ void Sensor::init()
     if (m_alreadyInitd) {
         return;
     }
-    m_alreadyInitd = true;
-    
-    // Ensure we always have enough pixels
-    int rows = floor((m_topLeft-m_bottomLeft).abs()) + 1;
-    int columns = floor((m_topLeft-m_topRight).abs()) + 1;
+    Box::updateCoordinateSystem(); // TODO move teh already inited logic in Obstacle.
 
-    std::cout << "Total computed rows: " << rows << std::endl;
-    std::cout << "Total computed cols: " << columns << std::endl;
+    m_alreadyInitd = true;
+
+    m_pixelHeight = (m_e1.abs()/m_pixelRows);
+    m_pixelWidth = (m_e2.abs()/m_pixelColumns);
+    // Fake a thickness
+    (m_pixelHeight < m_pixelWidth) ? setThickness(m_pixelHeight) : setThickness(m_pixelWidth);
+
+    std::cout << "Pixel Height: " << m_pixelHeight << std::endl;
+
+    std::cout << "Total computed rows: " << m_pixelRows << std::endl;
+    std::cout << "Total computed cols: " << m_pixelColumns << std::endl;
 
     std::vector<integer> tempVector;
-    tempVector.resize(columns, 0);
-    m_pixelGrid.resize(rows, tempVector);
+    tempVector.resize(m_pixelColumns, 0);
+    m_pixelGrid.resize(m_pixelRows, tempVector);
 }
 
 
@@ -82,6 +80,7 @@ void Sensor::particleDetected(int row, int column)
 {
     std::cout << "Particle detected at " << row << " x " << column << std::endl;
     m_pixelGrid.at(row).at(column) += 1;
+    counter++;
 }
 
 void Sensor::dump() const
@@ -93,6 +92,7 @@ void Sensor::dump() const
         }
         std::cout << std::endl;
     }
+    std::cout << "Total particles seen: " << counter << std::endl;
 }
 
 void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
@@ -100,11 +100,11 @@ void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
     if(!m_alreadyInitd) {
         init();
     }
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << "Sensor HIT!" << std::endl;
 
-    std::cout << "Got a particle with posistion: ";
+//     std::cout << std::endl;
+//     std::cout << std::endl;
+//     std::cout << "Sensor HIT!" << std::endl;
+//     std::cout << "Got a particle with posistion: ";
     particle.position().dump();
 
     // This particle will stop here.
@@ -117,31 +117,20 @@ void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
     // Calculate the vector from the "origin" of the plane
     Vector proj = newPos - m_topLeft;
 
-    proj.dump();
-    m_e1.dump();
-    m_e2.dump();
-    Vector e1_n = m_e1;
-    Vector e2_n = m_e2;
-//     e1_n.normalize();
-//     real totPixels = m_e1.abs()/m_pixelSize;
-//     e2_n.normalize();
-    
     // Project the lenght of this last vector on the two plane axes
-    real e1_len = fabs(Vector::dot(proj, e1_n))/e1_n.abs();
-    real e2_len = fabs(Vector::dot(proj, e2_n))/e2_n.abs();
+    real e1_len = fabs(Vector::dot(proj, m_e1))/m_e1.abs();
+    real e2_len = fabs(Vector::dot(proj, m_e2))/m_e2.abs();
 
-    std::cout << "Trying to assign a particle to a pixel:" << std::endl;
-    std::cout << "e1_len = " << e1_len << std::endl;
-    std::cout << "e2_len = " << e2_len << std::endl;
+//     std::cout << "Trying to assign a particle to a pixel:" << std::endl;
+//     std::cout << "e1_len = " << e1_len << std::endl;
+//     std::cout << "e2_len = " << e2_len << std::endl;
 
-    real pixelHeight = (m_e1.abs()/m_pixelRows);
-    real pixelWidth = (m_e2.abs()/m_pixelColumns);
-    int row = floor(e1_len/pixelHeight);
-    int column = floor(e2_len/pixelWidth);
+    int row = floor(e1_len/m_pixelHeight);
+    int column = floor(e2_len/m_pixelWidth);
     particleDetected(row, column);
 
-    std::cout << std::endl;
-    std::cout << std::endl;
+//     std::cout << std::endl;
+//     std::cout << std::endl;
 }
 
 bool Sensor::contains(const Vector& point) const

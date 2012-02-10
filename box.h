@@ -53,21 +53,20 @@ public:
     Vector topRight() const;
     Vector bottomLeft() const;
 
-    real thickness() const;
 
     void setTopLeft(const Vector &topLeft);
     void setBottomLeft(const Vector &bottomLeft);
     void setTopRight(const Vector &topRight);
 
+protected:
+    real thickness() const;
     void setThickness(real thickness);
 
-protected:
     virtual void updateCoordinateSystem();
+    virtual void init();
 
     real getPointDistance(const Vector &point) const;
 
-    real m_thickness;
-    real m_minimumSize;
     Vector m_topLeft;
     Vector m_topRight;
     Vector m_bottomLeft;
@@ -84,6 +83,11 @@ protected:
 
     // Plane specification: p = normal dot center
     real m_p;
+
+private:
+    real m_thickness;
+    real m_minimumSize;
+
 };
 
 #endif // BOX_H
