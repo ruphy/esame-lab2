@@ -32,14 +32,13 @@ Sensor::Sensor()
 }
 
 Sensor::~Sensor()
-{
-
-}
+{}
 
 
 void Sensor::setPixelSize(real size)
 {
     m_pixelSize = size;
+    setThickness(size);
     updateCoordinateSystem();
 }
 
@@ -131,7 +130,7 @@ real Sensor::minimumSize() const
 
 bool Sensor::contains(const Vector& point) const
 {
-
+    return Box::contains(point);
 }
 
 
