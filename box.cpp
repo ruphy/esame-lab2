@@ -18,6 +18,12 @@
 
 #include "box.h"
 
+Box::Box()
+{
+    Obstacle();
+    m_minimumSize = 0;
+}
+
 bool Box::contains(const Vector& point) const
 {
     // The point is contained if the distance between the plane that
@@ -25,27 +31,27 @@ bool Box::contains(const Vector& point) const
     real dist = Vector::dot(m_en, point) + m_p;
 
     if (dist > minimumSize()) {
-        std::cout << "Too far away from this box: " << dist << std::endl;
+        std::cerr << "Too far away from this box: " << dist << std::endl;
         return false;
     } else {
-        std::cout << "Point is inside. Distance: " << dist << std::endl;
+        std::cerr << "Point is inside the box. Distance: " << dist << std::endl;
         return true;
     }
 }
 
 real Box::minimumSize() const
 {
-
+    return m_minimumSize;
 }
 
 void Box::setThickness(real thickness)
 {
-
+    m_thickness = thickness;
 }
 
 real Box::thickness() const
 {
-
+    return m_thickness;
 }
 
 void Box::tryAbsorb(Particle& particle, real lenght)
@@ -105,6 +111,19 @@ void Box::updateCoordinateSystem()
 //     std::cout << "e1 x e2 = "; Vector::cross(m_e1, m_e2).dump();
 //     std::cout << "m_topLeft = "; m_topLeft.dump();
 
+    if(m_e1.abs() > m_e2.abs()) {
+        if (m_e2.abs() > m_thickness) {
+            m_minimumSize = m_thickness;
+        } else {
+            m_minimumSize = m_e2.abs();
+        }
+    } else {
+        if (m_e1.abs() > m_thickness) {
+            m_minimumSize = m_thickness;
+        } else {
+            m_minimumSize = m_e1.abs();
+        }
+    }
 }
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0; indent-width 4;

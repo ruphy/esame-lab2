@@ -37,7 +37,14 @@ class Box : public Obstacle
 {
 
 public:
+    Box();
+
     virtual bool contains(const Vector& point) const;
+
+    /**
+     * This function actively checks what side is smaller, and tries to
+     * cache that result.
+     */
     virtual real minimumSize() const;
     virtual void tryAbsorb(Particle& particle, real lenght);
 
@@ -58,10 +65,11 @@ protected:
     void updateCoordinateSystem();
 
     real m_thickness;
+    real m_minimumSize;
     Vector m_topLeft;
     Vector m_topRight;
     Vector m_bottomLeft;
-    
+
     // Orthonormal destrorse coordinate system:
     // m_e1 x m_e2 = m_en
     // m_e2 x m_en = m_e1
