@@ -55,8 +55,9 @@ void Sensor::init()
     if (m_alreadyInitd) {
         return;
     }
-    Box::updateCoordinateSystem(); // TODO move teh already inited logic in Obstacle.
+    Box::updateCoordinateSystem(); // TODO move the "already inited" logic in Obstacle.
 
+    
     m_alreadyInitd = true;
 
     m_pixelHeight = (m_e1.abs()/m_pixelRows);
@@ -65,10 +66,14 @@ void Sensor::init()
     (m_pixelHeight < m_pixelWidth) ? setThickness(m_pixelHeight) : setThickness(m_pixelWidth);
 
     std::cout << "Pixel Height: " << m_pixelHeight << std::endl;
+    std::cout << "Pixel Width: " << m_pixelWidth << std::endl;
 
     std::cout << "Total computed rows: " << m_pixelRows << std::endl;
     std::cout << "Total computed cols: " << m_pixelColumns << std::endl;
 
+    Box::updateCoordinateSystem(); // TODO move the "already inited" logic in Obstacle.
+
+    
     std::vector<integer> tempVector;
     tempVector.resize(m_pixelColumns, 0);
     m_pixelGrid.resize(m_pixelRows, tempVector);
@@ -80,7 +85,7 @@ void Sensor::particleDetected(int row, int column)
 {
     std::cout << "Particle detected at " << row << " x " << column << std::endl;
     m_pixelGrid.at(row).at(column) += 1;
-    counter++;
+//     counter++;
 }
 
 void Sensor::dump() const
@@ -92,7 +97,7 @@ void Sensor::dump() const
         }
         std::cout << std::endl;
     }
-    std::cout << "Total particles seen: " << counter << std::endl;
+//     std::cout << "Total particles seen: " << counter << std::endl;
 }
 
 void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME

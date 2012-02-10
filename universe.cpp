@@ -67,7 +67,9 @@ void Universe::init()
 
     m_deltat = smallestWidth / fastestSpeed;
     m_deltat *= 0.9; // make it a wee little bit smaller
-    
+
+    std::cout << "calculated deltat: " << m_deltat << std::endl;
+
     // TODO: kill all particles that travel past the last sensor.
 
 }

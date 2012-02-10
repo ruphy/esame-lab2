@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     
     g->setGenerationRate(500);
     g->setParticlesSpeed(50);
-    g->setPosition(Vector(2.0, 0.0, 0.0));
+    g->setPosition(Vector(1.0, 0.0, 0.0));
     
     u.addGenerator(g);
     u.addSensor(s);
