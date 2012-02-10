@@ -36,38 +36,6 @@ Sensor::~Sensor()
 
 }
 
-void Sensor::setTopLeft(const Vector& topLeft)
-{
-    m_topLeft = topLeft;
-    updateCoordinateSystem();
-}
-
-void Sensor::setBottomLeft(const Vector& bottomLeft)
-{
-    m_bottomLeft = bottomLeft;
-    updateCoordinateSystem();
-}
-
-void Sensor::setTopRight(const Vector& topRight)
-{
-    m_topRight = topRight;
-    updateCoordinateSystem();
-}
-
-Vector Sensor::topLeft() const
-{
-    return m_topLeft;
-}
-
-Vector Sensor::bottomLeft() const
-{
-    return m_bottomLeft;
-}
-
-Vector Sensor::topRight() const
-{
-    return m_topRight;
-}
 
 void Sensor::setPixelSize(real size)
 {
@@ -94,28 +62,7 @@ void Sensor::init()
     m_pixelGrid.resize(rows, tempVector);
 }
 
-void Sensor::updateCoordinateSystem()
-{
-    m_e1 = m_topLeft-m_bottomLeft;
-    m_e2 = m_topLeft-m_topRight;
-    
-    // I need to calculate m_p before the vectors are normalized.
-    m_p = -1*Vector::dot(Vector::cross(m_e1, m_e2), m_topLeft);
-    
-//     m_e1.normalize();
-//     m_e2.normalize();
-    m_en = Vector::cross(m_e1, m_e2);
-    m_en.normalize();
 
-//     std::cout << "-- Coordinate system --" << std::endl;
-//     std::cout << "Normal = "; m_en.dump();
-//     std::cout << "e1 = "; m_e1.dump();
-//     std::cout << "e2 = "; m_e2.dump();
-//     std::cout << "p = " << m_p << std::endl;
-//     std::cout << "e1 x e2 = "; Vector::cross(m_e1, m_e2).dump();
-//     std::cout << "m_topLeft = "; m_topLeft.dump();
-    
-}
 
 void Sensor::particleDetected(int row, int column)
 {

@@ -29,6 +29,36 @@ public:
     virtual bool contains(const Vector& point) const;
     virtual real minimumSize() const;
     virtual void tryAbsorb(Particle& particle, real lenght);
+
+
+    Vector topLeft() const;
+    Vector topRight() const;
+    Vector bottomLeft() const;
+
+    void setTopLeft(const Vector &topLeft);
+    void setBottomLeft(const Vector &bottomLeft);
+    void setTopRight(const Vector &topRight);
+
+protected:
+    void updateCoordinateSystem();
+
+
+    Vector m_topLeft;
+    Vector m_topRight;
+    Vector m_bottomLeft;
+    
+    // Orthonormal destrorse coordinate system:
+    // m_e1 x m_e2 = m_en
+    // m_e2 x m_en = m_e1
+    //
+    // m_e1 and m_e2 are on the plane
+    // m_en is normal to the plane
+    Vector m_e1;
+    Vector m_e2;
+    Vector m_en;
+
+    // Plane specification: p = normal dot center
+    real m_p;
 };
 
 #endif // BOX_H

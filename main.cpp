@@ -2,9 +2,8 @@
 #include <iostream>
 
 #include "universe.h"
-#include "sensor.h"
-#include "generator.h"
-// #include ""
+
+
 int main(int argc, char **argv)
 {
     Universe u;

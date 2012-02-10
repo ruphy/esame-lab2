@@ -32,7 +32,6 @@
 
 class Generator
 {
-
 public:
     typedef boost::shared_ptr<Generator> Ptr;
 

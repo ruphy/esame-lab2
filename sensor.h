@@ -19,7 +19,7 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#include "obstacle.h"
+#include "box.h"
 
 #include <vector>
 
@@ -28,7 +28,7 @@
  * normal (for orientation) and center.
  */
 
-class Sensor : public Obstacle
+class Sensor : public Box
 {
 
 public:
@@ -37,14 +37,6 @@ public:
     Sensor();
     virtual ~Sensor();
 
-    Vector topLeft() const;
-    Vector topRight() const;
-    Vector bottomLeft() const;
-    
-    void setTopLeft(const Vector &topLeft);
-    void setBottomLeft(const Vector &bottomLeft);
-    void setTopRight(const Vector &topRight);
-    
     void setPixelSize(real size);
 
     virtual bool contains(const Vector& point) const;
@@ -55,29 +47,12 @@ public:
     void dump() const; // just a debug function
 private:
     void init();
-    void updateCoordinateSystem();
     void particleDetected(int row, int column);
 
     bool m_alreadyInitd;
     real m_pixelSize;
     std::vector< std::vector<integer> > m_pixelGrid;
     
-    // Orthonormal destrorse coordinate system:
-    // m_e1 x m_e2 = m_en
-    // m_e2 x m_en = m_e1
-    //
-    // m_e1 and m_e2 are on the plane
-    // m_en is normal to the plane
-    Vector m_e1;
-    Vector m_e2;
-    Vector m_en;
-
-    Vector m_topLeft;
-    Vector m_topRight;
-    Vector m_bottomLeft;
-
-    // Plane specification: p = normal dot center
-    real m_p;
 };
 
 #endif // SENSOR_H
