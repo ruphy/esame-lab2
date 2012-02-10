@@ -107,4 +107,4 @@ void Box::updateCoordinateSystem()
 
 }
 
-// kate: indent-mode cstyle; space-indent on; indent-width 0; 
+// kate: indent-mode cstyle; space-indent on; indent-width 0; indent-width 4;
