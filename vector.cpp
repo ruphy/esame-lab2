@@ -84,7 +84,7 @@ Vector Vector::cross(const Vector& a, const Vector& b)
 
 real Vector::dot(const Vector& a, const Vector& b)
 {
-    return a.m_x*b.m_x + a.m_x*b.m_y + a.m_z*b.m_z;
+    return a.m_x*b.m_x + a.m_y*b.m_y + a.m_z*b.m_z;
 }
 
 real Vector::abs()
