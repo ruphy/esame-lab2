@@ -102,10 +102,10 @@ void Sensor::updateCoordinateSystem()
     // I need to calculate m_p before the vectors are normalized.
     m_p = -1*Vector::dot(Vector::cross(m_e1, m_e2), m_topLeft);
     
-    m_e1.normalize();
-    m_e2.normalize();
+//     m_e1.normalize();
+//     m_e2.normalize();
     m_en = Vector::cross(m_e1, m_e2);
-
+    m_en.normalize();
 
 //     std::cout << "-- Coordinate system --" << std::endl;
 //     std::cout << "Normal = "; m_en.dump();

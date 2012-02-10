@@ -15,9 +15,9 @@ int main(int argc, char **argv)
     s->setTopRight(Vector(0.0, 10.0, 10.0));
     s->setBottomLeft(Vector(0.0, -10.0, -10.0));
 
-    g->setGenerationRate(5);
+    g->setGenerationRate(200);
     g->setParticlesSpeed(0.5);
-    g->setPosition(Vector(0.0, 0.0, 0));
+    g->setPosition(Vector(1.0, 0.0, 0));
     
     u.addGenerator(g);
     u.addSensor(s);
