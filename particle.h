@@ -71,7 +71,7 @@ private:
     
     bool m_alive;
     Vector m_speed;
-    Vector *m_position;
+    Vector m_position;
     Vector m_source;
     
     friend class Generator;

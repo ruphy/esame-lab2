@@ -23,22 +23,22 @@ Particle::Particle()
 {
     std::cout << "Creating particle!" << std::endl;
     m_alive = true;
-    m_position = new Vector(0.0, 0.0, 0.0);
+    m_position = Vector(0.0, 0.0, 0.0);
     m_source = Vector(0.0, 0.0, 0.0);
 }
 
 Particle::~Particle()
 {
-    if (m_position) {
-        delete m_position;
-    }
+//     if (m_position) {
+//         delete m_position;
+//     }
 }
 
 Particle::Particle(const Particle& other)
 {
     m_speed = other.m_speed;
     m_alive = other.m_alive;
-    m_position = new Vector(*other.m_position);
+    m_position = other.m_position;
     m_source = other.m_source;
 }
 
@@ -68,10 +68,10 @@ void Particle::setSource(const Vector& source)
     source.dump();
     std::cout << std::endl;
     m_source = source;
-    if (m_position) {
-        delete m_position;
-    }
-    m_position = new Vector(m_source);
+//     if (m_position) {
+//         delete m_position;
+//     }
+    m_position = m_source;
 }
 
 void Particle::setSpeed(const Vector& speed)
@@ -85,16 +85,16 @@ void Particle::move(real deltat)
     std::cout << "My speed is: ";
     m_speed.dump();
     std::cout << "My old position: ";
-    m_position->dump();
-    real newx = m_speed.x()*deltat;
-    m_position->setX(m_position->x()+newx);
+    m_position.dump();
+    m_position = m_position + m_speed*deltat;
+//     m_position->setX(m_position->x()+newx);
     std::cout << "My new position: ";
-    m_position->dump();
+    m_position.dump();
 }
 
 Vector Particle::position() const
 {
-    return Vector(*m_position);
+    return m_position;
 }
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

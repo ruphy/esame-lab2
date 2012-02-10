@@ -10,13 +10,13 @@ int main(int argc, char **argv)
     Sensor::Ptr s(new Sensor);
     Generator::Ptr g(new Generator);
 
-    s->setPixelSize(0.20);
+    s->setPixelSize(0.80);
     s->setTopLeft(Vector(0.0, -1.0, 1.0));
     s->setBottomLeft(Vector(0.0, -1.0, -1.0));
     s->setTopRight(Vector(0.0, 1.0, 1.0));
 
     g->setGenerationRate(1);
-    g->setParticlesSpeed(0.5);
+    g->setParticlesSpeed(2.0);
     g->setPosition(Vector(1.0, 0.0, 0.0));
     
     u.addGenerator(g);

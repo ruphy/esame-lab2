@@ -96,20 +96,23 @@ void Universe::nextBatch()
     while (!m_particles.empty()) {
 
         // HACK TERMINATE FOR NOW
-        if (m_stepCount > 3) {
+        if (m_stepCount > 5) {
 //             reset();
             return;
         }
         m_stepCount++;
-        for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); it++) {
+        for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); ++it) {
 
-            Particle p = *it;
+//             Particle p = *it;
+//             printf("%p", it);
             // (*it) is the current particle
-            moveParticle(p);
+            if ((*it).alive()) {
+                moveParticle(*it);
+            }
 
-            if(!p.alive()) {
+            if(!(*it).alive()) {
                 std::cout << "Deleting a particle" << std::endl;
-                m_particles.erase(it);
+                it = m_particles.erase(it);
             }
         }
     }
@@ -117,6 +120,7 @@ void Universe::nextBatch()
 
 void Universe::moveParticle(Particle& particle)
 {
+//             p.move(m_deltat);
 //     particle.speed().dump();
 //     std::cout << "move particle with above speed of this deltax" << std::endl;
     Vector deltax = particle.speed()*m_deltat;
