@@ -21,8 +21,9 @@
 #include <math.h>
 #include <boost/random/uniform_real_distribution.hpp>
 
-Obstacle::Obstacle()
+Obstacle::Obstacle(std::string name)
 {
+    m_name = name;
     m_gen = 0;
 }
 

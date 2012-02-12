@@ -11,9 +11,10 @@ int main(int argc, char **argv)
     Sensor::Ptr s(new Sensor);
 //     Sensor::Ptr s2(new Sensor);
     Generator::Ptr g(new Generator);
+    Generator::Ptr g2(new Generator);
 
-    s->setPixelRows(20);
-    s->setPixelColumns(20);
+    s->setPixelRows(1);
+    s->setPixelColumns(1);
     s->setTopLeft(Vector(0.0, -10.0, 10.0));
     s->setTopRight(Vector(0.0, 10.0, 10.0));
     s->setBottomLeft(Vector(0.0, -10.0, -10.0));
@@ -25,10 +26,16 @@ int main(int argc, char **argv)
 //     s2->setBottomLeft(Vector(5.0, -10.0, -10.0));
     
     g->setGenerationRate(500);
-    g->setParticlesSpeed(50);
-    g->setPosition(Vector(1.0, 0.0, 0.0));
+    g->setParticlesSpeed(5);
+    g->setPosition(Vector(23.0, 0.0, 0.0));
+
+
+    g2->setGenerationRate(500);
+    g2->setParticlesSpeed(5);
+    g2->setPosition(Vector(1.0, 0.0, 5.0));
     
     u.addGenerator(g);
+//     u.addGenerator(g2);
     u.addSensor(s);
 //     u.addSensor(s2);
 

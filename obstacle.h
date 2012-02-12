@@ -35,7 +35,7 @@ class Obstacle
 {
 public:
     typedef boost::shared_ptr<Obstacle> Ptr;
-    Obstacle();
+    Obstacle(std::string name = "");
 
     /**
      * Returns the lenght of the minimum segment intersecting this object
@@ -57,6 +57,8 @@ protected:
     
     real m_mu;
     boost::random::mt19937 *m_gen;
+
+    std::string m_name;
 
     friend class Universe;
 };
