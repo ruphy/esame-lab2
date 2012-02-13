@@ -31,13 +31,20 @@ void Box::init()
 
 bool Box::contains(const Vector& point) const
 {
-    real dist = getPointDistance(m_en, point);
+    // The point is in this box means evaluating those three distances.
+    // For how the axes are oriented, if the point is in the box
+    // the first one should be a non positive number, the other two
+    // should be non negative.
+    real t_dist = -1*getPointDistance(m_en, point);
+    real h_dist = getPointDistance(m_e1, point);
+    real w_dist = getPointDistance(m_e2, point);
 
-    if (dist > 0) {
+    // Note: we multiplied t_dist by -1 to allow for a more consistent method.
+    if (t_dist < 0 or h_dist < 0 or w_dist < 0) {
         return false;
     }
 
-    if (dist < -minimumSize()) {
+    if (t_dist > thickness() or h_dist > m_e1.abs() or w_dist > m_e2.abs()) {
 //         std::cout << "Too far away from this box: " << dist << std::endl;
         return false;
     } else {
@@ -45,9 +52,12 @@ bool Box::contains(const Vector& point) const
         return true;
     }
 }
+
 real Box::getPointDistance(const Vector &normal, const Vector& point) const
 {
-    return Vector::dot(normal.normalized(), point) + m_p; // TODO update coordinate system if needed.
+    real p = -1*Vector::dot(normal.normalized(), m_topLeft);
+
+    return Vector::dot(normal.normalized(), point) + p; // TODO update coordinate system if needed.
 }
 
 real Box::minimumSize() const
@@ -108,10 +118,7 @@ void Box::updateCoordinateSystem()
 {
     m_e1 = m_bottomLeft-m_topLeft;
     m_e2 = m_topRight-m_topLeft;
-
     m_en = Vector::cross(m_e1, m_e2).normalized();
-
-    m_p = -1*Vector::dot(Vector::cross(m_e1, m_e2), m_topLeft);
 
     std::cout << std::endl;
     std::cout << "-- Coordinate system --" << std::endl;
@@ -120,11 +127,10 @@ void Box::updateCoordinateSystem()
     std::cout << "e2 = "; m_e2.dump();
     std::cout << "e1 x e2 = "; Vector::cross(m_e1, m_e2).dump();
     std::cout << "Normal (normalized) = "; m_en.dump();
-    std::cout << "p = " << m_p << std::endl;
     std::cout << "thickness = " << m_thickness << std::endl;
     std::cout << "-- --" << std::endl;
     std::cout << std::endl;
-    
+
     if(m_e1.abs() > m_e2.abs()) {
         if (m_e2.abs() > m_thickness) {
             m_minimumSize = m_thickness;
