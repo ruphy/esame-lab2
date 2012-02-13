@@ -85,10 +85,7 @@ void Universe::init()
 
 void Universe::reset()
 {
-//     m_obstacles.clear();
-//     m_particles.clear();
-//     m_generators.clear();
-    m_entropyGenerator = new boost::random::mt19937(time(0));
+    m_entropyGenerator = new boost::random::mt19937(time(0) + getpid());
     m_stepCount = 0;
     m_deltat = 0;
 }
@@ -110,27 +107,14 @@ void Universe::nextBatch()
         // Add newly generated particles to our list
         Particle::List newList = generator->generateNewBatch();
 
-//         std::cout << "ROW  " << std::endl;
-//         newList.front().speed().dump();
-        
         if(!newList.empty()) {
             m_particles.splice(m_particles.end(), newList);
         }
     }
 
     while (!m_particles.empty()) {
-
-        // HACK TERMINATE FOR NOW
-//         if (m_stepCount > 4) {
-//             reset();
-//             return;
-//         }
         m_stepCount++;
         for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); ++it) {
-
-//             Particle p = *it;
-//             printf("%p", it);
-            // (*it) is the current particle
             if ((*it).alive()) {
                 moveParticle(*it);
             }
@@ -169,9 +153,9 @@ void Universe::moveParticle(Particle& particle)
         if (obstacle->contains(newPos)) {
             obstacle->tryAbsorb(particle, deltax.abs());
         }
-        if (!particle.alive()) {
-            break; // Avoid absorbing a particle multiple times? how do you handle colliding objects?
-        }
+//         if (!particle.alive()) {
+//             break; // Avoid absorbing a particle multiple times? how do you handle colliding objects?
+//         }
     }
 }
 
