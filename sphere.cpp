@@ -17,14 +17,48 @@
 
 
 #include "sphere.h"
+#include "vector.h"
+
+Sphere::Sphere(std::string name)
+ : Obstacle(name)
+{
+    m_accuracy = 0.01;
+}
+
+real Sphere::accuracy() const
+{
+    return m_accuracy;
+}
+
+void Sphere::setAccuracy(real accuracy)
+{
+    m_accuracy = accuracy;
+}
 
 bool Sphere::contains(const Vector& point) const
 {
-
+    Vector t_point = point - m_center;
+    if (t_point.abs() < m_radius) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 real Sphere::minimumSize() const
 {
-
+    return m_accuracy*m_radius;
 }
 
+void Sphere::setCenter(const Vector& center)
+{
+    m_center = center;
+}
+
+void Sphere::setRadius(real radius)
+{
+    m_radius = radius;
+}
+
+
+// kate: indent-mode cstyle; space-indent on; indent-width 0; 

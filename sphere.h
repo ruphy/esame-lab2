@@ -24,10 +24,36 @@
 
 class Sphere : public Obstacle
 {
-
 public:
+    Sphere(std::string name = "");
+
     virtual bool contains(const Vector& point) const;
     virtual real minimumSize() const;
+
+    void setRadius(real radius);
+    void setCenter(const Vector& center);
+
+    /**
+     * This number controls the accuracy of the simulation.
+     *
+     * It is used to determine the smallest width of this sphere
+     * when a particle passes through it, calculated as radius*accuracy;
+     *
+     * Accuracy must be a real number smaller or equal to 1 and
+     * greater than 0, where 0 means perfect accuracy and 1
+     * the worse accuracy (it's mostly a cube).
+     *
+     * Note: setting accuracy to 0 will probably crash the program.
+     *
+     * Default value: 0.01.
+     */
+    void setAccuracy(real accuracy);
+    real accuracy() const;
+    
+private:
+    Vector m_center;
+    real m_radius;
+    real m_accuracy;
 };
 
 #endif // SPHERE_H
