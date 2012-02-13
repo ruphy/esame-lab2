@@ -9,6 +9,7 @@ set(esame_src
     universe.cpp
     vector.cpp
     sensor.cpp
+    sphere.cpp
     )
 
 add_executable(esame-lab2 ${esame_src})

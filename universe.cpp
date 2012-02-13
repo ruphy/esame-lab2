@@ -42,6 +42,11 @@ Universe::~Universe()
     delete m_entropyGenerator;
 }
 
+void Universe::setAccuracy(real accuracy)
+{
+    m_accuracy = accuracy;
+}
+
 void Universe::init()
 {
     if (m_boundary == 0) {
@@ -77,10 +82,6 @@ void Universe::init()
     std::cout << "calculated deltat: " << m_deltat << std::endl;
 }
 
-void Universe::setAccuracy(real accuracy)
-{
-    m_accuracy = accuracy;
-}
 
 void Universe::reset()
 {
