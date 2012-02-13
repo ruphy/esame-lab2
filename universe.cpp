@@ -137,15 +137,13 @@ void Universe::setUniverseBoundaries(real boundary)
 
 void Universe::moveParticle(Particle& particle)
 {
-//     particle.speed().dump();
-//     std::cout << "move particle with above speed of this deltax" << std::endl;
     if (particle.position().abs() > m_boundary) {
-        particle.absorb();
+        particle.absorb(); // Kill the particle
+        return;
     }
-    
+
     Vector deltax = particle.speed()*m_deltat;
-//     deltax.dump();
-    
+
     particle.move(m_deltat);
     Vector newPos = particle.position();
 //     newPos.dump();
