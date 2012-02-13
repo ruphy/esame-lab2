@@ -14,10 +14,12 @@ set(esame_src
     )
 
 find_package(Boost REQUIRED)
-find_package(PythonLibs REQUIRED)
+find_package(PythonLibs)
 
-IF(Boost_FOUND)
-  INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}" "${PYTHON_INCLUDE_DIRS}")
+INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}")
+
+IF(Python_FOUND)
+INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}" "${PYTHON_INCLUDE_DIRS}")
   SET(Boost_USE_STATIC_LIBS OFF)
   SET(Boost_USE_MULTITHREADED ON)
   SET(Boost_USE_STATIC_RUNTIME OFF)

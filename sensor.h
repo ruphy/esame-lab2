@@ -38,7 +38,9 @@ public:
     virtual ~Sensor();
 
     void setPixelRows(int rows);
+    int pixelRows() {return m_pixelRows;};
     void setPixelColumns(int columns);
+    int pixelColumns() {return m_pixelColumns; };
 
     virtual bool contains(const Vector& point) const;
 
