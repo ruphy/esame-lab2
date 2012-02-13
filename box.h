@@ -73,18 +73,28 @@ protected:
     Vector m_topRight;
     Vector m_bottomLeft;
 
-    // Orthonormal destrorse coordinate system:
-    // m_e1 x m_e2 = m_en
-    // m_e2 x m_en = m_e1
-    //
-    // m_e1 and m_e2 are on the plane
-    // m_en is normal to the plane
+    /**
+     * m_e1 = m_bottomLeft-m_topLeft.
+     *
+     * Part of the orthogonal coordinate system of the box.
+     */
     Vector m_e1;
+    /**
+     * m_e2 = m_topRight-m_topLeft.
+     *
+     * Part of the orthogonal coordinate system of the box.
+     */
     Vector m_e2;
+    
+    /**
+     * m_en is automatically calculated and normalized.
+     * It is oriented in the direction of the thickness.
+     *
+     * m_en = Vector::cross(m_e2, m_e1).
+     *
+     * Part of the orthogonal coordinate system of the box.
+     */
     Vector m_en;
-
-    // Plane specification: p = normal dot center
-    real m_p;
 
 private:
     real m_thickness;

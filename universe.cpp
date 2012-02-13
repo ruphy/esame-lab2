@@ -169,6 +169,9 @@ void Universe::moveParticle(Particle& particle)
         if (obstacle->contains(newPos)) {
             obstacle->tryAbsorb(particle, deltax.abs());
         }
+        if (!particle.alive()) {
+            break; // Avoid absorbing a particle multiple times? how do you handle colliding objects?
+        }
     }
 }
 

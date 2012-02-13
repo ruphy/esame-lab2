@@ -33,9 +33,8 @@ bool Box::contains(const Vector& point) const
 {
     // The point is in this box means evaluating those three distances.
     // For how the axes are oriented, if the point is in the box
-    // the first one should be a non positive number, the other two
-    // should be non negative.
-    real t_dist = -1*getPointDistance(m_en, point);
+    // those numbers should be non negative.
+    real t_dist = getPointDistance(m_en, point);
     real h_dist = getPointDistance(m_e1, point);
     real w_dist = getPointDistance(m_e2, point);
 
@@ -118,7 +117,7 @@ void Box::updateCoordinateSystem()
 {
     m_e1 = m_bottomLeft-m_topLeft;
     m_e2 = m_topRight-m_topLeft;
-    m_en = Vector::cross(m_e1, m_e2).normalized();
+    m_en = Vector::cross(m_e2, m_e1).normalized();
 
     std::cout << std::endl;
     std::cout << "-- Coordinate system --" << std::endl;
