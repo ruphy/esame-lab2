@@ -57,7 +57,7 @@ Particle::List Generator::generateNewBatch()
     
     boost::random::uniform_real_distribution<real> dist(-1.0, 1.0);
     
-    for (int i = 0; i <= m_genRate; i++) {
+    for (int i = 1; i <= m_genRate; i++) {
         Vector speed(dist(*m_gen), dist(*m_gen), dist(*m_gen));
         
         speed = speed.normalized()*m_particlesSpeed;

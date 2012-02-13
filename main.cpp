@@ -13,8 +13,8 @@ int main(int argc, char **argv)
     Generator::Ptr g(new Generator);
     Generator::Ptr g2(new Generator);
 
-    s->setPixelRows(20);
-    s->setPixelColumns(20);
+    s->setPixelRows(10);
+    s->setPixelColumns(10);
     s->setTopLeft(Vector(0.0, -10.0, 10.0));
     s->setTopRight(Vector(0.0, 10.0, 10.0));
     s->setBottomLeft(Vector(0.0, -10.0, -10.0));
@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     
     g->setGenerationRate(500);
     g->setParticlesSpeed(1);
-    g->setPosition(Vector(3.0, 0.0, 0.0));
+    g->setPosition(Vector(-0.5, 0.0, 0.0));
 
 
     g2->setGenerationRate(500);

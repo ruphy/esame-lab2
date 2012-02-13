@@ -50,6 +50,20 @@ public:
 
     // Kills the particle if position.abs() > boundary
     void setUniverseBoundaries(real boundary);
+
+    /**
+     * This number controls the accuracy of the simulation.
+     * accuracy must be a real number smaller or equal to 1 and
+     * greater than 0, where 0 means perfect accuracy and 1
+     * the smallest accuracy (which is still good enough for
+     * most situations).
+     *
+     * Note: setting accuracy to 0 will result in a never-ending
+     * simulation.
+     *
+     * Default value: 1.
+     */
+    void setAccuracy(real accuracy);
     
 private:
     void init();
@@ -62,6 +76,7 @@ private:
     std::list<Obstacle::Ptr> m_obstacles;
 
     real m_boundary;
+    real m_accuracy;
 
     boost::random::mt19937 *m_entropyGenerator;
     

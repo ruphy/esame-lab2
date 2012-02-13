@@ -34,6 +34,7 @@ Universe::Universe()
     reset();
     m_deltat = 0;
     m_boundary = 0;
+    m_accuracy = 1;
 }
 
 Universe::~Universe()
@@ -71,12 +72,14 @@ void Universe::init()
     }
 
     m_deltat = smallestWidth / fastestSpeed;
-    m_deltat *= 0.9; // make it a wee little bit smaller
+    m_deltat *= m_accuracy; // eventually make it a wee little bit smaller
 
     std::cout << "calculated deltat: " << m_deltat << std::endl;
+}
 
-    // TODO: kill all particles that travel past the last sensor.
-
+void Universe::setAccuracy(real accuracy)
+{
+    m_accuracy = accuracy;
 }
 
 void Universe::reset()
@@ -139,6 +142,9 @@ void Universe::nextBatch()
     }
 }
 
+
+// TODO: kill all particles that travel past the last sensor:
+// try to autodetermine a good enough setting
 void Universe::setUniverseBoundaries(real boundary)
 {
     m_boundary = boundary;
@@ -146,7 +152,6 @@ void Universe::setUniverseBoundaries(real boundary)
 
 void Universe::moveParticle(Particle& particle)
 {
-//             p.move(m_deltat);
 //     particle.speed().dump();
 //     std::cout << "move particle with above speed of this deltax" << std::endl;
     if (particle.position().abs() > m_boundary) {
