@@ -67,8 +67,8 @@ void Sensor::init()
     Box::updateCoordinateSystem(); // We've updated our thickness
 
     std::vector<integer> tempVector;
-    tempVector.resize(m_pixelColumns +3, 0); // FIXME
-    m_pixelGrid.resize(m_pixelRows +3, tempVector);
+    tempVector.resize(m_pixelColumns, 0);
+    m_pixelGrid.resize(m_pixelRows, tempVector);
 }
 
 
