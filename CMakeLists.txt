@@ -13,17 +13,18 @@ set(esame_src
     sphere.cpp
     )
 
-find_package(Boost REQUIRED)
+find_package(Boost COMPONENTS random REQUIRED)
 find_package(PythonLibs)
 
 INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}")
 
-IF(Python_FOUND)
+## IF PYTHON FOUND!
+IF(Boost_FOUND)
 INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}" "${PYTHON_INCLUDE_DIRS}")
   SET(Boost_USE_STATIC_LIBS OFF)
   SET(Boost_USE_MULTITHREADED ON)
   SET(Boost_USE_STATIC_RUNTIME OFF)
-  FIND_PACKAGE(Boost COMPONENTS random python REQUIRED)
+  FIND_PACKAGE(Boost COMPONENTS python REQUIRED)
 
   ADD_LIBRARY(esame SHARED python.cpp ${esame_src})
   TARGET_LINK_LIBRARIES(esame ${Boost_LIBRARIES})

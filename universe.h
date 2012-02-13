@@ -48,8 +48,11 @@ public:
     void nextBatch();
     void reset();
 
-    // Kills the particle if position.abs() > boundary
-    void setUniverseBoundaries(real boundary);
+    /**
+     * Universe will kill the particle if position.abs() > boundary
+     */
+    void setBoundary(real boundary);
+    real boundary() const;
 
     /**
      * This number controls the accuracy of the simulation.
@@ -64,6 +67,7 @@ public:
      * Default value: 1.
      */
     void setAccuracy(real accuracy);
+    real accuracy() const;
     
 private:
     void init();

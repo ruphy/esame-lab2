@@ -47,6 +47,23 @@ void Universe::setAccuracy(real accuracy)
     m_accuracy = accuracy;
 }
 
+real Universe::accuracy() const
+{
+    return m_accuracy;
+}
+
+// TODO: kill all particles that travel past the last sensor:
+// try to autodetermine a good enough setting
+void Universe::setBoundary(real boundary)
+{
+    m_boundary = boundary;
+}
+
+real Universe::boundary() const
+{
+    return m_boundary;
+}
+
 void Universe::init()
 {
     if (m_boundary == 0) {
@@ -125,14 +142,6 @@ void Universe::nextBatch()
             }
         }
     }
-}
-
-
-// TODO: kill all particles that travel past the last sensor:
-// try to autodetermine a good enough setting
-void Universe::setUniverseBoundaries(real boundary)
-{
-    m_boundary = boundary;
 }
 
 void Universe::moveParticle(Particle& particle)

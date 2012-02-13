@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     u.addGenerator(g);
 //     u.addGenerator(g2);
     u.addSensor(s);
-    u.setUniverseBoundaries(50);
+    u.setBoundary(50);
     u.addSensor(s2);
 
     // run 100 batches
