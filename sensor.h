@@ -52,7 +52,6 @@ protected:
 private:
     void particleDetected(int row, int column);
 
-    bool m_alreadyInitd;
     int m_pixelRows;
     int m_pixelColumns;
     

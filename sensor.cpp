@@ -30,7 +30,6 @@ Sensor::Sensor()
 {
     m_pixelRows = 1;
     m_pixelColumns = 1;
-    m_alreadyInitd = false;
     counter = 0;
 }
 
@@ -52,13 +51,8 @@ void Sensor::setPixelRows(int rows)
 
 void Sensor::init()
 {
-    if (m_alreadyInitd) {
-        return;
-    }
-    Box::updateCoordinateSystem(); // TODO move the "already inited" logic in Obstacle.
-
-    
-    m_alreadyInitd = true;
+    Box::init();
+//     Box::updateCoordinateSystem(); // TODO move the "already inited" logic in Obstacle.
 
     m_pixelHeight = (m_e1.abs()/m_pixelRows);
     m_pixelWidth = (m_e2.abs()/m_pixelColumns);
@@ -102,9 +96,6 @@ void Sensor::dump() const
 
 void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
 {
-    if(!m_alreadyInitd) {
-        init();
-    }
 
 //     std::cout << std::endl;
 //     std::cout << std::endl;

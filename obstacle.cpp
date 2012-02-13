@@ -25,6 +25,14 @@ Obstacle::Obstacle(std::string name)
 {
     m_name = name;
     m_gen = 0;
+    m_alreadyInitd = false;
+}
+
+void Obstacle::init()
+{
+    if (m_alreadyInitd) {
+        return;
+    }
 }
 
 void Obstacle::setAbsorbingCoefficient(real mu)
@@ -39,6 +47,9 @@ void Obstacle::absorb(Particle& p)
 
 void Obstacle::tryAbsorb(Particle& particle, real lenght)
 {
+    /*if(!m_alreadyInitd) {
+        init();
+    }*/
     boost::random::uniform_real_distribution<real> dist(0.0, 1.0);
     real n1 = dist(*m_gen);
     if (n1 > exp(-m_mu*lenght) ) {
