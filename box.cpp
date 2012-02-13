@@ -31,7 +31,7 @@ void Box::init()
 
 bool Box::contains(const Vector& point) const
 {
-    real dist = getPointDistance(point);
+    real dist = getPointDistance(m_en, point);
 
     if (dist > 0) {
         return false;
@@ -45,9 +45,9 @@ bool Box::contains(const Vector& point) const
         return true;
     }
 }
-real Box::getPointDistance(const Vector& point) const
+real Box::getPointDistance(const Vector &normal, const Vector& point) const
 {
-    return Vector::dot(m_en, point) + m_p; // TODO update coordinate system if needed.
+    return Vector::dot(normal.normalized(), point) + m_p; // TODO update coordinate system if needed.
 }
 
 real Box::minimumSize() const
@@ -109,8 +109,7 @@ void Box::updateCoordinateSystem()
     m_e1 = m_bottomLeft-m_topLeft;
     m_e2 = m_topRight-m_topLeft;
 
-    m_en = Vector::cross(m_e1, m_e2);
-    m_en.normalize();
+    m_en = Vector::cross(m_e1, m_e2).normalized();
 
     m_p = -1*Vector::dot(Vector::cross(m_e1, m_e2), m_topLeft);
 

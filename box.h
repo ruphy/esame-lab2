@@ -63,7 +63,11 @@ protected:
     virtual void updateCoordinateSystem();
     virtual void init();
 
-    real getPointDistance(const Vector &point) const;
+    /**
+     * Returns the distance between the plane passing through topLeft
+     * (with normal normal), and the point point.
+     */
+    real getPointDistance(const Vector &normal, const Vector &point) const;
 
     Vector m_topLeft;
     Vector m_topRight;

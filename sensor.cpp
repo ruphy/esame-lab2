@@ -52,7 +52,6 @@ void Sensor::setPixelRows(int rows)
 void Sensor::init()
 {
     Box::init();
-//     Box::updateCoordinateSystem(); // TODO move the "already inited" logic in Obstacle.
 
     m_pixelHeight = (m_e1.abs()/m_pixelRows);
     m_pixelWidth = (m_e2.abs()/m_pixelColumns);
@@ -65,9 +64,8 @@ void Sensor::init()
     std::cout << "Total computed rows: " << m_pixelRows << std::endl;
     std::cout << "Total computed cols: " << m_pixelColumns << std::endl;
 
-    Box::updateCoordinateSystem(); // TODO move the "already inited" logic in Obstacle.
+    Box::updateCoordinateSystem(); // We've updated our thickness
 
-    
     std::vector<integer> tempVector;
     tempVector.resize(m_pixelColumns +3, 0); // FIXME
     m_pixelGrid.resize(m_pixelRows +3, tempVector);
@@ -104,14 +102,13 @@ void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
     particle.position().dump();
 //     std::cout << "It has a distance of: " << getPointDistance(pos);
     
-    
     // This particle will stop here.
     absorb(particle);
 
     Vector pos = particle.position();
 
     // Ajust the position so that it's exactly on the sensor plane
-    Vector newPos = pos - m_en*getPointDistance(pos);
+    Vector newPos = pos - m_en*getPointDistance(m_en, pos);
     // Calculate the vector from the "origin" of the plane
     Vector proj = newPos - m_topLeft;
 

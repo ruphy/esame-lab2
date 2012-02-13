@@ -87,18 +87,18 @@ real Vector::dot(const Vector& a, const Vector& b)
     return a.m_x*b.m_x + a.m_y*b.m_y + a.m_z*b.m_z;
 }
 
-real Vector::abs()
+real Vector::abs() const
 {
     return sqrt(m_x*m_x + m_y*m_y + m_z*m_z);
 }
 
-Vector Vector::normalize()
+Vector Vector::normalized() const
 {
     real ab = abs();
-    m_x *= 1/ab;
-    m_y *= 1/ab;
-    m_z *= 1/ab;
-    return *this;
+    real x = m_x/ab;
+    real y = m_y/ab;
+    real z = m_z/ab;
+    return Vector(x, y, z);
 }
 
 void Vector::dump() const

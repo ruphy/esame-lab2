@@ -42,8 +42,8 @@ public:
     virtual Vector operator-(const Vector& other) const;
     virtual Vector operator*(real scalar) const;
     
-    real abs();
-    Vector normalize();
+    real abs() const;
+    Vector normalized() const;
     
     real x() const {return m_x;};
     real y() const {return m_x;};
