@@ -137,7 +137,7 @@ void Universe::nextBatch()
             }
 
             if(!(*it).alive()) {
-                std::cout << "Deleting a particle" << std::endl;
+//                 std::cout << "Deleting a particle" << std::endl;
                 it = m_particles.erase(it);
             }
         }
