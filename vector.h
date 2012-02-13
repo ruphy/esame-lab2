@@ -29,7 +29,7 @@ class Vector
 
 public:
     Vector();
-    Vector(real x, real y, real z);
+    Vector(const real x, const real y, const real z);
 
     Vector(const Vector& other);
     

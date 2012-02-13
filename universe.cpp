@@ -146,7 +146,7 @@ void Universe::moveParticle(Particle& particle)
 
     particle.move(m_deltat);
     Vector newPos = particle.position();
-//     newPos.dump();
+
     foreach(const Obstacle::Ptr obstacle, m_obstacles) {
         if (obstacle->contains(newPos)) {
             obstacle->tryAbsorb(particle, deltax.abs());
