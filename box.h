@@ -64,8 +64,8 @@ protected:
     virtual void init();
 
     /**
-     * Returns the distance between the plane passing through topLeft
-     * (with normal normal), and the point point.
+     * Returns the distance between the plane passing through the point "topLeft"
+     * (with normal "normal"), and the point "point".
      */
     real getPointDistance(const Vector &normal, const Vector &point) const;
 
