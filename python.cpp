@@ -45,16 +45,19 @@ BOOST_PYTHON_MODULE(libesame)
         .add_property("bottom_left", &Box::bottomLeft, &Box::setBottomLeft)
         .add_property("top_right", &Box::topRight, &Box::setTopRight)
     ;
+
     class_<Sensor, bases<Box> >("Sensor")
         .add_property("pixel_rows", &Sensor::pixelRows, &Sensor::setPixelRows)
         .add_property("pixel_columns", &Sensor::pixelColumns, &Sensor::setPixelColumns)
+        .def("dump", &Sensor::dump)
     ;
+
     class_<Generator>("Generator")
         .add_property("position", &Generator::position, &Generator::setPosition)
         .add_property("particles_speed", &Generator::particlesSpeed, &Generator::setParticlesSpeed)
         .add_property("fire_rate", &Generator::fireRate, &Generator::setFireRate)
     ;
-    
+
     class_<Universe>("Universe")
         .def("nextBatch", &Universe::nextBatch)
         .def("reset", &Universe::reset)
