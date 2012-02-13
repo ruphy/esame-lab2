@@ -61,7 +61,7 @@ Particle::List Generator::generateNewBatch()
         Vector speed(dist(*m_gen), dist(*m_gen), dist(*m_gen));
         
         speed = speed.normalized()*m_particlesSpeed;
-        speed.dump();
+//         speed.dump();
         Particle p;
         p.setSource(m_position);
         p.setSpeed(speed);

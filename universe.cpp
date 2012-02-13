@@ -33,6 +33,7 @@ Universe::Universe()
 {
     reset();
     m_deltat = 0;
+    m_boundary = 0;
 }
 
 Universe::~Universe()
@@ -42,6 +43,10 @@ Universe::~Universe()
 
 void Universe::init()
 {
+    if (m_boundary == 0) {
+        std::cout << "Warning: universe boundary is set to 0."
+                     "All particles will be killed." << std::endl;
+    }
     // Init all the obstacles
     foreach(const Obstacle::Ptr obstacle, m_obstacles) {
         obstacle->init();
@@ -112,10 +117,10 @@ void Universe::nextBatch()
     while (!m_particles.empty()) {
 
         // HACK TERMINATE FOR NOW
-        if (m_stepCount > 4) {
+//         if (m_stepCount > 4) {
 //             reset();
-            return;
-        }
+//             return;
+//         }
         m_stepCount++;
         for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); ++it) {
 
@@ -134,11 +139,20 @@ void Universe::nextBatch()
     }
 }
 
+void Universe::setUniverseBoundaries(real boundary)
+{
+    m_boundary = boundary;
+}
+
 void Universe::moveParticle(Particle& particle)
 {
 //             p.move(m_deltat);
 //     particle.speed().dump();
 //     std::cout << "move particle with above speed of this deltax" << std::endl;
+    if (particle.position().abs() > m_boundary) {
+        particle.absorb();
+    }
+    
     Vector deltax = particle.speed()*m_deltat;
 //     deltax.dump();
     

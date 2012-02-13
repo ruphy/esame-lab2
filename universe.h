@@ -47,6 +47,9 @@ public:
     
     void nextBatch();
     void reset();
+
+    // Kills the particle if position.abs() > boundary
+    void setUniverseBoundaries(real boundary);
     
 private:
     void init();
@@ -58,6 +61,7 @@ private:
     std::list<Generator::Ptr> m_generators;
     std::list<Obstacle::Ptr> m_obstacles;
 
+    real m_boundary;
 
     boost::random::mt19937 *m_entropyGenerator;
     

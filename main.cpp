@@ -13,8 +13,8 @@ int main(int argc, char **argv)
     Generator::Ptr g(new Generator);
     Generator::Ptr g2(new Generator);
 
-    s->setPixelRows(1);
-    s->setPixelColumns(1);
+    s->setPixelRows(20);
+    s->setPixelColumns(20);
     s->setTopLeft(Vector(0.0, -10.0, 10.0));
     s->setTopRight(Vector(0.0, 10.0, 10.0));
     s->setBottomLeft(Vector(0.0, -10.0, -10.0));
@@ -26,8 +26,8 @@ int main(int argc, char **argv)
 //     s2->setBottomLeft(Vector(5.0, -10.0, -10.0));
     
     g->setGenerationRate(500);
-    g->setParticlesSpeed(5);
-    g->setPosition(Vector(23.0, 0.0, 0.0));
+    g->setParticlesSpeed(1);
+    g->setPosition(Vector(3.0, 0.0, 0.0));
 
 
     g2->setGenerationRate(500);
@@ -37,6 +37,7 @@ int main(int argc, char **argv)
     u.addGenerator(g);
 //     u.addGenerator(g2);
     u.addSensor(s);
+    u.setUniverseBoundaries(50);
 //     u.addSensor(s2);
 
     // run 100 batches
