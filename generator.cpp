@@ -23,7 +23,7 @@
 
 Generator::Generator()
  : m_gen(0),
-   m_genRate(0)
+   m_fireRate(0)
 {
 }
 
@@ -37,9 +37,19 @@ void Generator::setPosition(const Vector& position)
     m_position = position;
 }
 
-void Generator::setGenerationRate(real genRate)
+Vector Generator::position() const
 {
-    m_genRate = genRate;
+    return m_position;
+}
+
+void Generator::setFireRate(real genRate)
+{
+    m_fireRate = genRate;
+}
+
+real Generator::fireRate() const
+{
+    return m_fireRate;
 }
 
 void Generator::setEntropyGenerator(boost::random::mt19937* gen)
@@ -57,7 +67,7 @@ Particle::List Generator::generateNewBatch()
     
     boost::random::uniform_real_distribution<real> dist(-1.0, 1.0);
     
-    for (int i = 1; i <= m_genRate; i++) {
+    for (int i = 1; i <= m_fireRate; i++) {
         Vector speed(dist(*m_gen), dist(*m_gen), dist(*m_gen));
         
         speed = speed.normalized()*m_particlesSpeed;

@@ -25,12 +25,12 @@ int main(int argc, char **argv)
     s2->setTopRight(Vector(5.0, 10.0, 10.0));
     s2->setBottomLeft(Vector(5.0, -10.0, -10.0));
     
-    g->setGenerationRate(500);
+    g->setFireRate(500);
     g->setParticlesSpeed(1);
     g->setPosition(Vector(1, 0.0, 0.0));
 
 
-    g2->setGenerationRate(500);
+    g2->setFireRate(500);
     g2->setParticlesSpeed(5);
     g2->setPosition(Vector(1.0, 0.0, 5.0));
     

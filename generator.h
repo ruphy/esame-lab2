@@ -42,11 +42,13 @@ public:
      * Scalar speed of the generated particles
      */
     real particlesSpeed();
-
-    void setPosition(const Vector &position);
-
     void setParticlesSpeed(real speed);
-    void setGenerationRate(real genRate);
+    
+    void setPosition(const Vector &position);
+    Vector position() const;
+
+    void setFireRate(real genRate);
+    real fireRate() const;
 
     Particle::List generateNewBatch();
     
@@ -54,7 +56,7 @@ private:
     void setEntropyGenerator(boost::random::mt19937 *gen);
     
     real m_particlesSpeed;
-    real m_genRate;
+    real m_fireRate;
     Vector m_position;
 
     boost::random::mt19937 *m_gen;
