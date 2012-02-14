@@ -3,8 +3,10 @@ import matplotlib.pyplot as plt
 from matplotlib import cm, colors
 import numpy as np
 
+## Sssht!
+np.seterr(all='ignore')
+
 def plot_sensor(s):
-  np.seterr(all='ignore')
   fig = plt.figure()
   ax = fig.add_subplot(111, projection='3d')
 
@@ -21,35 +23,17 @@ def plot_sensor(s):
   dz = np.array(s.data()).flatten()
   print "Calculating colors..."
   
-  #print colors.makeMappingArray(2, [[0, 0.1, 0.1],[1, 0.5, 1]])
-  #array = [0, 0.2, 0.4, 1]
-  ddz = dz.copy()
-  #ddz.sort()
-  #print ddz
-  norm = colors.normalize(ddz.min(), ddz.max())
+  norm = colors.normalize(dz.min(), dz.max())
   col = []
-  print norm(2)
   for i in dz:
-    #print norm(i)
-    a = cm.jet(norm(i))
-    col.append(a)
-    #print a
-  #dzn = dz.copy()
-  
-  #print cm.ScalarMappable(norm=a, cmap=cm.jet).to_rgba(0.1)
-  #print makeMappingArray(cm.jet.N, )
-  #pcolor(dx, dy, dz)
-  #cm.jet.set_array(dz)
-  #dzn = dz.copy()
-  #print cm.jet._colormap(dzn.normalize())
-  #print help(cm.jet)
+    col.append(cm.jet(norm(i)))
   
   print "Now rendering image..."
   ax.bar3d(xpos, ypos, zpos, dx, dy, dz, color=col, zsort='average')
-  #ax.contour(xedges, yedges, np.array(s.data()))
   print "Saving image..."
   plt.savefig("out.eps", dpi=300)  
-
+  print "All done!"
+  
 from libesame import *
 
 print "Preparing simulation..."
