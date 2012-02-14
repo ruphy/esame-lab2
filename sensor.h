@@ -48,6 +48,8 @@ public:
 
     void dump() const; // just a debug function
     
+    std::vector< std::vector<integer> > data() const;
+    
 protected:
     virtual void init();
     

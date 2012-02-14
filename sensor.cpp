@@ -133,6 +133,10 @@ bool Sensor::contains(const Vector& point) const
     return Box::contains(point);
 }
 
+std::vector< std::vector< integer > > Sensor::data() const
+{
+    return m_pixelGrid;
+}
 
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

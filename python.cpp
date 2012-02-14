@@ -16,13 +16,33 @@
 */
 
 #include <boost/python.hpp>
+#include <boost/foreach.hpp>
+
 using namespace boost::python;
 
 #include "universe.h"
 
 
+template<typename T>
+struct custom_vvector_to_list{
+        static PyObject* convert(const std::vector<std::vector<T> >& vv){
+                boost::python::list ret;
+                BOOST_FOREACH(const std::vector<T>& v, vv) {
+                        boost::python::list ret2;
+                        BOOST_FOREACH(const T& e, v) {
+                            ret2.append(e);
+                        }
+                        ret.append(ret2);
+                }
+                return incref(ret.ptr());
+        }
+};
+
 BOOST_PYTHON_MODULE(libesame)
 {
+
+    to_python_converter<std::vector<std::vector<integer> >,custom_vvector_to_list<integer> >();
+
     class_<Vector>("Vector")
         .def(init<double, double, double>())
         .add_property("x", &Vector::x, &Vector::setX)
@@ -50,6 +70,7 @@ BOOST_PYTHON_MODULE(libesame)
         .add_property("pixel_rows", &Sensor::pixelRows, &Sensor::setPixelRows)
         .add_property("pixel_columns", &Sensor::pixelColumns, &Sensor::setPixelColumns)
         .def("dump", &Sensor::dump)
+        .def("data", &Sensor::data)
     ;
 
     class_<Generator>("Generator")

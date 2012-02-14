@@ -75,7 +75,7 @@ void Universe::init()
         obstacle->init();
         std::cout << "Min size: "<< obstacle->minimumSize() << std::endl;
     }
-    
+
     // Determine the smallest deltat
 
     real smallestWidth = m_obstacles.front()->minimumSize();

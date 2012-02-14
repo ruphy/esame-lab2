@@ -35,7 +35,6 @@ int main(int argc, char **argv)
     g2->setPosition(Vector(1.0, 0.0, 5.0));
     
     u.addGenerator(g);
-//     u.addGenerator(g2);
     u.addSensor(s);
     u.setBoundary(50);
     u.addSensor(s2);
