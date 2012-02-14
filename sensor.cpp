@@ -39,14 +39,11 @@ Sensor::~Sensor()
 void Sensor::setPixelColumns(int columns)
 {
     m_pixelColumns = columns;
-//     updateCoordinateSystem();
-
 }
 
 void Sensor::setPixelRows(int rows)
 {
     m_pixelRows = rows;
-//     updateCoordinateSystem();
 }
 
 void Sensor::init()
