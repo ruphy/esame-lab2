@@ -39,14 +39,14 @@ Sensor::~Sensor()
 void Sensor::setPixelColumns(int columns)
 {
     m_pixelColumns = columns;
-    updateCoordinateSystem();
+//     updateCoordinateSystem();
 
 }
 
 void Sensor::setPixelRows(int rows)
 {
     m_pixelRows = rows;
-    updateCoordinateSystem();
+//     updateCoordinateSystem();
 }
 
 void Sensor::init()
@@ -75,7 +75,7 @@ void Sensor::init()
 
 void Sensor::particleDetected(int row, int column)
 {
-    std::cout << "Particle detected at " << row << " x " << column << std::endl;
+//     std::cout << "Particle detected at " << row << " x " << column << std::endl;
     m_pixelGrid.at(row).at(column) += 1;
     counter++;
 }
@@ -97,9 +97,9 @@ void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
 
 //     std::cout << std::endl;
 //     std::cout << std::endl;
-    std::cout << "Sensor HIT!" << std::endl;
-    std::cout << "Got a particle with posistion: ";
-    particle.position().dump();
+//     std::cout << "Sensor HIT!" << std::endl;
+//     std::cout << "Got a particle with posistion: ";
+//     particle.position().dump();
 //     std::cout << "It has a distance of: " << getPointDistance(pos);
     
     // This particle will stop here.
@@ -116,9 +116,9 @@ void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
     real e1_len = fabs(Vector::dot(proj, m_e1))/m_e1.abs();
     real e2_len = fabs(Vector::dot(proj, m_e2))/m_e2.abs();
 
-    std::cout << "Trying to assign a particle to a pixel:" << std::endl;
-    std::cout << "e1_len = " << e1_len << std::endl;
-    std::cout << "e2_len = " << e2_len << std::endl;
+//     std::cout << "Trying to assign a particle to a pixel:" << std::endl;
+//     std::cout << "e1_len = " << e1_len << std::endl;
+//     std::cout << "e2_len = " << e2_len << std::endl;
 
     int row = floor(e1_len/m_pixelHeight);
     int column = floor(e2_len/m_pixelWidth);
