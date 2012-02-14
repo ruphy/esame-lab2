@@ -20,18 +20,22 @@
 #define SPHERE_H
 
 #include "obstacle.h"
-
+#include <boost/shared_ptr.hpp>
 
 class Sphere : public Obstacle
 {
 public:
+    typedef boost::shared_ptr<Sphere> Ptr;
     Sphere(std::string name = "");
 
     virtual bool contains(const Vector& point) const;
     virtual real minimumSize() const;
 
     void setRadius(real radius);
+    real radius() const;
+
     void setCenter(const Vector& center);
+    Vector center() const;
 
     /**
      * This number controls the accuracy of the simulation.

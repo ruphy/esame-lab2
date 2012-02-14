@@ -25,6 +25,7 @@ Obstacle::Obstacle(std::string name)
 {
     m_name = name;
     m_gen = 0;
+    m_mu = 1;
     m_alreadyInitd = false;
 }
 
@@ -52,7 +53,11 @@ void Obstacle::tryAbsorb(Particle& particle, real lenght)
     }*/
     boost::random::uniform_real_distribution<real> dist(0.0, 1.0);
     real n1 = dist(*m_gen);
+
+//         std::cout << exp(-m_mu*lenght);
     if (n1 > exp(-m_mu*lenght) ) {
+        
+//         std::cout << "Absorbing";
         particle.absorb();
     }
 }

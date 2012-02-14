@@ -22,7 +22,6 @@ using namespace boost::python;
 
 #include "universe.h"
 
-
 template<typename T>
 struct custom_vvector_to_list{
         static PyObject* convert(const std::vector<std::vector<T> >& vv){
@@ -36,6 +35,18 @@ struct custom_vvector_to_list{
                 }
                 return incref(ret.ptr());
         }
+};
+
+struct ObstacleWrap : Obstacle, wrapper<Obstacle> {
+    real minimumSize() const
+    {
+        return this->get_override("minimumSize")();
+    };
+
+    bool contains(const Vector& point) const
+    {
+        return this->get_override("contains")();
+    };
 };
 
 BOOST_PYTHON_MODULE(libesame)
@@ -58,6 +69,18 @@ BOOST_PYTHON_MODULE(libesame)
         .def("cross", &Vector::cross)
         .staticmethod("dot")
         .staticmethod("cross")
+    ;
+
+    class_<ObstacleWrap, boost::noncopyable>("Obstacle")
+        .def("minimumSize", pure_virtual(&ObstacleWrap::minimumSize))
+        .def("contains", pure_virtual(&ObstacleWrap::contains))
+    ;
+
+    class_<Sphere, bases<ObstacleWrap> >("Sphere")
+        .add_property("radius", &Sphere::radius, &Sphere::setRadius)
+        .add_property("center", &Sphere::center, &Sphere::setCenter)
+        .add_property("accuracy", &Sphere::accuracy, &Sphere::setAccuracy)
+        .def("setAbsorbingCoefficient", &Sphere::setAbsorbingCoefficient)
     ;
 
     class_<Box>("Box")
@@ -83,7 +106,7 @@ BOOST_PYTHON_MODULE(libesame)
         .def("nextBatch", &Universe::nextBatch)
         .def("reset", &Universe::reset)
         .def("addGenerator", &Universe::addGenerator)
-        .def("addObstacle", &Universe::addObstacle)
+        .def("addSphere", &Universe::addSphere)
         .def("addSensor", &Universe::addSensor)
         .add_property("accuracy", &Universe::accuracy, &Universe::setAccuracy)
         .add_property("boundary", &Universe::boundary, &Universe::setBoundary)

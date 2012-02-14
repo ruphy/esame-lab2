@@ -18,6 +18,7 @@
 
 #include "sphere.h"
 #include "vector.h"
+#include <iostream>
 
 Sphere::Sphere(std::string name)
  : Obstacle(name)
@@ -55,10 +56,19 @@ void Sphere::setCenter(const Vector& center)
     m_center = center;
 }
 
+Vector Sphere::center() const
+{
+    return m_center;
+}
+
 void Sphere::setRadius(real radius)
 {
     m_radius = radius;
 }
 
+real Sphere::radius() const
+{
+    return m_radius;
+}
 
 // kate: indent-mode cstyle; space-indent on; indent-width 0; 

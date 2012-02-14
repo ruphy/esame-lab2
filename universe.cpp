@@ -172,9 +172,10 @@ void Universe::addGenerator(Generator::Ptr generator)
     m_generators.push_back(generator);
 }
 
-void Universe::addObstacle(Obstacle::Ptr obstacle)
+void Universe::addSphere(Sphere::Ptr sphere)
 {
-    m_obstacles.push_back(obstacle);
+    m_obstacles.push_back(sphere);
+    sphere->m_gen = m_entropyGenerator; // FIXME UGLY CODE
 }
 
 void Universe::addSensor(Sensor::Ptr sensor)

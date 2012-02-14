@@ -27,6 +27,7 @@
 #include "obstacle.h"
 #include "sensor.h"
 #include "particle.h"
+#include "sphere.h"
 
 
 /**
@@ -42,7 +43,7 @@ public:
     virtual ~Universe();
 
     void addGenerator(Generator::Ptr generator);
-    void addObstacle(Obstacle::Ptr obstacle);
+    void addSphere(Sphere::Ptr sphere);
     void addSensor(Sensor::Ptr sensor);
     
     void nextBatch();

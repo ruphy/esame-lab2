@@ -9,35 +9,26 @@ int main(int argc, char **argv)
     Universe u;
 
     Sensor::Ptr s(new Sensor);
-    Sensor::Ptr s2(new Sensor);
     Generator::Ptr g(new Generator);
-    Generator::Ptr g2(new Generator);
+    Sphere::Ptr p(new Sphere);
 
-    s->setPixelRows(10);
-    s->setPixelColumns(10);
-    s->setTopLeft(Vector(0.0, -10.0, 10.0));
-    s->setTopRight(Vector(0.0, 10.0, 10.0));
-    s->setBottomLeft(Vector(0.0, -10.0, -10.0));
+    s->setPixelRows(40);
+    s->setPixelColumns(40);
+    s->setTopLeft(Vector(0.0, -30.0, 30.0));
+    s->setTopRight(Vector(0.0, 30.0, 30.0));
+    s->setBottomLeft(Vector(0.0, -30.0, -30.0));
 
-    s2->setPixelRows(20);
-    s2->setPixelColumns(20);
-    s2->setTopLeft(Vector(5.0, -10.0, 10.0));
-    s2->setTopRight(Vector(5.0, 10.0, 10.0));
-    s2->setBottomLeft(Vector(5.0, -10.0, -10.0));
+    p->setRadius(3);
+    p->setCenter(Vector(3, 0, 0));
     
-    g->setFireRate(500);
+    g->setFireRate(5000);
     g->setParticlesSpeed(1);
-    g->setPosition(Vector(1, 0.0, 0.0));
+    g->setPosition(Vector(10, 0.0, 0.0));
 
-
-    g2->setFireRate(500);
-    g2->setParticlesSpeed(5);
-    g2->setPosition(Vector(1.0, 0.0, 5.0));
-    
     u.addGenerator(g);
     u.addSensor(s);
-    u.setBoundary(50);
-    u.addSensor(s2);
+    u.addSphere(p);
+    u.setBoundary(40);
 
     // run 100 batches
     for (int i = 0; i < 1; i++) {
@@ -45,7 +36,6 @@ int main(int argc, char **argv)
     }
 
     s->dump();
-    s2->dump();
     
     std::cout << "Hello, world!" << std::endl;
     return 0;
