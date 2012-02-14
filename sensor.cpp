@@ -91,7 +91,6 @@ void Sensor::dump() const
 
 void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
 {
-
 //     std::cout << std::endl;
 //     std::cout << std::endl;
 //     std::cout << "Sensor HIT!" << std::endl;
