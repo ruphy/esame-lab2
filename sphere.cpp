@@ -26,12 +26,12 @@ Sphere::Sphere(std::string name)
     m_accuracy = 0.01;
 }
 
-real Sphere::accuracy() const
+real Sphere::sensibility() const
 {
     return m_accuracy;
 }
 
-void Sphere::setAccuracy(real accuracy)
+void Sphere::setSensibility(real accuracy)
 {
     m_accuracy = accuracy;
 }

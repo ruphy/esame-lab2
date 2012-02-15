@@ -63,16 +63,11 @@ void Obstacle::absorb(Particle& p)
 
 void Obstacle::tryAbsorb(Particle& particle, real lenght)
 {
-    /*if(!m_alreadyInitd) {
-        init();
-    }*/
     boost::random::uniform_real_distribution<real> dist(0.0, 1.0);
     real n1 = dist(*m_gen);
 
 //         std::cout << exp(-m_mu*lenght);
     if (n1 > exp(-m_mu*lenght) ) {
-        
-//         std::cout << "Absorbing";
         particle.absorb();
     }
 }

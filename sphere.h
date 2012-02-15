@@ -51,8 +51,8 @@ public:
      *
      * Default value: 0.01.
      */
-    void setAccuracy(real accuracy);
-    real accuracy() const;
+    void setSensibility(real accuracy);
+    real sensibility() const;
     
 private:
     Vector m_center;

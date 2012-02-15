@@ -89,7 +89,7 @@ real Vector::dot(const Vector& a, const Vector& b)
 
 real Vector::abs() const
 {
-    return sqrt(m_x*m_x + m_y*m_y + m_z*m_z);
+    return sqrtl(m_x*m_x + m_y*m_y + m_z*m_z);
 }
 
 Vector Vector::normalized() const

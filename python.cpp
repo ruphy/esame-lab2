@@ -64,7 +64,7 @@ BOOST_PYTHON_MODULE(libesame)
     class_<Sphere>("Sphere")
         .add_property("radius", &Sphere::radius, &Sphere::setRadius)
         .add_property("center", &Sphere::center, &Sphere::setCenter)
-        .add_property("accuracy", &Sphere::accuracy, &Sphere::setAccuracy)
+        .add_property("accuracy", &Sphere::sensibility, &Sphere::setSensibility)
         .def("setAbsorbingCoefficient", &Sphere::setAbsorbingCoefficient)
     ;
 

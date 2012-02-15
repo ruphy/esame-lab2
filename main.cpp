@@ -20,6 +20,7 @@ int main(int argc, char **argv)
 
     p->setRadius(3);
     p->setCenter(Vector(3, 0, 0));
+//     p->setAccuracy(0.1);
     
     g->setFireRate(5000);
     g->setParticlesSpeed(1);

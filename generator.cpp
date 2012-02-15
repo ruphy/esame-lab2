@@ -15,15 +15,19 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <boost/random/normal_distribution.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
 #include <boost/random/mersenne_twister.hpp>
+#include <boost/math/constants/constants.hpp>
+
 #include <time.h>
+#include <math.h>
 
 #include "generator.h"
 
 Generator::Generator()
- : m_gen(0),
-   m_fireRate(0)
+ : m_fireRate(0),
+   m_gen(0)
 {
 }
 
@@ -65,12 +69,26 @@ Particle::List Generator::generateNewBatch()
 
     Particle::List list;
     
-    boost::random::uniform_real_distribution<real> dist(-1.0, 1.0);
+    boost::random::uniform_real_distribution<real> dist(-1, 1);
     
     for (int i = 1; i <= m_fireRate; i++) {
-        Vector speed(dist(*m_gen), dist(*m_gen), dist(*m_gen));
+//         real phi = dist1(*m_gen);
+//         real theta = dist2(*m_gen);
+        Vector direction;
+        do {
+            direction.setX(2 * dist(*m_gen) - 1),
+            direction.setY(2 * dist(*m_gen) - 1),
+            direction.setZ(2 * dist(*m_gen) - 1);
+        } while(direction.abs() > 1);
+//         Vector speed(sin(phi)*cos(theta), sin(phi)*sin(theta), cos(phi));
+//         Vector speed(dist(*m_gen), dist(*m_gen), dist(*m_gen));
+        Vector speed = direction.normalized();
+//         speed = speed*m_particlesSpeed;
         
-        speed = speed.normalized()*m_particlesSpeed;
+//         if (speed.x() > 0) { // FIXME: Speed HACK
+//             continue;
+//         }
+        
 //         speed.dump();
         Particle p;
         p.setSource(m_position);
