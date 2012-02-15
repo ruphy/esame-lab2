@@ -27,51 +27,61 @@ def plot_sensor(s):
   dy = dx.copy()
   dz = np.array(s.data()).flatten()
   
-  print "Calculating colors..."
-  norm = colors.normalize(dz.min(), dz.max())
-  col = []
-  for i in dz:
-    col.append(cm.jet(norm(i)))
+  #print "Calculating colors..."
+  #norm = colors.normalize(dz.min(), dz.max())
+  #col = []
+  #for i in dz:
+    #col.append(cm.jet(norm(i)))
   
   print "Now rendering image..."
-  ax.bar3d(xpos, ypos, zpos, dx, dy, dz, color=col, zsort='average')
+  #ax.bar3d(xpos, ypos, zpos, dx, dy, dz, color=col, zsort='average')
+  #cm.Greys.set_gamma(0.1)
+  cax = ax.imshow(s.data(), interpolation='nearest', cmap=cm.Greys)
+  #ax.set_title('Gaussian noise with horizontal colorbar')
+
+  cbar = fig.colorbar(cax, ticks=[dz.min(), (dz.max()+dz.min())/2, dz.max()], orientation='vertical')
+  cbar.ax.set_xticklabels(['Low', 'Medium', 'High'])# horizontal colorbar
+
   print "Saving image..."
   plt.savefig("out.png", dpi=500)  
   #plt.show()
   print "All done!"
   
 from libesame import *
+#from shared_ptr import *
 
 print "Preparing simulation..."
 
 u = Universe()
 
 g = Generator()
-g.position = Vector(7, 0, 0)
-g.fire_rate = 5000
+g.position = Vector(3, 0, 0)
+g.fire_rate = 10000
 g.particles_speed = 1
 
 s = Sensor()
-s.pixel_rows = 20
-s.pixel_columns = 20
+s.pixel_rows = 300
+s.pixel_columns = 300
 s.top_left = Vector(0, -15, 15)
 s.bottom_left = Vector(0, -15, -15)
 s.top_right = Vector(0, 15, 15)
 
 p = Sphere()
-p.accuracy = 0.05
-p.radius = 3
-p.setAbsorbingCoefficient(0.3)
-p.center = Vector(3, 0.65, 0.65)
-#p.center = Vector(3, 0, 0)
+p.accuracy = 0.1
+p.radius = 1
+p.setAbsorbingCoefficient(200)
+p.center = Vector(3, 0, 0)
 
 u.addGenerator(g)
-u.addSensor(s)
-u.addSphere(p)
+u.addObject(s)
+#u.addObject(p)
 u.boundary = 20
+u.accuracy = 0.9
 
-for i in range(0, 10):
-  print "batch ", i
+#quit()
+
+for i in range(0, 100):
+  print "batch", i
   u.nextBatch()
 
 #s.dump()

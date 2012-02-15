@@ -12,17 +12,17 @@ int main(int argc, char **argv)
     Generator::Ptr g(new Generator);
     Sphere::Ptr p(new Sphere);
 
-    s->setPixelRows(40);
-    s->setPixelColumns(40);
-    s->setTopLeft(Vector(0.0, -30.0, 30.0));
-    s->setTopRight(Vector(0.0, 30.0, 30.0));
-    s->setBottomLeft(Vector(0.0, -30.0, -30.0));
+    s->setPixelRows(300);
+    s->setPixelColumns(300);
+    s->setTopLeft(Vector(0.0, -15.0, 15.0));
+    s->setTopRight(Vector(0.0, 15.0, 15.0));
+    s->setBottomLeft(Vector(0.0, -15.0, -15.0));
 
     p->setRadius(3);
     p->setCenter(Vector(3, 0, 0));
 //     p->setAccuracy(0.1);
     
-    g->setFireRate(5000);
+    g->setFireRate(10000);
     g->setParticlesSpeed(1);
     g->setPosition(Vector(10, 0.0, 0.0));
 
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     u.setBoundary(40);
 
     // run 100 batches
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 100; i++) {
         u.nextBatch();
     }
 
