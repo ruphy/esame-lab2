@@ -72,23 +72,15 @@ Particle::List Generator::generateNewBatch()
     boost::random::uniform_real_distribution<real> dist(-1, 1);
     
     for (int i = 1; i <= m_fireRate; i++) {
-//         real phi = dist1(*m_gen);
-//         real theta = dist2(*m_gen);
         Vector direction;
         do {
             direction.setX(2 * dist(*m_gen) - 1),
             direction.setY(2 * dist(*m_gen) - 1),
             direction.setZ(2 * dist(*m_gen) - 1);
         } while(direction.abs() > 1);
-//         Vector speed(sin(phi)*cos(theta), sin(phi)*sin(theta), cos(phi));
-//         Vector speed(dist(*m_gen), dist(*m_gen), dist(*m_gen));
+
         Vector speed = direction.normalized();
-//         speed = speed*m_particlesSpeed;
-        
-//         if (speed.x() > 0) { // FIXME: Speed HACK
-//             continue;
-//         }
-        
+
 //         speed.dump();
         Particle p;
         p.setSource(m_position);
