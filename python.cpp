@@ -17,6 +17,8 @@
 
 #include <boost/python.hpp>
 #include <boost/foreach.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/python/converter/shared_ptr_from_python.hpp>
 
 using namespace boost::python;
 
@@ -35,18 +37,6 @@ struct custom_vvector_to_list{
                 }
                 return incref(ret.ptr());
         }
-};
-
-struct ObstacleWrap : Obstacle, wrapper<Obstacle> {
-    real minimumSize() const
-    {
-        return this->get_override("minimumSize")();
-    };
-
-    bool contains(const Vector& point) const
-    {
-        return this->get_override("contains")();
-    };
 };
 
 BOOST_PYTHON_MODULE(libesame)
@@ -71,12 +61,7 @@ BOOST_PYTHON_MODULE(libesame)
         .staticmethod("cross")
     ;
 
-    class_<ObstacleWrap, boost::noncopyable>("Obstacle")
-        .def("minimumSize", pure_virtual(&ObstacleWrap::minimumSize))
-        .def("contains", pure_virtual(&ObstacleWrap::contains))
-    ;
-
-    class_<Sphere, bases<ObstacleWrap> >("Sphere")
+    class_<Sphere>("Sphere")
         .add_property("radius", &Sphere::radius, &Sphere::setRadius)
         .add_property("center", &Sphere::center, &Sphere::setCenter)
         .add_property("accuracy", &Sphere::accuracy, &Sphere::setAccuracy)
@@ -107,9 +92,14 @@ BOOST_PYTHON_MODULE(libesame)
         .def("reset", &Universe::reset)
         .def("addGenerator", &Universe::addGenerator)
         .def("addSphere", &Universe::addSphere)
+        .def("addObject", &Universe::addObject)
         .def("addSensor", &Universe::addSensor)
         .add_property("accuracy", &Universe::accuracy, &Universe::setAccuracy)
         .add_property("boundary", &Universe::boundary, &Universe::setBoundary)
     ;
+
+    // Register Obstacle subclasses
+    boost::python::implicitly_convertible< Sphere::Ptr, Obstacle::Ptr >();
+    boost::python::implicitly_convertible< Sensor::Ptr, Obstacle::Ptr >();
 }
 

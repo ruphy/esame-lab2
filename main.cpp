@@ -26,8 +26,8 @@ int main(int argc, char **argv)
     g->setPosition(Vector(10, 0.0, 0.0));
 
     u.addGenerator(g);
-    u.addSensor(s);
-    u.addSphere(p);
+    u.addObject(s);
+    u.addObject(p);
     u.setBoundary(40);
 
     // run 100 batches

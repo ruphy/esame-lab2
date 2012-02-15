@@ -45,6 +45,7 @@ public:
     void addGenerator(Generator::Ptr generator);
     void addSphere(Sphere::Ptr sphere);
     void addSensor(Sensor::Ptr sensor);
+    void addObject(Obstacle::Ptr obstacle);
     
     void nextBatch();
     void reset();

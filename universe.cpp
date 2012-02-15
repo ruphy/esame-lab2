@@ -178,6 +178,12 @@ void Universe::addSphere(Sphere::Ptr sphere)
     sphere->m_gen = m_entropyGenerator; // FIXME UGLY CODE
 }
 
+void Universe::addObject(Obstacle::Ptr obstacle)
+{
+    m_obstacles.push_back(obstacle);
+    obstacle->m_gen = m_entropyGenerator; // FIXME UGLY CODE
+}
+
 void Universe::addSensor(Sensor::Ptr sensor)
 {
     m_obstacles.push_back(sensor);
