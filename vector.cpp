@@ -103,7 +103,7 @@ Vector Vector::normalized() const
 
 void Vector::dump() const
 {
-    std::cout << m_x << " " << m_y << " " << m_z << std::endl;
+    std::cout << (long double) m_x << " " << (long double) m_y << " " << (long double) m_z << std::endl;
 }
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

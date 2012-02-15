@@ -126,7 +126,7 @@ void Box::updateCoordinateSystem()
     std::cout << "e2 = "; m_e2.dump();
     std::cout << "e1 x e2 = "; Vector::cross(m_e1, m_e2).dump();
     std::cout << "Normal (normalized) = "; m_en.dump();
-    std::cout << "thickness = " << m_thickness << std::endl;
+    std::cout << "thickness = " << (long double) m_thickness << std::endl;
     std::cout << "-- --" << std::endl;
     std::cout << std::endl;
 

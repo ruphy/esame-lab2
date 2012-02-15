@@ -73,7 +73,7 @@ void Universe::init()
     // Init all the obstacles
     foreach(const Obstacle::Ptr obstacle, m_obstacles) {
         obstacle->init();
-        std::cout << "Min size: "<< obstacle->minimumSize() << std::endl;
+        std::cout << "Min size: "<< (long double) obstacle->minimumSize() << std::endl;
     }
 
     // Determine the smallest deltat
@@ -96,7 +96,7 @@ void Universe::init()
     m_deltat = smallestWidth / fastestSpeed;
     m_deltat *= m_accuracy; // eventually make it a wee little bit smaller
 
-    std::cout << "calculated deltat: " << m_deltat << std::endl;
+    std::cout << "calculated deltat: " << (long double) m_deltat << std::endl;
 }
 
 

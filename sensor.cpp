@@ -55,8 +55,8 @@ void Sensor::init()
     // Fake a thickness
     (m_pixelHeight < m_pixelWidth) ? setThickness(m_pixelHeight) : setThickness(m_pixelWidth);
 
-    std::cout << "Pixel Height: " << m_pixelHeight << std::endl;
-    std::cout << "Pixel Width: " << m_pixelWidth << std::endl;
+    std::cout << "Pixel Height: " << (long double) m_pixelHeight << std::endl;
+    std::cout << "Pixel Width: " << (long double) m_pixelWidth << std::endl;
 
     std::cout << "Total computed rows: " << m_pixelRows << std::endl;
     std::cout << "Total computed cols: " << m_pixelColumns << std::endl;
