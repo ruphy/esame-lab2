@@ -36,6 +36,21 @@ void Obstacle::init()
     }
 }
 
+real Obstacle::absorbingCoefficient() const
+{
+    return m_mu;
+}
+
+boost::random::mt19937* Obstacle::entropyGenerator() const
+{
+    return m_gen;
+}
+
+void Obstacle::setEntropyGenerator(boost::random::mt19937* gen)
+{
+    m_gen = gen;
+}
+
 void Obstacle::setAbsorbingCoefficient(real mu)
 {
     m_mu = mu;

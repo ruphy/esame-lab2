@@ -43,9 +43,8 @@ public:
     virtual ~Universe();
 
     void addGenerator(Generator::Ptr generator);
-    void addSphere(Sphere::Ptr sphere);
     void addSensor(Sensor::Ptr sensor);
-    void addObject(Obstacle::Ptr obstacle);
+    void addObject(Obstacle::Ptr object);
     
     void nextBatch();
     void reset();
