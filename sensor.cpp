@@ -102,10 +102,13 @@ void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
     absorb(particle);
 
     Vector pos = particle.position();
+    Vector speed = particle.speed();
 
-    // Ajust the position so that it's exactly on the sensor plane
-    Vector newPos = pos - m_en*getPointDistance(m_en, pos);
-    // Calculate the vector from the "origin" of the plane
+    // Distance between the point and the sensor plane calculated on the speed vector.
+    real distance = Vector::dot((m_topLeft-pos), m_en)/Vector::dot(speed, m_en);
+    // Ajust the position so that it's exactly on the sensor surface
+    Vector newPos = particle.position() + speed*distance;
+    // Calculate the vector from the "origin" of the surface
     Vector proj = newPos - m_topLeft;
 
     // Project the lenght of this last vector on the two plane axes
