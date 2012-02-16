@@ -28,6 +28,8 @@
 #include <time.h>
 
 #include <boost/foreach.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/condition_variable.hpp>
 
 Universe::Universe()
 {
@@ -99,6 +101,65 @@ void Universe::init()
     std::cout << "calculated deltat: " << (long double) m_deltat << std::endl;
 }
 
+void Universe::setBatches(int batches)
+{
+    m_batches = batches;
+}
+
+void Universe::run()
+{
+    boost::thread thread(&Universe::do_run, this);
+    thread.join();
+}
+
+void Universe::do_run()
+{
+
+    std::cout << "do_run" << std::endl;
+    if (m_generators.empty()) {
+        std::cout << "No generators found. Ending simulation" << std::endl;
+        return;
+    }
+
+    if (m_stepCount == 0 or m_deltat == 0) {
+        init();
+    }
+
+    boost::mutex mutex;
+    
+    m_remainingBatches = m_batches;
+//     int cpus = boost::thread::hardware_concurrency();
+
+    int cpus = 4;
+
+    while (m_remainingBatches) {
+        boost::condition_variable cond;
+        boost::unique_lock<boost::mutex> l(mutex);
+//     m_pool.resize(boost::thread::hardware_concurrency(), boost::thread::id()); // Run the number of threads that this platform supports.
+        while (m_pool.size() < cpus) {
+            addThread();
+            m_remainingBatches--;
+        }
+        cond.wait(l); //wait for one thread.
+    }
+}
+
+void Universe::addThread()
+{
+    // TODO Try to use pointers here and see if it performs better.
+    foreach(const Generator::Ptr generator, m_generators) {
+        // Add newly generated particles to our list
+        Particle::List newList = generator->generateNewBatch();
+
+        if(!newList.empty()) {
+            m_particles.splice(m_particles.end(), newList);
+        }
+    }
+    UniverseBatch *b = new UniverseBatch;
+//     b->setObstacleList(m_obstacles);
+//     b->setParticleList(m_particles);
+    m_pool.push_back(b);
+}
 
 void Universe::reset()
 {
@@ -110,60 +171,12 @@ void Universe::reset()
 
 void Universe::nextBatch()
 {
-    if (m_generators.empty()) {
-        std::cout << "No generators found. Ending simulation" << std::endl;
-        return;
-    }
 
-    if (m_stepCount == 0 or m_deltat == 0) {
-        init();
-    }
-
-    // TODO Try to use pointers here and see if it performs better.
-    foreach(const Generator::Ptr generator, m_generators) {
-        // Add newly generated particles to our list
-        Particle::List newList = generator->generateNewBatch();
-
-        if(!newList.empty()) {
-            m_particles.splice(m_particles.end(), newList);
-        }
-    }
-
-    while (!m_particles.empty()) {
-        m_stepCount++;
-        for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); ++it) {
-            if ((*it).alive()) {
-                moveParticle(*it);
-            }
-
-            if(!(*it).alive()) {
-//                 std::cout << "Deleting a particle" << std::endl;
-                it = m_particles.erase(it);
-            }
-        }
-    }
 }
 
 void Universe::moveParticle(Particle& particle)
 {
-    if (particle.position().abs() > m_boundary) {
-        particle.absorb(); // Kill the particle
-        return;
-    }
 
-    Vector deltax = particle.speed()*m_deltat;
-
-    particle.move(m_deltat);
-    Vector newPos = particle.position();
-
-    foreach(const Obstacle::Ptr obstacle, m_obstacles) {
-        if (obstacle->contains(newPos)) {
-            obstacle->tryAbsorb(particle, deltax.abs());
-        }
-//         if (!particle.alive()) {
-//             break; // Avoid absorbing a particle multiple times? how do you handle colliding objects?
-//         }
-    }
 }
 
 void Universe::addGenerator(Generator::Ptr generator)

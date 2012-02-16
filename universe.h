@@ -28,6 +28,7 @@
 #include "sensor.h"
 #include "particle.h"
 #include "sphere.h"
+#include "universebatch.h"
 
 
 /**
@@ -45,6 +46,10 @@ public:
     void addGenerator(Generator::Ptr generator);
     void addSensor(Sensor::Ptr sensor);
     void addObject(Obstacle::Ptr object);
+
+    void setBatches(int batches);
+    void run();
+    void do_run();
     
     void nextBatch();
     void reset();
@@ -73,9 +78,15 @@ public:
 private:
     void init();
     void moveParticle(Particle& particle);
+
+    void addThread();
     
     int m_stepCount;
+    int m_batches;
+    int m_remainingBatches;
     real m_deltat;
+
+    std::list<UniverseBatch *> m_pool;
     
     std::list<Generator::Ptr> m_generators;
     std::list<Obstacle::Ptr> m_obstacles;
@@ -87,6 +98,7 @@ private:
     
     Particle::List m_particles;
 };
+
 
 #endif // UNIVERSE_H
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 
