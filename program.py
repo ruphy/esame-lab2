@@ -55,32 +55,32 @@ print "Preparing simulation..."
 u = Universe()
 
 g = Generator()
-g.position = Vector(3, 0, 0)
+g.position = Vector(5, 0, 0)
 g.fire_rate = 10000
 g.particles_speed = 1
 
 s = Sensor()
-s.pixel_rows = 300
-s.pixel_columns = 300
+s.pixel_rows = 100
+s.pixel_columns = 100
 s.top_left = Vector(0, -15, 15)
 s.bottom_left = Vector(0, -15, -15)
 s.top_right = Vector(0, 15, 15)
 
 p = Sphere()
-p.accuracy = 0.1
-p.radius = 1
-p.setAbsorbingCoefficient(200)
-p.center = Vector(3, 0, 0)
+p.accuracy = 0.01
+p.radius = 1.5
+p.setAbsorbingCoefficient(0.2)
+p.center = Vector(2, 0, 0)
 
 u.addGenerator(g)
 u.addObject(s)
-#u.addObject(p)
+u.addObject(p)
 u.boundary = 20
-u.accuracy = 0.9
+#u.accuracy = 0.1
 
 #quit()
 
-for i in range(0, 100):
+for i in range(0, 10000):
   print "batch", i
   u.nextBatch()
 
