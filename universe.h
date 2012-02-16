@@ -79,7 +79,7 @@ private:
     void init();
     void moveParticle(Particle& particle);
 
-    void addThread();
+    void createNewJob();
     
     int m_stepCount;
     int m_batches;

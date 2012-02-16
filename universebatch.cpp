@@ -18,9 +18,15 @@
 
 #include "universebatch.h"
 
+#include <boost/foreach.hpp>
+#define foreach BOOST_FOREACH
+#include <iostream>
+
 UniverseBatch::UniverseBatch()
 {
-//     std::cout << "New thread" << endl;
+    m_stepCount = 0;
+//     std::cout << "New thread" << std::endl;
+//     run();
 //     m_thread(&UniverseBatch::do_work, this);
 }
 
@@ -42,14 +48,13 @@ void UniverseBatch::setBoundary(real boundary)
 {
     m_boundary = boundary;
 }
-void UniverseBatch::setDeltaT(int deltat)
+void UniverseBatch::setDeltaT(real deltat)
 {
     m_deltat = deltat;
 }
 
-void UniverseBatch::do_work()
+void UniverseBatch::run()
 {
-/*
     while (!m_particles.empty()) {
         m_stepCount++;
         for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); ++it) {
@@ -62,28 +67,31 @@ void UniverseBatch::do_work()
                 it = m_particles.erase(it);
             }
         }
-    }*/
+    }
     // Thread finished: add another thread and detach
 }
 
 void UniverseBatch::moveParticle(Particle& particle)
 {
-//     if (particle.position().abs() > m_boundary) {
-//         particle.absorb(); // Kill the particle
-//         return;
-//     }
-// 
-//     Vector deltax = particle.speed()*m_deltat;
-// 
-//     particle.move(m_deltat);
-//     Vector newPos = particle.position();
-// 
-//     foreach(const Obstacle::Ptr obstacle, m_obstacles) {
-//         if (obstacle->contains(newPos)) {
-//             obstacle->tryAbsorb(particle, deltax.abs());
+    if (particle.position().abs() > m_boundary) {
+//         std::cout << "Particle too far away. killed." << std::endl;
+        particle.absorb(); // Kill the particle
+        return;
+    }
+//     particle.speed().dump();
+
+    Vector deltax = particle.speed()*m_deltat;
+
+    particle.move(m_deltat);
+    Vector newPos = particle.position();
+
+    foreach(const Obstacle::Ptr obstacle, m_obstacles) {
+        if (obstacle->contains(newPos)) {
+//             std::cout << "WAA" << std::endl;
+            obstacle->tryAbsorb(particle, deltax.abs());
+        }
+//         if (!particle.alive()) {
+//             break; // Avoid absorbing a particle multiple times? how do you handle colliding objects?
 //         }
-// //         if (!particle.alive()) {
-// //             break; // Avoid absorbing a particle multiple times? how do you handle colliding objects?
-// //         }
-//     }
+    }
 }

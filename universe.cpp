@@ -31,6 +31,9 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition_variable.hpp>
 
+#include <boost/threadpool.hpp>
+// #include <ThreadWeaver/JobCollection>
+
 Universe::Universe()
 {
     reset();
@@ -108,12 +111,7 @@ void Universe::setBatches(int batches)
 
 void Universe::run()
 {
-    boost::thread thread(&Universe::do_run, this);
-    thread.join();
-}
 
-void Universe::do_run()
-{
 
     std::cout << "do_run" << std::endl;
     if (m_generators.empty()) {
@@ -125,40 +123,55 @@ void Universe::do_run()
         init();
     }
 
-    boost::mutex mutex;
-    
     m_remainingBatches = m_batches;
-//     int cpus = boost::thread::hardware_concurrency();
 
-    int cpus = 4;
-
+    boost::threadpool::pool pool(4);
+    
     while (m_remainingBatches) {
-        boost::condition_variable cond;
-        boost::unique_lock<boost::mutex> l(mutex);
-//     m_pool.resize(boost::thread::hardware_concurrency(), boost::thread::id()); // Run the number of threads that this platform supports.
-        while (m_pool.size() < cpus) {
-            addThread();
-            m_remainingBatches--;
-        }
-        cond.wait(l); //wait for one thread.
+//         UniverseBatch *b = createNewJob();
+        pool.schedule(boost::bind(&Universe::createNewJob, this));
+        m_remainingBatches--;
     }
+
+//     pool.resize(2);
+    pool.wait();
+        
 }
 
-void Universe::addThread()
+void Universe::do_run()
 {
+
+//         boost::condition_variable cond;
+//         boost::unique_lock<boost::mutex> l(mutex);
+//     m_pool.resize(boost::thread::hardware_concurrency(), boost::thread::id()); // Run the number of threads that this platform supports.
+//         while (m_pool.size() < cpus) {
+//             addThread();
+//             m_remainingBatches--;
+//         }
+//         cond.wait(l); //wait for one thread.
+//     }
+}
+
+void Universe::createNewJob()
+{
+    Particle::List list;
     // TODO Try to use pointers here and see if it performs better.
     foreach(const Generator::Ptr generator, m_generators) {
         // Add newly generated particles to our list
-        Particle::List newList = generator->generateNewBatch();
+         Particle::List newList = generator->generateNewBatch();
 
         if(!newList.empty()) {
-            m_particles.splice(m_particles.end(), newList);
+            list.splice(list.end(), newList);
         }
     }
-    UniverseBatch *b = new UniverseBatch;
-//     b->setObstacleList(m_obstacles);
-//     b->setParticleList(m_particles);
-    m_pool.push_back(b);
+    UniverseBatch b;// = new UniverseBatch;
+    b.setObstacleList(m_obstacles);
+    b.setParticleList(list);
+    b.setBoundary(m_boundary);
+    b.setDeltaT(m_deltat);
+    b.run();
+//     b->run();
+//     m_pool.push_back(b);
 }
 
 void Universe::reset()

@@ -19,9 +19,9 @@ find_package(Threads REQUIRED)
 
 # Use Threadweaver
 find_package(KDE4 REQUIRED)
-# include(KDE4Defaults)
+include(KDE4Defaults)
 find_package(Boost COMPONENTS random python thread REQUIRED)
-INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}")
+INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}" ${KDE4_INCLUDES})
 add_definitions("-fexceptions")
 
 
@@ -34,7 +34,7 @@ INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}" "${PYTHON_INCLUDE_DIRS}")
 #   FIND_PACKAGE(Boost COMPONENTS python REQUIRED)
 
   ADD_LIBRARY(esame SHARED python.cpp ${esame_src})
-  TARGET_LINK_LIBRARIES(esame ${Boost_LIBRARIES} ${PYTHON_LIBRARY})
+  TARGET_LINK_LIBRARIES(esame ${Boost_LIBRARIES} ${PYTHON_LIBRARY} ${KDE4_THREADWEAVER_LIBRARIES})
 # target_link_libraries(esame-lab2 ${CMAKE_THREAD_LIBS_INIT})
 ELSEIF(NOT Boost_FOUND)
   MESSAGE(FATAL_ERROR "Unable to find correct Boost version. Did you set BOOST_ROOT?")
@@ -48,4 +48,4 @@ ENDIF()
 
 
 add_executable(esame-lab2 main.cpp ${esame_src})
-target_link_libraries(esame-lab2 ${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES})
+target_link_libraries(esame-lab2 ${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES} ${KDE4_THREADWEAVER_LIBRARIES})

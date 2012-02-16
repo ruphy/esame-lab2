@@ -12,17 +12,17 @@ int main(int argc, char **argv)
     Generator::Ptr g(new Generator);
     Sphere::Ptr p(new Sphere);
 
-    s->setPixelRows(300);
-    s->setPixelColumns(300);
+    s->setPixelRows(3);
+    s->setPixelColumns(3);
     s->setTopLeft(Vector(0.0, -15.0, 15.0));
     s->setTopRight(Vector(0.0, 15.0, 15.0));
     s->setBottomLeft(Vector(0.0, -15.0, -15.0));
 
     p->setRadius(3);
     p->setCenter(Vector(3, 0, 0));
-//     p->setAccuracy(0.1);
+    p->setSensibility(0.1);
     
-    g->setFireRate(10000);
+    g->setFireRate(100);
     g->setParticlesSpeed(1);
     g->setPosition(Vector(10, 0.0, 0.0));
 
