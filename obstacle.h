@@ -64,6 +64,8 @@ private:
     real m_mu;
     bool m_alreadyInitd;
     boost::random::mt19937 *m_gen;
+
+    friend class Universe;
 };
 
 
