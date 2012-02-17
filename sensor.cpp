@@ -80,7 +80,6 @@ void Sensor::particleDetected(int row, int column)
 void Sensor::dump() const
 {
     foreach(std::vector<integer> v, m_pixelGrid) {
-        std::cout << "Row: ";
         foreach(integer i, v) {
             std::cout << i << " ";
         }

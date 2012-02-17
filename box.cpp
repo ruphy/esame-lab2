@@ -56,7 +56,7 @@ real Box::getPointDistance(const Vector &normal, const Vector& point) const
 {
     real p = -1*Vector::dot(normal.normalized(), m_topLeft);
 
-    return Vector::dot(normal.normalized(), point) + p; // TODO update coordinate system if needed.
+    return Vector::dot(normal.normalized(), point) + p;
 }
 
 real Box::minimumSize() const
@@ -67,7 +67,6 @@ real Box::minimumSize() const
 void Box::setThickness(real thickness)
 {
     m_thickness = thickness;
-//     updateCoordinateSystem();
 }
 
 real Box::thickness() const
@@ -83,13 +82,11 @@ void Box::tryAbsorb(Particle& particle, real lenght)
 void Box::setTopLeft(const Vector& topLeft)
 {
     m_topLeft = topLeft;
-//     updateCoordinateSystem();
 }
 
 void Box::setBottomLeft(const Vector& bottomLeft)
 {
     m_bottomLeft = bottomLeft;
-//     updateCoordinateSystem();
 }
 
 void Box::setTopRight(const Vector& topRight)
@@ -119,16 +116,16 @@ void Box::updateCoordinateSystem()
     m_e2 = m_topRight-m_topLeft;
     m_en = Vector::cross(m_e2, m_e1).normalized();
 
-    std::cout << std::endl;
-    std::cout << "-- Coordinate system --" << std::endl;
-    std::cout << "m_topLeft = "; m_topLeft.dump();
-    std::cout << "e1 = "; m_e1.dump();
-    std::cout << "e2 = "; m_e2.dump();
-    std::cout << "e1 x e2 = "; Vector::cross(m_e1, m_e2).dump();
-    std::cout << "Normal (normalized) = "; m_en.dump();
-    std::cout << "thickness = " << (long double) m_thickness << std::endl;
-    std::cout << "-- --" << std::endl;
-    std::cout << std::endl;
+//     std::cout << std::endl;
+//     std::cout << "-- Coordinate system --" << std::endl;
+//     std::cout << "m_topLeft = "; m_topLeft.dump();
+//     std::cout << "e1 = "; m_e1.dump();
+//     std::cout << "e2 = "; m_e2.dump();
+//     std::cout << "e1 x e2 = "; Vector::cross(m_e1, m_e2).dump();
+//     std::cout << "Normal (normalized) = "; m_en.dump();
+//     std::cout << "thickness = " << (long double) m_thickness << std::endl;
+//     std::cout << "-- --" << std::endl;
+//     std::cout << std::endl;
 
     if(m_e1.abs() > m_e2.abs()) {
         if (m_e2.abs() > m_thickness) {

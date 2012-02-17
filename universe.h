@@ -32,9 +32,11 @@
 
 
 /**
- * This class will take care of automatically deleting any objects that you add to it,
- * thus you do not need to clean up the memory if you don't want to.
+ * This class represent the universe where the simulation will run.
  * To do a simulation, just add generators, obstacles and sensors, and you're done.
+ * You might also want to control how many batches to run.
+ *
+ * To run the experiment, use Universe::run(), and then check Sensor::dump() or Sensor::data()
  */
 
 class Universe

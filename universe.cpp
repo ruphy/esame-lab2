@@ -128,7 +128,7 @@ void Universe::run()
         cpus = 1; // run at least one thread.
     }
 
-    std::cout << "Running with " << cpus << " threads." << std::endl;
+    std::cout << "==> Running with " << cpus << " threads." << std::endl;
     
     boost::threadpool::pool pool(cpus);
     
@@ -137,9 +137,8 @@ void Universe::run()
         m_remainingBatches--;
     }
 
-//     pool.resize(2);
+    // Return only when all batches are finished
     pool.wait();
-        
 }
 
 void Universe::createNewJob(int nBatch)

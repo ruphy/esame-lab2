@@ -33,10 +33,6 @@ int main(int argc, char **argv)
 
     u.setBatches(20);
     u.run();
-    // run 100 batches
-//     for (int i = 0; i < 100; i++) {
-//         u.nextBatch();
-//     }
 
     s->dump();
     
