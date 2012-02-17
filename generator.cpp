@@ -15,27 +15,28 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <boost/random/normal_distribution.hpp>
-#include <boost/random/uniform_real_distribution.hpp>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/math/constants/constants.hpp>
+#include "generator.h"
 
 #include <time.h>
 
+#include <boost/random/uniform_real_distribution.hpp>
+#include <boost/random/mersenne_twister.hpp>
 #include <boost/thread/mutex.hpp>
-
-#include "generator.h"
 
 Generator::Generator()
  : m_fireRate(0),
    m_gen(new boost::random::mt19937(time(0) + getpid())),
    m_mutex(new boost::mutex)
-{
-}
+{}
 
 void Generator::setParticlesSpeed(real speed)
 {
     m_particlesSpeed = speed;
+}
+
+real Generator::particlesSpeed()
+{
+    return m_particlesSpeed;
 }
 
 void Generator::setPosition(const Vector& position)
@@ -61,7 +62,7 @@ real Generator::fireRate() const
 Particle::List Generator::generateNewBatch()
 {
     if (!m_gen) {
-        std::cerr << "I don't have an entropy generator set! This will crash." << std::endl;
+        std::cout << "I don't have an entropy generator set! This will crash." << std::endl;
     }
 
     boost::mutex::scoped_lock lock(*m_mutex);
@@ -82,17 +83,11 @@ Particle::List Generator::generateNewBatch()
         Particle p;
         p.setSource(m_position);
         p.setSpeed(speed);
-        
+
         list.push_back(p);
     }
-    
+
     return list;
-}
-
-
-real Generator::particlesSpeed()
-{
-    return m_particlesSpeed;
 }
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 

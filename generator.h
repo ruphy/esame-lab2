@@ -42,8 +42,8 @@ public:
     /**
      * Scalar speed of the generated particles
      */
-    real particlesSpeed();
     void setParticlesSpeed(real speed);
+    real particlesSpeed();
     
     void setPosition(const Vector &position);
     Vector position() const;
