@@ -20,19 +20,13 @@
 #include "particle.h"
 
 Particle::Particle()
-{
-//     std::cout << "Creating particle!" << std::endl;
-    m_alive = true;
-    m_position = Vector(0.0, 0.0, 0.0);
-    m_source = Vector(0.0, 0.0, 0.0);
-}
+ : m_alive(true),
+   m_position(Vector(0, 0, 0)),
+   m_source(Vector(0, 0, 0))
+{}
 
 Particle::~Particle()
-{
-//     if (m_position) {
-//         delete m_position;
-//     }
-}
+{}
 
 Particle::Particle(const Particle& other)
 {
@@ -64,13 +58,8 @@ void Particle::absorb()
 
 void Particle::setSource(const Vector& source)
 {
-//     std::cout << "Setting the source to" << std::endl;
-//     source.dump();
-//     std::cout << std::endl;
     m_source = source;
-//     if (m_position) {
-//         delete m_position;
-//     }
+    //  We start at the source.
     m_position = m_source;
 }
 
@@ -81,15 +70,7 @@ void Particle::setSpeed(const Vector& speed)
 
 void Particle::move(real deltat)
 {
-//     std::cout << "-- Moving --" << std::endl;
-//     std::cout << "My speed is: ";
-//     m_speed.dump();
-//     std::cout << "My old position: ";
-//     m_position.dump();
     m_position = m_position + m_speed*deltat;
-//     m_position->setX(m_position->x()+newx);
-//     std::cout << "My new position: ";
-//     m_position.dump();
 }
 
 Vector Particle::position() const
