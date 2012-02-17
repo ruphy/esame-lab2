@@ -28,7 +28,8 @@
 
 Generator::Generator()
  : m_fireRate(0),
-   m_gen(new boost::random::mt19937(time(0) + getpid()))
+   m_gen(new boost::random::mt19937(time(0) + getpid())),
+   m_mutex(new boost::mutex)
 {
 }
 
@@ -62,6 +63,8 @@ Particle::List Generator::generateNewBatch()
     if (!m_gen) {
         std::cerr << "I don't have an entropy generator set! This will crash." << std::endl;
     }
+
+    boost::mutex::scoped_lock lock(*m_mutex);
 
     Particle::List list;
     boost::random::uniform_real_distribution<real> dist(-1, 1);

@@ -20,6 +20,7 @@
 #define GENERATOR_H
 
 #include <boost/shared_ptr.hpp>
+#include <boost/thread/mutex.hpp>
 
 #include "vector.h"
 #include "particle.h"
@@ -58,6 +59,7 @@ private:
     Vector m_position;
 
     boost::random::mt19937 *m_gen;
+    boost::mutex *m_mutex;
 };
 
 #endif // GENERATOR_H
