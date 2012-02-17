@@ -33,18 +33,13 @@
 #include "threadpool/threadpool.hpp"
 
 Universe::Universe()
-{
-    reset();
-    m_deltat = 0;
-    m_boundary = 0;
-    m_accuracy = 1;
-    m_mutex = new boost::mutex;
-}
+ : m_deltat(0),
+   m_boundary(0),
+   m_accuracy(1)
+{}
 
 Universe::~Universe()
-{
-    delete m_entropyGenerator;
-}
+{}
 
 void Universe::setAccuracy(real accuracy)
 {
@@ -56,8 +51,8 @@ real Universe::accuracy() const
     return m_accuracy;
 }
 
-// TODO: kill all particles that travel past the last sensor:
-// try to autodetermine a good enough setting
+// TODO: kill all particles that travel past the last sensor - try to autodetermine a
+//       "good enough" setting automatically.
 void Universe::setBoundary(real boundary)
 {
     m_boundary = boundary;
@@ -111,24 +106,25 @@ void Universe::setBatches(int batches)
 void Universe::run()
 {
     if (m_generators.empty()) {
-        std::cout << "No generators found. Ending simulation" << std::endl;
+        std::cout << "No generators found. Ending simulation." << std::endl;
         return;
     }
 
-    if (m_stepCount == 0 or m_deltat == 0) {
+    if (m_deltat == 0) {
+        std::cout << "Estimating simulation parameters..." << std::endl;
         init();
     }
 
     m_remainingBatches = m_batches;
 
-    unsigned cpus = boost::thread::hardware_concurrency(); // Maximum optimization!
-    if (cpus == 0) {
-        cpus = 1; // run at least one thread.
+    unsigned concurrentThreads = boost::thread::hardware_concurrency();
+    if (concurrentThreads == 0) {
+        concurrentThreads = 1; // run at least one thread.
     }
 
-    std::cout << "==> Running with " << cpus << " threads." << std::endl;
+    std::cout << "==> Running with " << concurrentThreads << " threads." << std::endl;
     
-    boost::threadpool::pool pool(cpus);
+    boost::threadpool::pool pool(concurrentThreads);
     
     while (m_remainingBatches) {
         pool.schedule(boost::bind(&Universe::createNewJob, this, m_batches-m_remainingBatches+1));
@@ -161,13 +157,6 @@ void Universe::createNewJob(int nBatch)
     b.setDeltaT(m_deltat);
     b.setBatchNumber(nBatch);
     b.run();
-}
-
-void Universe::reset()
-{
-    m_entropyGenerator = new boost::random::mt19937(time(0) + getpid());
-    m_stepCount = 0;
-    m_deltat = 0;
 }
 
 void Universe::addGenerator(Generator::Ptr generator)

@@ -29,6 +29,10 @@ Obstacle::Obstacle()
 {
 }
 
+Obstacle::~Obstacle()
+{
+}
+
 void Obstacle::init()
 {
     if (m_alreadyInitd) {

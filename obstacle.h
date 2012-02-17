@@ -35,7 +35,9 @@ class Obstacle
 {
 public:
     typedef boost::shared_ptr<Obstacle> Ptr;
+
     Obstacle();
+    virtual ~Obstacle();
 
     /**
      * Returns the lenght of the minimum segment intersecting this object

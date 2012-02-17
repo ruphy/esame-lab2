@@ -45,14 +45,12 @@ public:
     Universe();
     virtual ~Universe();
 
+    void setBatches(int batches);
+    void run();
+
     void addGenerator(Generator::Ptr generator);
     void addSensor(Sensor::Ptr sensor);
     void addObject(Obstacle::Ptr object);
-
-    void setBatches(int batches);
-    void run();
-    
-    void reset();
 
     /**
      * Universe will kill the particle if position.abs() > boundary
@@ -77,27 +75,16 @@ public:
     
 private:
     void init();
-
     void createNewJob(int nBatch);
-    
-    int m_stepCount;
+
     int m_batches;
     int m_remainingBatches;
     real m_deltat;
-
-//     std::list<UniverseBatch *> m_pool;
-
-    // Disallow concurrent
-    boost::mutex *m_mutex;
-    
-    std::list<Generator::Ptr> m_generators;
-    std::list<Obstacle::Ptr> m_obstacles;
-
     real m_boundary;
     real m_accuracy;
 
-    boost::random::mt19937 *m_entropyGenerator;
-    
+    std::list<Generator::Ptr> m_generators;
+    std::list<Obstacle::Ptr> m_obstacles;
     Particle::List m_particles;
 };
 
