@@ -26,7 +26,7 @@ class Sphere : public Obstacle
 {
 public:
     typedef boost::shared_ptr<Sphere> Ptr;
-    Sphere(std::string name = "");
+    Sphere();
 
     virtual bool contains(const Vector& point) const;
     virtual real minimumSize() const;

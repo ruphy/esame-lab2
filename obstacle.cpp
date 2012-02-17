@@ -22,12 +22,11 @@
 #include <time.h>
 #include <boost/random/uniform_real_distribution.hpp>
 
-Obstacle::Obstacle(std::string name)
+Obstacle::Obstacle()
+ : m_gen(new boost::random::mt19937(time(0) + getpid())),
+   m_mu(1),
+   m_alreadyInitd(false)
 {
-    m_name = name;
-    m_gen = new boost::mt19937(time(0) + getpid());
-    m_mu = 1;
-    m_alreadyInitd = false;
 }
 
 void Obstacle::init()

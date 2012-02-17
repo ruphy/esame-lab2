@@ -21,7 +21,6 @@
 #include <boost/math/constants/constants.hpp>
 
 #include <time.h>
-#include <math.h>
 
 #include <boost/thread/mutex.hpp>
 
@@ -29,7 +28,7 @@
 
 Generator::Generator()
  : m_fireRate(0),
-   m_gen(0)
+   m_gen(new boost::random::mt19937(time(0) + getpid()))
 {
 }
 
@@ -58,11 +57,6 @@ real Generator::fireRate() const
     return m_fireRate;
 }
 
-void Generator::setEntropyGenerator(boost::random::mt19937* gen)
-{
-    m_gen = gen;
-}
-
 Particle::List Generator::generateNewBatch()
 {
     if (!m_gen) {
@@ -70,9 +64,8 @@ Particle::List Generator::generateNewBatch()
     }
 
     Particle::List list;
-    
     boost::random::uniform_real_distribution<real> dist(-1, 1);
-    
+
     for (int i = 1; i <= m_fireRate; i++) {
         Vector direction;
         do {
@@ -83,7 +76,6 @@ Particle::List Generator::generateNewBatch()
 
         Vector speed = direction.normalized();
 
-//         speed.dump();
         Particle p;
         p.setSource(m_position);
         p.setSpeed(speed);

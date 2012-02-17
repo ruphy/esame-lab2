@@ -51,17 +51,13 @@ public:
     real fireRate() const;
 
     Particle::List generateNewBatch();
-    
+
 private:
-    void setEntropyGenerator(boost::random::mt19937 *gen);
-    
     real m_particlesSpeed;
     real m_fireRate;
     Vector m_position;
 
     boost::random::mt19937 *m_gen;
-    
-    friend class Universe;
 };
 
 #endif // GENERATOR_H

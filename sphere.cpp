@@ -20,10 +20,9 @@
 #include "vector.h"
 #include <iostream>
 
-Sphere::Sphere(std::string name)
- : Obstacle(name)
+Sphere::Sphere()
+ : m_accuracy(0.1)
 {
-    m_accuracy = 0.1;
 }
 
 real Sphere::sensibility() const

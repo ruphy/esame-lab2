@@ -28,11 +28,9 @@
 #include <time.h>
 
 #include <boost/foreach.hpp>
-#include <boost/thread/mutex.hpp>
-#include <boost/thread/condition_variable.hpp>
 
+#include <boost/thread/mutex.hpp>
 #include "threadpool/threadpool.hpp"
-// #include <ThreadWeaver/JobCollection>
 
 Universe::Universe()
 {
@@ -174,14 +172,12 @@ void Universe::reset()
 
 void Universe::addGenerator(Generator::Ptr generator)
 {
-    generator->setEntropyGenerator(m_entropyGenerator);
     m_generators.push_back(generator);
 }
 
 void Universe::addObject(Obstacle::Ptr object)
 {
     m_obstacles.push_back(object);
-//     object->setEntropyGenerator();
 }
 
 void Universe::addSensor(Sensor::Ptr sensor)

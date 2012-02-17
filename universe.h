@@ -85,7 +85,7 @@ private:
     int m_remainingBatches;
     real m_deltat;
 
-    std::list<UniverseBatch *> m_pool;
+//     std::list<UniverseBatch *> m_pool;
 
     // Disallow concurrent
     boost::mutex *m_mutex;
