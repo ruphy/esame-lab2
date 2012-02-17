@@ -67,22 +67,19 @@ s.bottom_left = Vector(0, -15, -15)
 s.top_right = Vector(0, 15, 15)
 
 p = Sphere()
-p.accuracy = 0.01
+p.accuracy = 1
 p.radius = 1.5
 p.setAbsorbingCoefficient(0.2)
 p.center = Vector(2, 0, 0)
 
 u.addGenerator(g)
 u.addObject(s)
-u.addObject(p)
+#u.addObject(p)
 u.boundary = 20
 #u.accuracy = 0.1
+u.setBatches(100)
+u.run()
 
-#quit()
-
-for i in range(0, 10000):
-  print "batch", i
-  u.nextBatch()
 
 #s.dump()
 print "Simulation finished!"
