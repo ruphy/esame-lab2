@@ -23,9 +23,9 @@
 #include <boost/random/uniform_real_distribution.hpp>
 
 Obstacle::Obstacle()
- : m_gen(new boost::random::mt19937(time(0) + getpid())),
-   m_mu(1),
-   m_alreadyInitd(false)
+ : m_mu(1),
+   m_alreadyInitd(false),
+   m_gen(new boost::random::mt19937(time(0) + getpid()))
 {
 }
 

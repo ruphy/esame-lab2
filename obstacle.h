@@ -59,12 +59,11 @@ protected:
 
     virtual void absorb(Particle &p);
     virtual void init();
-    
-    real m_mu;
-    boost::random::mt19937 *m_gen;
-    
+
 private:
+    real m_mu;
     bool m_alreadyInitd;
+    boost::random::mt19937 *m_gen;
 
     friend class Universe;
 };
