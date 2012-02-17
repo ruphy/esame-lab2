@@ -23,6 +23,8 @@
 #include <time.h>
 #include <math.h>
 
+#include <boost/thread/mutex.hpp>
+
 #include "generator.h"
 
 Generator::Generator()

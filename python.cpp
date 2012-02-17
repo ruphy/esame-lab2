@@ -88,7 +88,8 @@ BOOST_PYTHON_MODULE(libesame)
     ;
 
     class_<Universe>("Universe")
-        .def("nextBatch", &Universe::nextBatch)
+        .def("setBatches", &Universe::setBatches)
+        .def("run", &Universe::run)
         .def("reset", &Universe::reset)
         .def("addGenerator", &Universe::addGenerator)
         .def("addObject", &Universe::addObject)

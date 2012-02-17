@@ -49,7 +49,6 @@ public:
 
     void setBatches(int batches);
     void run();
-    void do_run();
     
     void nextBatch();
     void reset();
@@ -87,6 +86,8 @@ private:
     real m_deltat;
 
     std::list<UniverseBatch *> m_pool;
+
+    boost::mutex *m_mutex;
     
     std::list<Generator::Ptr> m_generators;
     std::list<Obstacle::Ptr> m_obstacles;

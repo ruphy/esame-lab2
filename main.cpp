@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     p->setCenter(Vector(3, 0, 0));
     p->setSensibility(0.1);
     
-    g->setFireRate(100);
+    g->setFireRate(10000);
     g->setParticlesSpeed(1);
     g->setPosition(Vector(10, 0.0, 0.0));
 

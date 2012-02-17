@@ -91,6 +91,8 @@ void Sensor::dump() const
 
 void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
 {
+//     boost::mutex mutex;
+//     boost::mutex::scoped_lock scoped_lock(mutex);
 //     std::cout << std::endl;
 //     std::cout << std::endl;
 //     std::cout << "Sensor HIT!" << std::endl;

@@ -23,6 +23,8 @@
 
 #include <vector>
 
+#include <boost/thread/mutex.hpp>
+
 /**
  * A sensor is a square 2d surface, with a given size,
  * normal (for orientation) and center.
@@ -58,6 +60,8 @@ private:
 
     int m_pixelRows;
     int m_pixelColumns;
+
+//     boost::mutex m_mutex;
     
     std::vector< std::vector<integer> > m_pixelGrid;
     real m_pixelWidth;

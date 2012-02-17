@@ -40,6 +40,7 @@ Universe::Universe()
     m_deltat = 0;
     m_boundary = 0;
     m_accuracy = 1;
+    m_mutex = new boost::mutex;
 }
 
 Universe::~Universe()
@@ -111,9 +112,6 @@ void Universe::setBatches(int batches)
 
 void Universe::run()
 {
-
-
-    std::cout << "do_run" << std::endl;
     if (m_generators.empty()) {
         std::cout << "No generators found. Ending simulation" << std::endl;
         return;
@@ -125,7 +123,14 @@ void Universe::run()
 
     m_remainingBatches = m_batches;
 
-    boost::threadpool::pool pool(4);
+    unsigned cpus = boost::thread::hardware_concurrency() + 1; // Maximum optimization!
+    if (cpus == 0) {
+        cpus = 1; // run at least one thread.
+    }
+
+    std::cout << "Running with " << cpus << " threads." << std::endl;
+    
+    boost::threadpool::pool pool(cpus);
     
     while (m_remainingBatches) {
 //         UniverseBatch *b = createNewJob();
@@ -138,25 +143,13 @@ void Universe::run()
         
 }
 
-void Universe::do_run()
-{
-
-//         boost::condition_variable cond;
-//         boost::unique_lock<boost::mutex> l(mutex);
-//     m_pool.resize(boost::thread::hardware_concurrency(), boost::thread::id()); // Run the number of threads that this platform supports.
-//         while (m_pool.size() < cpus) {
-//             addThread();
-//             m_remainingBatches--;
-//         }
-//         cond.wait(l); //wait for one thread.
-//     }
-}
-
 void Universe::createNewJob()
 {
     Particle::List list;
     // TODO Try to use pointers here and see if it performs better.
     foreach(const Generator::Ptr generator, m_generators) {
+
+        boost::mutex::scoped_lock lock(*m_mutex);
         // Add newly generated particles to our list
          Particle::List newList = generator->generateNewBatch();
 
@@ -201,7 +194,7 @@ void Universe::addGenerator(Generator::Ptr generator)
 void Universe::addObject(Obstacle::Ptr object)
 {
     m_obstacles.push_back(object);
-    object->setEntropyGenerator(m_entropyGenerator);
+    object->setEntropyGenerator(new boost::random::mt19937(time(0) + getpid()));
 }
 
 void Universe::addSensor(Sensor::Ptr sensor)

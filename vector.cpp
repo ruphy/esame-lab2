@@ -25,7 +25,7 @@ Vector::Vector()
     m_x = m_y = m_z = 0.0;
 }
 
-Vector::Vector(const real x, const real y, const real z)
+Vector::Vector(const real &x, const real &y, const real &z)
 {
     m_x = x;
     m_y = y;
