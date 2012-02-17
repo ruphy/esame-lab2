@@ -27,6 +27,9 @@ ELSE()
 ENDIF()
 
 
+add_executable(esame-lab2 main.cpp ${esame_src})
+target_link_libraries(esame-lab2 ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+
 ## IF PYTHON FOUND!
 IF(Boost_FOUND)
 INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}" "${PYTHON_INCLUDE_DIRS}")
@@ -41,7 +44,3 @@ ELSEIF(NOT Boost_FOUND)
   MESSAGE(FATAL_ERROR "Unable to find correct Boost version. Did you set BOOST_ROOT?")
 ENDIF()
 
-
-
-add_executable(esame-lab2 main.cpp ${esame_src})
-target_link_libraries(esame-lab2 ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
