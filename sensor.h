@@ -22,7 +22,6 @@
 #include "box.h"
 
 #include <vector>
-
 #include <boost/thread/mutex.hpp>
 
 /**

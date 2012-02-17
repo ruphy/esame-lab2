@@ -15,16 +15,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "sensor.h"
+
+#include <boost/foreach.hpp>
 #define foreach BOOST_FOREACH
 
 #include "particle.h"
-
-#include <math.h>
-#include <stdexcept>
-
-#include <boost/foreach.hpp>
-
-#include "sensor.h"
 
 Sensor::Sensor()
  : m_pixelRows(1),
