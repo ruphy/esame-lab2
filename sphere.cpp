@@ -23,7 +23,7 @@
 Sphere::Sphere(std::string name)
  : Obstacle(name)
 {
-    m_accuracy = 0.01;
+    m_accuracy = 0.1;
 }
 
 real Sphere::sensibility() const
