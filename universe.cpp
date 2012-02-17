@@ -31,7 +31,7 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition_variable.hpp>
 
-#include <threadpool.hpp>
+#include <threadpool/threadpool.hpp>
 // #include <ThreadWeaver/JobCollection>
 
 Universe::Universe()
