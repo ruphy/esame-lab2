@@ -21,18 +21,20 @@
 #include <iostream>
 
 Sphere::Sphere()
- : m_accuracy(0.1)
-{
-}
+ : m_sensibility(0.1)
+{}
+
+Sphere::~Sphere()
+{}
 
 real Sphere::sensibility() const
 {
-    return m_accuracy;
+    return m_sensibility;
 }
 
-void Sphere::setSensibility(real accuracy)
+void Sphere::setSensibility(real sensibility)
 {
-    m_accuracy = accuracy;
+    m_sensibility = sensibility;
 }
 
 bool Sphere::contains(const Vector& point) const
@@ -47,7 +49,7 @@ bool Sphere::contains(const Vector& point) const
 
 real Sphere::minimumSize() const
 {
-    return m_accuracy*m_radius;
+    return m_sensibility*m_radius;
 }
 
 void Sphere::setCenter(const Vector& center)

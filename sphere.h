@@ -26,7 +26,9 @@ class Sphere : public Obstacle
 {
 public:
     typedef boost::shared_ptr<Sphere> Ptr;
+
     Sphere();
+    virtual ~Sphere();
 
     virtual bool contains(const Vector& point) const;
     virtual real minimumSize() const;
@@ -38,26 +40,26 @@ public:
     Vector center() const;
 
     /**
-     * This number controls the accuracy of the simulation.
+     * This number controls the sensibility of the simulation.
      *
      * It is used to determine the smallest width of this sphere
-     * when a particle passes through it, calculated as radius*accuracy;
+     * when a particle passes through it, calculated as radius*sensibility;
      *
      * Accuracy must be a real number smaller or equal to 1 and
-     * greater than 0, where 0 means perfect accuracy and 1
-     * the worse accuracy (it's mostly a cube).
+     * greater than 0, where 0 means perfect sensibility and 1
+     * the worse sensibility (it's mostly a cube).
      *
-     * Note: setting accuracy to 0 will probably crash the program.
+     * Note: setting sensibility to 0 will probably crash the program.
      *
      * Default value: 0.01.
      */
-    void setSensibility(real accuracy);
+    void setSensibility(real sensibility);
     real sensibility() const;
     
 private:
     Vector m_center;
     real m_radius;
-    real m_accuracy;
+    real m_sensibility;
 };
 
 #endif // SPHERE_H
