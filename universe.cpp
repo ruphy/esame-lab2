@@ -121,7 +121,7 @@ void Universe::run()
 
     m_remainingBatches = m_batches;
 
-    unsigned cpus = boost::thread::hardware_concurrency() + 1; // Maximum optimization!
+    unsigned cpus = boost::thread::hardware_concurrency(); // Maximum optimization!
     if (cpus == 0) {
         cpus = 1; // run at least one thread.
     }
