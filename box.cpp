@@ -92,7 +92,6 @@ void Box::setBottomLeft(const Vector& bottomLeft)
 void Box::setTopRight(const Vector& topRight)
 {
     m_topRight = topRight;
-//     updateCoordinateSystem();
 }
 
 Vector Box::topLeft() const

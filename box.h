@@ -48,13 +48,14 @@ public:
     virtual real minimumSize() const;
     virtual void tryAbsorb(Particle& particle, real lenght);
 
+    void setTopLeft(const Vector &topLeft);
     Vector topLeft() const;
-    Vector topRight() const;
+
+    void setBottomLeft(const Vector &bottomLeft);
     Vector bottomLeft() const;
 
-    void setTopLeft(const Vector &topLeft);
-    void setBottomLeft(const Vector &bottomLeft);
     void setTopRight(const Vector &topRight);
+    Vector topRight() const;
 
 protected:
     real thickness() const;
