@@ -133,8 +133,7 @@ void Universe::run()
     boost::threadpool::pool pool(cpus);
     
     while (m_remainingBatches) {
-//         UniverseBatch *b = createNewJob();
-        pool.schedule(boost::bind(&Universe::createNewJob, this));
+        pool.schedule(boost::bind(&Universe::createNewJob, this, m_batches-m_remainingBatches+1));
         m_remainingBatches--;
     }
 
@@ -143,7 +142,7 @@ void Universe::run()
         
 }
 
-void Universe::createNewJob()
+void Universe::createNewJob(int nBatch)
 {
     Particle::List list;
     // TODO Try to use pointers here and see if it performs better.
@@ -157,14 +156,14 @@ void Universe::createNewJob()
             list.splice(list.end(), newList);
         }
     }
+
     UniverseBatch b;// = new UniverseBatch;
     b.setObstacleList(m_obstacles);
     b.setParticleList(list);
     b.setBoundary(m_boundary);
     b.setDeltaT(m_deltat);
+    b.setBatchNumber(nBatch);
     b.run();
-//     b->run();
-//     m_pool.push_back(b);
 }
 
 void Universe::reset()

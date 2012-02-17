@@ -53,8 +53,14 @@ void UniverseBatch::setDeltaT(real deltat)
     m_deltat = deltat;
 }
 
+void UniverseBatch::setBatchNumber(int batch)
+{
+    m_batchNumber = batch;
+}
+
 void UniverseBatch::run()
 {
+    std::cout << "Running batch number " << m_batchNumber << std::endl;
     while (!m_particles.empty()) {
         m_stepCount++;
         for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); ++it) {

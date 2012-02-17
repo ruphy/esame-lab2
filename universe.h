@@ -76,7 +76,7 @@ public:
 private:
     void init();
 
-    void createNewJob();
+    void createNewJob(int nBatch);
     
     int m_stepCount;
     int m_batches;

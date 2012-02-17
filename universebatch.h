@@ -21,7 +21,6 @@
 
 #include "particle.h"
 #include "obstacle.h"
-// #include <ThreadWeaver/Job>
 
 class UniverseBatch 
 {
@@ -31,6 +30,7 @@ public:
     virtual ~UniverseBatch();
     void setParticleList(Particle::List list);
     void setObstacleList(std::list<Obstacle::Ptr> list);
+    void setBatchNumber(int batch);
 
     void setDeltaT(real deltat);
     void setBoundary(real boundary);
@@ -40,9 +40,9 @@ public:
 private:
     void moveParticle(Particle &particle);
 
-//     boost::thread m_thread;
     real m_deltat;
     real m_boundary;
+    int m_batchNumber;
     
     std::list<Obstacle::Ptr> m_obstacles;
     Particle::List m_particles;
