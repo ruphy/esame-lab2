@@ -32,7 +32,6 @@
 
 class Sensor : public Box
 {
-
 public:
     typedef boost::shared_ptr<Sensor> Ptr;
 
@@ -44,29 +43,24 @@ public:
     void setPixelColumns(int columns);
     int pixelColumns() {return m_pixelColumns; };
 
-    virtual bool contains(const Vector& point) const;
-
     virtual void tryAbsorb(Particle& particle, real lenght);
 
-    void dump() const; // just a debug function
-    
+    void dump() const;
     std::vector< std::vector<integer> > data() const;
-    
+
 protected:
     virtual void init();
-    
+
 private:
     void particleDetected(int row, int column);
 
     int m_pixelRows;
     int m_pixelColumns;
 
-//     boost::mutex m_mutex;
-    
     std::vector< std::vector<integer> > m_pixelGrid;
     real m_pixelWidth;
     real m_pixelHeight;
-    int counter;
+    int m_totalCounter;
 };
 
 #endif // SENSOR_H

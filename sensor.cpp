@@ -27,11 +27,10 @@
 #include "sensor.h"
 
 Sensor::Sensor()
-{
-    m_pixelRows = 1;
-    m_pixelColumns = 1;
-    counter = 0;
-}
+ : m_pixelRows(1),
+   m_pixelColumns(1),
+   m_totalCounter(0)
+{}
 
 Sensor::~Sensor()
 {}
@@ -52,14 +51,15 @@ void Sensor::init()
 
     m_pixelHeight = (m_e1.abs()/m_pixelRows);
     m_pixelWidth = (m_e2.abs()/m_pixelColumns);
+
     // Fake a thickness
     (m_pixelHeight < m_pixelWidth) ? setThickness(m_pixelHeight) : setThickness(m_pixelWidth);
 
-    std::cout << "Pixel Height: " << (long double) m_pixelHeight << std::endl;
-    std::cout << "Pixel Width: " << (long double) m_pixelWidth << std::endl;
+//     std::cout << "Pixel Height: " << (long double) m_pixelHeight << std::endl;
+//     std::cout << "Pixel Width: " << (long double) m_pixelWidth << std::endl;
 
-    std::cout << "Total computed rows: " << m_pixelRows << std::endl;
-    std::cout << "Total computed cols: " << m_pixelColumns << std::endl;
+//     std::cout << "Total computed rows: " << m_pixelRows << std::endl;
+//     std::cout << "Total computed cols: " << m_pixelColumns << std::endl;
 
     Box::updateCoordinateSystem(); // We've updated our thickness
 
@@ -68,13 +68,10 @@ void Sensor::init()
     m_pixelGrid.resize(m_pixelRows, tempVector);
 }
 
-
-
 void Sensor::particleDetected(int row, int column)
 {
-//     std::cout << "Particle detected at " << row << " x " << column << std::endl;
     m_pixelGrid.at(row).at(column) += 1;
-    counter++;
+    m_totalCounter++;
 }
 
 void Sensor::dump() const
@@ -85,20 +82,11 @@ void Sensor::dump() const
         }
         std::cout << std::endl;
     }
-    std::cout << "Total particles seen: " << counter << std::endl;
+    std::cout << "Total particles seen: " << m_totalCounter << std::endl;
 }
 
 void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
 {
-//     boost::mutex mutex;
-//     boost::mutex::scoped_lock scoped_lock(mutex);
-//     std::cout << std::endl;
-//     std::cout << std::endl;
-//     std::cout << "Sensor HIT!" << std::endl;
-//     std::cout << "Got a particle with posistion: ";
-//     particle.position().dump();
-//     std::cout << "It has a distance of: " << getPointDistance(pos);
-    
     // This particle will stop here.
     absorb(particle);
 
@@ -116,27 +104,15 @@ void Sensor::tryAbsorb(Particle& particle, real lenght) // FIXME CONSTIFY ME
     real e1_len = Vector::dot(proj, m_e1)/m_e1.abs();
     real e2_len = Vector::dot(proj, m_e2)/m_e2.abs();
 
-//     std::cout << "Trying to assign a particle to a pixel:" << std::endl;
-//     std::cout << "e1_len = " << e1_len << std::endl;
-//     std::cout << "e2_len = " << e2_len << std::endl;
-
     int row = abs(floor(e1_len/m_pixelHeight));
     int column = abs(floor(e2_len/m_pixelWidth));
     particleDetected(row, column);
 
-//     std::cout << std::endl;
-//     std::cout << std::endl;
-}
-
-bool Sensor::contains(const Vector& point) const
-{
-    return Box::contains(point);
 }
 
 std::vector< std::vector< integer > > Sensor::data() const
 {
     return m_pixelGrid;
 }
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on; 
