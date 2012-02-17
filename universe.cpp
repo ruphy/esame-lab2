@@ -145,7 +145,7 @@ void Universe::createNewJob(int nBatch)
     // TODO Try to use pointers here and see if it performs better.
     foreach(const Generator::Ptr generator, m_generators) {
 
-        boost::mutex::scoped_lock lock(*m_mutex);
+//         boost::mutex::scoped_lock lock(*m_mutex);
         // Add newly generated particles to our list
          Particle::List newList = generator->generateNewBatch();
 
