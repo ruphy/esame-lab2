@@ -33,9 +33,9 @@
 #include "threadpool/threadpool.hpp"
 
 Universe::Universe()
- : m_deltat(0),
-   m_boundary(0),
-   m_accuracy(1)
+ : m_boundary(0),
+   m_accuracy(1),
+   m_deltat(0)
 {}
 
 Universe::~Universe()
@@ -69,7 +69,8 @@ void Universe::init()
         std::cout << "Warning: universe boundary is set to 0."
                      "All particles will be killed." << std::endl;
     }
-    // Init all the obstacles
+
+    // init() all the obstacles
     foreach(const Obstacle::Ptr obstacle, m_obstacles) {
         obstacle->init();
         std::cout << "Min size: "<< (long double) obstacle->minimumSize() << std::endl;
@@ -115,7 +116,7 @@ void Universe::run()
         init();
     }
 
-    m_remainingBatches = m_batches;
+    int remainingBatches = m_batches;
 
     unsigned concurrentThreads = boost::thread::hardware_concurrency();
     if (concurrentThreads == 0) {
@@ -123,12 +124,12 @@ void Universe::run()
     }
 
     std::cout << "==> Running with " << concurrentThreads << " threads." << std::endl;
-    
+
     boost::threadpool::pool pool(concurrentThreads);
-    
-    while (m_remainingBatches) {
-        pool.schedule(boost::bind(&Universe::createNewJob, this, m_batches-m_remainingBatches+1));
-        m_remainingBatches--;
+
+    while (remainingBatches) {
+        pool.schedule(boost::bind(&Universe::createNewJob, this, m_batches-remainingBatches+1));
+        remainingBatches--;
     }
 
     // Return only when all batches are finished
@@ -138,10 +139,8 @@ void Universe::run()
 void Universe::createNewJob(int nBatch)
 {
     Particle::List list;
-    // TODO Try to use pointers here and see if it performs better.
-    foreach(const Generator::Ptr generator, m_generators) {
 
-//         boost::mutex::scoped_lock lock(*m_mutex);
+    foreach(const Generator::Ptr generator, m_generators) {
         // Add newly generated particles to our list
          Particle::List newList = generator->generateNewBatch();
 
@@ -167,12 +166,6 @@ void Universe::addGenerator(Generator::Ptr generator)
 void Universe::addObject(Obstacle::Ptr object)
 {
     m_obstacles.push_back(object);
-}
-
-void Universe::addSensor(Sensor::Ptr sensor)
-{
-    m_obstacles.push_back(sensor);
-    // TODO also keep in mind that this is a sensor, for killing particles purposes
 }
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;

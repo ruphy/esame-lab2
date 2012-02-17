@@ -45,12 +45,17 @@ public:
     Universe();
     virtual ~Universe();
 
-    void setBatches(int batches);
     void run();
 
     void addGenerator(Generator::Ptr generator);
     void addSensor(Sensor::Ptr sensor);
     void addObject(Obstacle::Ptr object);
+
+    /**
+     * Set the number of batches to run.
+     */
+    void setBatches(int batches);
+    int batches() const;
 
     /**
      * Universe will kill the particle if position.abs() > boundary
@@ -78,10 +83,10 @@ private:
     void createNewJob(int nBatch);
 
     int m_batches;
-    int m_remainingBatches;
-    real m_deltat;
     real m_boundary;
     real m_accuracy;
+
+    real m_deltat;
 
     std::list<Generator::Ptr> m_generators;
     std::list<Obstacle::Ptr> m_obstacles;

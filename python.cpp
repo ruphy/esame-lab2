@@ -88,13 +88,13 @@ BOOST_PYTHON_MODULE(libesame)
     ;
 
     class_<Universe>("Universe")
-        .def("setBatches", &Universe::setBatches)
         .def("run", &Universe::run)
         .def("addGenerator", &Universe::addGenerator)
         .def("addObject", &Universe::addObject)
         .def("addSensor", &Universe::addSensor)
         .add_property("accuracy", &Universe::accuracy, &Universe::setAccuracy)
         .add_property("boundary", &Universe::boundary, &Universe::setBoundary)
+        .add_property("batches", &Universe::batches, &Universe::setBatches)
     ;
 
     // Register Obstacle subclasses
