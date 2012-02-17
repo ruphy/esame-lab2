@@ -21,7 +21,7 @@ find_package(Threads REQUIRED)
 # find_package(KDE4 REQUIRED)
 # include(KDE4Defaults)
 find_package(Boost COMPONENTS random python thread REQUIRED)
-INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}")
+INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}" ${CMAKE_SOURCE_DIR})
 add_definitions("-fexceptions")
 
 
