@@ -26,12 +26,10 @@ Obstacle::Obstacle()
  : m_mu(1),
    m_alreadyInitd(false),
    m_gen(new boost::random::mt19937(time(0) + getpid()))
-{
-}
+{}
 
 Obstacle::~Obstacle()
-{
-}
+{}
 
 void Obstacle::init()
 {
@@ -65,7 +63,6 @@ void Obstacle::tryAbsorb(Particle& particle, real lenght)
     boost::random::uniform_real_distribution<real> dist(0.0, 1.0);
     real n1 = dist(*m_gen);
 
-//         std::cout << exp(-m_mu*lenght);
     if (n1 > exp(-m_mu*lenght) ) {
         particle.absorb();
     }
