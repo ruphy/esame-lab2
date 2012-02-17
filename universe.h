@@ -50,7 +50,6 @@ public:
     void setBatches(int batches);
     void run();
     
-    void nextBatch();
     void reset();
 
     /**
@@ -76,7 +75,6 @@ public:
     
 private:
     void init();
-    void moveParticle(Particle& particle);
 
     void createNewJob();
     
@@ -87,6 +85,7 @@ private:
 
     std::list<UniverseBatch *> m_pool;
 
+    // Disallow concurrent
     boost::mutex *m_mutex;
     
     std::list<Generator::Ptr> m_generators;

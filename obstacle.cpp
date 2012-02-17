@@ -19,12 +19,13 @@
 
 #include "obstacle.h"
 #include <math.h>
+#include <time.h>
 #include <boost/random/uniform_real_distribution.hpp>
 
 Obstacle::Obstacle(std::string name)
 {
     m_name = name;
-    m_gen = 0;
+    m_gen = new boost::mt19937(time(0) + getpid());
     m_mu = 1;
     m_alreadyInitd = false;
 }
@@ -44,11 +45,6 @@ real Obstacle::absorbingCoefficient() const
 boost::random::mt19937* Obstacle::entropyGenerator() const
 {
     return m_gen;
-}
-
-void Obstacle::setEntropyGenerator(boost::random::mt19937* gen)
-{
-    m_gen = gen;
 }
 
 void Obstacle::setAbsorbingCoefficient(real mu)

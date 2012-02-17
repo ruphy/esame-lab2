@@ -174,17 +174,6 @@ void Universe::reset()
     m_deltat = 0;
 }
 
-
-void Universe::nextBatch()
-{
-
-}
-
-void Universe::moveParticle(Particle& particle)
-{
-
-}
-
 void Universe::addGenerator(Generator::Ptr generator)
 {
     generator->setEntropyGenerator(m_entropyGenerator);
@@ -194,7 +183,7 @@ void Universe::addGenerator(Generator::Ptr generator)
 void Universe::addObject(Obstacle::Ptr object)
 {
     m_obstacles.push_back(object);
-    object->setEntropyGenerator(new boost::random::mt19937(time(0) + getpid()));
+//     object->setEntropyGenerator();
 }
 
 void Universe::addSensor(Sensor::Ptr sensor)

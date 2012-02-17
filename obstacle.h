@@ -52,8 +52,6 @@ public:
     virtual void setAbsorbingCoefficient(real mu);
     real absorbingCoefficient() const;
 
-    void setEntropyGenerator(boost::random::mt19937 *gen);
-
 protected:
     boost::random::mt19937* entropyGenerator() const;
 
