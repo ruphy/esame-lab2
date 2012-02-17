@@ -20,20 +20,14 @@
 
 #include <boost/foreach.hpp>
 #define foreach BOOST_FOREACH
+
 #include <iostream>
 
 UniverseBatch::UniverseBatch()
-{
-    m_stepCount = 0;
-//     std::cout << "New thread" << std::endl;
-//     run();
-//     m_thread(&UniverseBatch::do_work, this);
-}
+{}
 
 UniverseBatch::~UniverseBatch()
-{
-//     m_thread.join();
-}
+{}
 
 void UniverseBatch::setObstacleList(std::list< Obstacle::Ptr > list)
 {
@@ -44,13 +38,25 @@ void UniverseBatch::setParticleList(Particle::List list)
 {
     m_particles = list;
 }
+
 void UniverseBatch::setBoundary(real boundary)
 {
     m_boundary = boundary;
 }
+
+real UniverseBatch::boundary() const
+{
+    return m_boundary;
+}
+
 void UniverseBatch::setDeltaT(real deltat)
 {
     m_deltat = deltat;
+}
+
+real UniverseBatch::deltaT() const
+{
+    return m_deltat;
 }
 
 void UniverseBatch::setBatchNumber(int batch)
@@ -58,11 +64,15 @@ void UniverseBatch::setBatchNumber(int batch)
     m_batchNumber = batch;
 }
 
+real UniverseBatch::batchNumber() const
+{
+    return m_batchNumber;
+}
+
 void UniverseBatch::run()
 {
     std::cout << "Running batch number " << m_batchNumber << std::endl;
     while (!m_particles.empty()) {
-        m_stepCount++;
         for(Particle::List::iterator it = m_particles.begin(); it != m_particles.end(); ++it) {
             if ((*it).alive()) {
                 moveParticle(*it);
@@ -74,17 +84,14 @@ void UniverseBatch::run()
             }
         }
     }
-    // Thread finished: add another thread and detach
 }
 
 void UniverseBatch::moveParticle(Particle& particle)
 {
     if (particle.position().abs() > m_boundary) {
-//         std::cout << "Particle too far away. killed." << std::endl;
         particle.absorb(); // Kill the particle
         return;
     }
-//     particle.speed().dump();
 
     Vector deltax = particle.speed()*m_deltat;
 
@@ -93,11 +100,7 @@ void UniverseBatch::moveParticle(Particle& particle)
 
     foreach(const Obstacle::Ptr obstacle, m_obstacles) {
         if (obstacle->contains(newPos)) {
-//             std::cout << "WAA" << std::endl;
             obstacle->tryAbsorb(particle, deltax.abs());
         }
-//         if (!particle.alive()) {
-//             break; // Avoid absorbing a particle multiple times? how do you handle colliding objects?
-//         }
     }
 }

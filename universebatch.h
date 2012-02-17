@@ -28,12 +28,17 @@ class UniverseBatch
 public:
     UniverseBatch();
     virtual ~UniverseBatch();
+
     void setParticleList(Particle::List list);
     void setObstacleList(std::list<Obstacle::Ptr> list);
+
     void setBatchNumber(int batch);
+    real batchNumber() const;
 
     void setDeltaT(real deltat);
+    real deltaT() const;
     void setBoundary(real boundary);
+    real boundary() const;
 
     virtual void run();
 
@@ -43,11 +48,9 @@ private:
     real m_deltat;
     real m_boundary;
     int m_batchNumber;
-    
+
     std::list<Obstacle::Ptr> m_obstacles;
     Particle::List m_particles;
-    int m_stepCount;
-    
 };
 
 #endif // UNIVERSEBATCH_H
