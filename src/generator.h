@@ -20,15 +20,16 @@
 #define GENERATOR_H
 
 #include <boost/shared_ptr.hpp>
+#include <boost/random/mersenne_twister.hpp>
 #include <boost/thread/mutex.hpp>
 
 #include "vector.h"
 #include "particle.h"
 
 /**
- * A generator is a source of particles. It is a point
- * and generates a number of particles controlled by
- * setGenerationRate at every batch.
+ * A generator is a source of particles. It is a dimensionless
+ * point and generates a number of particles controlled by
+ * fireRate at every batch.
  */
 
 class Generator
