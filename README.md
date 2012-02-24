@@ -21,13 +21,13 @@ for the following boost subcomponents:
 
 How to compile this application
 -------------------------------
-To build this application, follow the usual cmake stuff:
+To build this application, follow the usual cmake ritual:
 
     $ mkdir build; cd build
     $ cmake ..
     $ make [-j3]
 
-The install target has not been written yet.
+There is no install target defined yet.
 
 **NOTE:**
 To compile this application on non particularly recent systems,
