@@ -6,12 +6,15 @@ Dependencies
 
 To compile this application you need:
 
-* boost-devel, and depending on your distro you might also
-  need devel packages for the following subcomponents:
-    * boost-python
-    * boost-thread(-mt)
-    * boost-random
+* boost-devel
 * python-devel
+
+Depending on your distro you might also need development packages
+for the following boost subcomponents:
+
+* boost-python
+* boost-thread(-mt)
+* boost-random
 
 How to compile this application
 -------------------------------
