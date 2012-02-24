@@ -1,11 +1,6 @@
 Esame labinf 2
 ==============
 
-**NOTE:**
-To compile this application on non particularly recent systems,
-make sure to run the "./adapt-to-older-boost.sh" script before
-following this guide.
-
 Dependencies
 ------------
 
@@ -27,6 +22,15 @@ To build this application, follow the usual cmake stuff:
     $ make [-j3]
 
 The install target has not been written yet.
+
+**NOTE:**
+To compile this application on non particularly recent systems,
+on systems where boost is not recent enough and doesn't contain
+some of the new namespaces, you need some adjustments in the code.
+For this purpose, a script has been created, you just need to run
+
+    ./adapt-to-older-boost.sh
+
 
 How to run this application
 ---------------------------
