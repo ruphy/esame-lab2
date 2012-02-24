@@ -20,9 +20,9 @@ How to compile this application
 -------------------------------
 To build this application, follow the usual cmake stuff:
 
-   $ mkdir build; cd build
-   $ cmake ..
-   $ make [-j3]
+    $ mkdir build; cd build
+    $ cmake ..
+    $ make [-j3]
 
 The install target has not been written yet.
 
