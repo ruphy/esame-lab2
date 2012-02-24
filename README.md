@@ -1,7 +1,8 @@
 Esame labinf 2
 ==============
 
-A simple, multithreaded and extremely generic engine for montecarlo simulations.
+A simple, multithreaded and extremely generic engine for running
+montecarlo simulations.
 
 Dependencies
 ------------
