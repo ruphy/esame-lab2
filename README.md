@@ -1,7 +1,7 @@
 Esame labinf 2
 ==============
 
-NOTE:
+**NOTE:**
 To compile this application on non particularly recent systems,
 make sure to run the "./adapt-to-older-boost.sh" script before
 following this guide.
@@ -13,7 +13,9 @@ To compile this application you need:
 
 * boost-devel, and depending on your distro you might also
   need devel packages for the following subcomponents:
-    * boost-python, boost-thread(-mt), boost-random
+    * boost-python
+    * boost-thread(-mt)
+    * boost-random
 * python-devel
 
 How to compile this application
