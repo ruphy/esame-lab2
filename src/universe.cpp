@@ -104,6 +104,11 @@ void Universe::setBatches(int batches)
     m_batches = batches;
 }
 
+int Universe::batches() const
+{
+    return m_batches;
+}
+
 void Universe::run()
 {
     if (m_generators.empty()) {

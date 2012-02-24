@@ -48,7 +48,6 @@ public:
     void run();
 
     void addGenerator(Generator::Ptr generator);
-    void addSensor(Sensor::Ptr sensor);
     void addObject(Obstacle::Ptr object);
 
     /**

@@ -23,6 +23,7 @@
 using namespace boost::python;
 
 #include "universe.h"
+#include "sensor.h"
 
 template<typename T>
 struct custom_vvector_to_list{
@@ -91,10 +92,9 @@ BOOST_PYTHON_MODULE(libesame)
         .def("run", &Universe::run)
         .def("addGenerator", &Universe::addGenerator)
         .def("addObject", &Universe::addObject)
-        .def("addSensor", &Universe::addSensor)
         .add_property("accuracy", &Universe::accuracy, &Universe::setAccuracy)
-        .add_property("boundary", &Universe::boundary, &Universe::setBoundary)
         .add_property("batches", &Universe::batches, &Universe::setBatches)
+        .add_property("boundary", &Universe::boundary, &Universe::setBoundary)
     ;
 
     // Register Obstacle subclasses
