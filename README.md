@@ -9,6 +9,12 @@ following this guide.
 Dependencies
 ------------
 
+To compile this application you need:
+
+ * boost-devel, and depending on your distro you might also need devel packages for the following subcomponents:
+ ** boost-python, boost-thread(-mt), boost-random
+ * python-devel
+
 How to compile this application
 -------------------------------
 To build this application, follow the usual cmake stuff:
