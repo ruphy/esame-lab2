@@ -1,11 +1,16 @@
-== Esame labinf 2 ==
+Esame labinf 2
+==============
 
 NOTE:
 To compile this application on non particularly recent systems,
 make sure to run the "./adapt-to-older-boost.sh" script before
 following this guide.
 
-=== How to compile this application ===
+Dependencies
+------------
+
+How to compile this application
+-------------------------------
 To build this application, follow the usual cmake stuff:
 
  * mkdir build; cd build
@@ -14,7 +19,8 @@ To build this application, follow the usual cmake stuff:
 
 The install target has not been written yet.
 
-=== How to run this application ===
+How to run this application
+---------------------------
 
 * To run the C++ executable, just launch it on the command line.
 
