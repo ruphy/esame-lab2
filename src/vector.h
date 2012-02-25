@@ -46,8 +46,8 @@ public:
     Vector normalized() const;
     
     real x() const {return m_x;};
-    real y() const {return m_x;};
-    real z() const {return m_x;};
+    real y() const {return m_y;};
+    real z() const {return m_z;};
     
     void setX(real x) {m_x = x;};
     void setY(real y) {m_y = y;};
