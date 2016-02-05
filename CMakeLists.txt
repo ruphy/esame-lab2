@@ -17,7 +17,7 @@ set(esame_src
 find_package(PythonLibs)
 find_package(Threads REQUIRED)
 
-find_package(Boost COMPONENTS thread-mt REQUIRED)
+find_package(Boost COMPONENTS thread system REQUIRED)
 INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}" ${CMAKE_SOURCE_DIR})
 
 IF(CMAKE_COMPILER_IS_GNUCXX)
